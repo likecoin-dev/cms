@@ -1,0 +1,23 @@
+{
+    "name": "pongo/cms",
+    "description": "",
+    "authors": [
+        {
+            "name": "Fabio Fumis",
+            "email": "f.fumis@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.1.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Pongo\\Cms\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
