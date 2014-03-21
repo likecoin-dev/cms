@@ -14,6 +14,8 @@ Route::group(Config::get('cms::routes.cms_group_routes'), function() use ($pongo
 		return "Welcome in PongoCMS!";
 	});
 
+	Route::get('/create', array('uses' => $pongoControllers.'TestController@create', 'as' => 'test.create'));
+
 	// JS BOOTSTRAP
 	// Route::get('bootstrap.js', array('uses' => $pongoControllers.'BaseController@bootstrap', 'as' => 'js.bootstrap'));
 

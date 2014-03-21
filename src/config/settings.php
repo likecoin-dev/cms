@@ -17,6 +17,14 @@ return array(
 	'language' => 'en',
 
 	/**
+	 * PongoCMS :: Cache engine
+	 *
+	 * Read by CacheInterface isEnabled()
+	 */
+	
+	'cache_enabled' => true,
+
+	/**
 	 * PongoCMS :: Available languages and directionality (ltr | rtl)
 	 *
 	 * Check http://www.tinymce.com/i18n/index.php for locale file.
@@ -45,7 +53,7 @@ return array(
 	/**
 	 * PongoCMS :: pagination items per page
 	 */
-	'pag' => 20,
+	'per_page' => 20,
 
 	/**
 	 * PongoCMS :: available editors

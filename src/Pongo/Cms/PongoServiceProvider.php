@@ -30,13 +30,13 @@ class PongoServiceProvider extends ServiceProvider {
 		$this->package('pongocms/cms');
 
 		// Instantiate AliasLoader
-		// $this->aliasLoader = AliasLoader::getInstance();
+		$this->aliasLoader = AliasLoader::getInstance();
 
 		// Run accessor methods
-		/*$this->loadServiceProviders();
+		$this->loadServiceProviders();
 		$this->bindRepositories();
 		$this->activateFacades();
-		$this->bootCommands();*/
+		$this->bootCommands();
 
 		// Inclusions
 		require __DIR__.'/../../start.php';
@@ -55,6 +55,15 @@ class PongoServiceProvider extends ServiceProvider {
 	public function register()
 	{		
 		$app = $this->app;
+
+		/**
+		 * TEMPORANEO PER TEST
+		 */
+
+		$app->bind(
+			'Pongo\Cms\Repositories\TestRepositoryInterface',
+			'Pongo\Cms\Repositories\TestRepositoryEloquent'
+		);
 	}
 
 	/**

@@ -29,7 +29,7 @@ return array(
 	'default_order' => 1000,
 
 	/**
-	 * Pongo CMS minimum role access to interface
+	 * Pongo CMS minimum role access to backend
 	 */
 	
 	'min_access' => 'editor',
@@ -80,11 +80,11 @@ return array(
 
 	'providers' => array(
 
+		'EventServiceProvider',
 		'MarkerServiceProvider',
 
 		// Dependency providers
 
-		// 'Teepluss\Asset\AssetServiceProvider',
 		'Prologue\Alerts\AlertsServiceProvider',
 
 	),
@@ -110,15 +110,23 @@ return array(
 
 		),
 
-		'Build' => array(
+		'Asset' => array(
+
+			'class'	=> 'Pongo\Cms\Classes\Asset',
+			'alias'	=> 'Pongo\Cms\Support\Facades\Asset',
+			'repos' => '',
+
+		),
+
+		/*'Build' => array(
 
 			'class'	=> 'Pongo\Cms\Classes\Build',
 			'alias'	=> 'Pongo\Cms\Support\Facades\Build',
 			'repos' => '',
 
-		),
+		),*/
 
-		'Image' => array(
+		/*'Image' => array(
 
 			'class'	=> 'Pongo\Cms\Classes\Image',
 			'alias'	=> 'Pongo\Cms\Support\Facades\Image',
@@ -128,9 +136,9 @@ return array(
 
 			),
 
-		),
+		),*/
 
-		'Load' => array(
+		/*'Load' => array(
 
 			'class' => 'Pongo\Cms\Classes\Load',
 			'alias' => 'Pongo\Cms\Support\Facades\Load',
@@ -141,7 +149,7 @@ return array(
 
 			),
 
-		),
+		),*/
 
 		'Marker' => array(
 
@@ -151,13 +159,13 @@ return array(
 
 		),
 
-		'Media' => array(
+		/*'Media' => array(
 
 			'class'	=> 'Pongo\Cms\Classes\Media',
 			'alias'	=> 'Pongo\Cms\Support\Facades\Media',
 			'repos' => '',
 
-		),
+		),*/
 
 		'Pongo' => array(
 
@@ -167,39 +175,31 @@ return array(
 
 		),
 
-		'Render' => array(
+		/*'Render' => array(
 
 			'class' => 'Pongo\Cms\Classes\Render',
 			'alias' => 'Pongo\Cms\Support\Facades\Render',
 			'repos' => '',
 
-		),
+		),*/
 
-		'Theme' => array(
+		/*'Theme' => array(
 
 			'class' => 'Pongo\Cms\Classes\Theme',
 			'alias' => 'Pongo\Cms\Support\Facades\Theme',
 			'repos' => '',
 
-		),
+		),*/
 
-		'Tool' => array(
+		/*'Tool' => array(
 
 			'class' => 'Pongo\Cms\Classes\Tool',
 			'alias' => 'Pongo\Cms\Support\Facades\Tool',
 			'repos' => '',
 
-		),
+		),*/
 
 		// Dependency facades
-
-		'Asset' => array(
-
-			'class' => 'Teepluss\Asset\Asset',
-			'alias' => 'Teepluss\Asset\Facades\Asset',
-			'repos' => '',
-
-		),
 
 		'Alert' => array(
 
@@ -219,29 +219,29 @@ return array(
 	
 	'repositories' => array(
 
-		'element' => array(
+		/*'element' => array(
 
 			'method'		=> 'singleton',
 			'interface' 	=> 'Pongo\Cms\Support\Repositories\ElementRepositoryInterface',
 			'repository' 	=> 'Pongo\Cms\Support\Repositories\ElementRepositoryEloquent',
 
-		),
+		),*/
 		
-		'file' => array(
+		/*'file' => array(
 
 			'method'		=> 'singleton',
 			'interface' 	=> 'Pongo\Cms\Support\Repositories\FileRepositoryInterface',
 			'repository' 	=> 'Pongo\Cms\Support\Repositories\FileRepositoryEloquent',
 
-		),
+		),*/
 
-		'page' => array(
+		/*'page' => array(
 
 			'method'		=> 'singleton',
 			'interface' 	=> 'Pongo\Cms\Support\Repositories\PageRepositoryInterface',
 			'repository' 	=> 'Pongo\Cms\Support\Repositories\PageRepositoryEloquent',
 
-		),		
+		),	*/	
 
 		'role' => array(
 
@@ -291,7 +291,7 @@ return array(
 			),
 		),
 
-		'blog' => array(
+		/*'blog' => array(
 
 			'route' 		=> 'blog.edit',
 			'min_access' 	=> 'editor'
@@ -303,7 +303,7 @@ return array(
 			'route'			=> 'file.upload',
 			'min_access' 	=> 'editor'
 
-		),
+		),*/
 
 		/*'shop' => array(
 
@@ -361,8 +361,8 @@ return array(
 	
 	'commands' => array(
 
-		'pongo:import_asset' 		=> 'Pongo\Cms\Commands\ImportAssetCommand',
-		'pongo:change_auth_model' 	=> 'Pongo\Cms\Commands\ChangeAuthModelCommand',
+		// 'pongo:import_asset' 		=> 'Pongo\Cms\Commands\ImportAssetCommand',
+		// 'pongo:change_auth_model' 	=> 'Pongo\Cms\Commands\ChangeAuthModelCommand',
 		'pongo:create_migration'	=> 'Pongo\Cms\Commands\CreateMigrationCommand',
 
 	),
