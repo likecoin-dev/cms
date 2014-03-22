@@ -1,73 +1,56 @@
 <?php namespace Pongo\Cms\Repositories;
 
 use Pongo\Cms\Models\User as User;
-use Pongo\Cms\Models\UserDetail as UserDetail;
 
-class UserRepositoryEloquent implements UserRepositoryInterface {
+class UserRepositoryEloquent extends BaseRepositoryEloquent implements BaseRepositoryInterface, RoleRepositoryInterface {
 
-	public function createUser($user_arr)
+	/**
+	 * @var User model
+	 */
+	protected $model;
+
+	function __construct(User $model)
 	{
-		return User::create($user_arr);
+		$this->model = $model;
 	}
 
 	public function createUserDetails($user_id)
 	{
-		return UserDetail::create(array('user_id' => $user_id));
+		return $this->model
+					->find($user_id)
+					->details()
+					->create(array('user_id' => $user_id));
 	}
 
-	public function deleteUser($user)
+	public function getUserLevel($user_id)
 	{
-		return $user->delete();
+		return $this->model
+					->find($user_id)
+					->role
+					->level;
 	}
 
-	public function getUser($user_id)
+	public function getUserDetails($user_id)
 	{
-		return User::find($user_id);
-	}
-
-	public function getUserLevel($user)
-	{
-		return $user->role->level;
-	}
-
-	public function getUserDetails($user)
-	{
-		return $user->details;
-	}
-
-	public function getUsers()
-	{
-		return User::all();
+		return $this->model
+					->find($user_id)
+					->details;
 	}
 
 	public function getUsersWithRoles($limit)
 	{
-		return User::with('role')
-				   ->orderBy('username')
-				   ->paginate($limit);
-	}
-
-	public function paginateUsers($limit)
-	{
-		return User::orderBy('username')
-				   ->paginate($limit);
-	}
-
-	public function saveUser($user)
-	{
-		return $user->save();
-	}
-
-	public function saveUserDetails($user_details)
-	{
-		return $user_details->save();
+		return $this->model
+					->with('role')
+					->orderBy('username')
+					->paginate($limit);
 	}
 
 	public function searchUser($search, $field)
 	{
-		return User::where($field, 'like', $search . '%')
-				   ->orderBy($field, 'asc')
-				   ->get();
+		return $this->model
+					->where($field, 'like', $search . '%')
+					->orderBy($field, 'asc')
+					->get();
 	}
 
 }

@@ -101,12 +101,7 @@ return array(
 
 			'class' => 'Pongo\Cms\Classes\Access',
 			'alias' => 'Pongo\Cms\Support\Facades\Access',
-			'repos' => array(
-
-				'Pongo\Cms\Support\Repositories\RoleRepositoryEloquent',
-				'Pongo\Cms\Support\Repositories\UserRepositoryEloquent',
-
-			),
+			'repos' => '',
 
 		),
 
@@ -245,15 +240,15 @@ return array(
 
 		'role' => array(
 
-			'method'		=> 'singleton',
-			'interface' 	=> 'Pongo\Cms\Support\Repositories\RoleRepositoryInterface',
-			'repository' 	=> 'Pongo\Cms\Support\Repositories\RoleRepositoryEloquent',
+			'method'		=> 'bind',
+			'interface' 	=> 'Pongo\Cms\Repositories\RoleRepositoryInterface',
+			'repository' 	=> 'Pongo\Cms\Repositories\RoleRepositoryEloquent',
 
 		),
 
 		'user' => array(
 
-			'method'		=> 'singleton',
+			'method'		=> 'bind',
 			'interface' 	=> 'Pongo\Cms\Support\Repositories\UserRepositoryInterface',
 			'repository' 	=> 'Pongo\Cms\Support\Repositories\UserRepositoryEloquent',
 
@@ -363,7 +358,7 @@ return array(
 
 		// 'pongo:import_asset' 		=> 'Pongo\Cms\Commands\ImportAssetCommand',
 		// 'pongo:change_auth_model' 	=> 'Pongo\Cms\Commands\ChangeAuthModelCommand',
-		'pongo:create_migration'	=> 'Pongo\Cms\Commands\CreateMigrationCommand',
+		'pongo:create_migration'	=> 'Pongo\Cms\Support\Commands\CreateMigrationCommand',
 
 	),
 

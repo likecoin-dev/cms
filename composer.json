@@ -17,7 +17,7 @@
         "laracasts/utilities": "dev-master"
     },
     "require-dev": {
-        "fzaninotto/faker": "1.4.*@dev"
+        "fzaninotto/faker": "dev-master"
     },
     "autoload": {
         "classmap": [

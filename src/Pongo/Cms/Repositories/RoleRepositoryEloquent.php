@@ -2,7 +2,7 @@
 
 use Pongo\Cms\Models\Role as Role;
 
-class RoleRepositoryEloquent extends BaseRepositoryEloquent implements RoleRepositoryInterface {
+class RoleRepositoryEloquent extends BaseRepositoryEloquent implements BaseRepositoryInterface, RoleRepositoryInterface {
 
 	/**
 	 * @var Role model
@@ -14,9 +14,12 @@ class RoleRepositoryEloquent extends BaseRepositoryEloquent implements RoleRepos
 		$this->model = $model;
 	}
 
-	public function deleteRoleUsers($role)
+	public function deleteRoleUsers($role_id)
 	{
-		return $role->users()->delete();
+		return $this->model
+					->find($role_id)
+					->users()
+					->delete();
 	}
 
 	public function getRoles()

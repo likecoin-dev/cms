@@ -55,15 +55,6 @@ class PongoServiceProvider extends ServiceProvider {
 	public function register()
 	{		
 		$app = $this->app;
-
-		/**
-		 * TEMPORANEO PER TEST
-		 */
-
-		$app->bind(
-			'Pongo\Cms\Repositories\TestRepositoryInterface',
-			'Pongo\Cms\Repositories\TestRepositoryEloquent'
-		);
 	}
 
 	/**
