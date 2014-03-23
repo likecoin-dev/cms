@@ -246,13 +246,13 @@ return array(
 
 		),*/
 		
-		/*'file' => array(
+		'file' => array(
 
-			'method'		=> 'singleton',
-			'interface' 	=> 'Pongo\Cms\Support\Repositories\FileRepositoryInterface',
-			'repository' 	=> 'Pongo\Cms\Support\Repositories\FileRepositoryEloquent',
+			'method'		=> 'bind',
+			'interface' 	=> 'Pongo\Cms\Repositories\FileRepositoryInterface',
+			'repository' 	=> 'Pongo\Cms\Repositories\FileRepositoryEloquent',
 
-		),*/
+		),
 
 		/*'page' => array(
 
@@ -273,8 +273,16 @@ return array(
 		'user' => array(
 
 			'method'		=> 'bind',
-			'interface' 	=> 'Pongo\Cms\Support\Repositories\UserRepositoryInterface',
-			'repository' 	=> 'Pongo\Cms\Support\Repositories\UserRepositoryEloquent',
+			'interface' 	=> 'Pongo\Cms\Repositories\UserRepositoryInterface',
+			'repository' 	=> 'Pongo\Cms\Repositories\UserRepositoryEloquent',
+
+		),
+
+		'userdetail' => array(
+
+			'method'		=> 'bind',
+			'interface' 	=> 'Pongo\Cms\Repositories\UserDetailRepositoryInterface',
+			'repository' 	=> 'Pongo\Cms\Repositories\UserDetailRepositoryEloquent',
 
 		),
 

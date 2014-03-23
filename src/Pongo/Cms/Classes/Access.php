@@ -5,6 +5,10 @@ use Pongo\Cms\Repositories\UserRepositoryInterface as User;
 
 class Access {
 
+	protected $role;
+
+	protected $user;
+
 	/**
 	 * Render constructor
 	 */

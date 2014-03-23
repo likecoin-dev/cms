@@ -1,5 +1,8 @@
 <?php namespace Pongo\Cms\Classes;
 
+use Pongo\Cms\Classes\Pongo as Pongo;
+use Pongo\Cms\Classes\Theme as Theme;
+
 class Img {
 
 	/**

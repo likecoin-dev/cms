@@ -2,24 +2,11 @@
 
 use Pongo\Cms\Models\User as User;
 
-class UserRepositoryEloquent extends BaseRepositoryEloquent implements BaseRepositoryInterface, RoleRepositoryInterface {
-
-	/**
-	 * @var User model
-	 */
-	protected $model;
+class UserRepositoryEloquent extends BaseRepositoryEloquent implements UserRepositoryInterface {
 
 	function __construct(User $model)
 	{
 		$this->model = $model;
-	}
-
-	public function createUserDetails($user_id)
-	{
-		return $this->model
-					->find($user_id)
-					->details()
-					->create(array('user_id' => $user_id));
 	}
 
 	public function getUserLevel($user_id)

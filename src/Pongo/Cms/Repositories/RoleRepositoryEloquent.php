@@ -2,12 +2,7 @@
 
 use Pongo\Cms\Models\Role as Role;
 
-class RoleRepositoryEloquent extends BaseRepositoryEloquent implements BaseRepositoryInterface, RoleRepositoryInterface {
-
-	/**
-	 * @var Role model
-	 */
-	protected $model;
+class RoleRepositoryEloquent extends BaseRepositoryEloquent implements RoleRepositoryInterface {
 
 	function __construct(Role $model)
 	{
@@ -31,11 +26,11 @@ class RoleRepositoryEloquent extends BaseRepositoryEloquent implements BaseRepos
 					->get();
 	}
 
-	public function getRolesByLevel()
+	public function getRolesByLevel($level)
 	{
 		return $this->model
 					->where('level', '>', 0)
-					->where('level', '<=', LEVEL)
+					->where('level', '<=', $level)
 					->orderBy('level', 'desc')
 					->orderBy('id', 'asc')
 					->get();

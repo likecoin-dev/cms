@@ -10,6 +10,6 @@ interface RoleRepositoryInterface {
 
 	public function getRoles();
 
-	public function getRolesByLevel();
+	public function getRolesByLevel($level);
 	
 }

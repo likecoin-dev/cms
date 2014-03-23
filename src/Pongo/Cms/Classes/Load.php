@@ -5,8 +5,9 @@ use Pongo\Cms\Support\Repositories\PageRepositoryInterface as Page;
 
 class Load {
 
-	private $file;
-	private $page;
+	protected $file;
+	
+	protected $page;
 
 	/**
 	 * Render constructor

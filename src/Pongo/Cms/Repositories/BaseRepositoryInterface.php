@@ -6,6 +6,8 @@ interface BaseRepositoryInterface {
 	 * Base methods
 	 */
 	
+	public function all();
+
 	public function create($create_array);
 
 	public function find($id);

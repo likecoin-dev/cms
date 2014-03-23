@@ -1,9 +1,8 @@
 <?php namespace Pongo\Cms\Repositories;
 
-use Illuminate\Database\Eloquent\Model;
 use Pongo\Cms\Services\Cache\CacheInterface;
 
-abstract class BaseRepositoryEloquent {
+abstract class BaseRepositoryEloquent implements BaseRepositoryInterface {
 	
 	/**
 	 * @var Model
@@ -15,10 +14,14 @@ abstract class BaseRepositoryEloquent {
 	 */
 	protected $cache;
 
-	function __construct(Model $model, CacheInterface $cache)
+	function __construct(CacheInterface $cache)
 	{
-		$this->model = $model;
 		$this->cache = $cache;
+	}
+
+	public function all()
+	{
+		return $this->model->all();
 	}
 
 	public function create($create_array)
