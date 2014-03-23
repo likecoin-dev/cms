@@ -31,7 +31,7 @@ class TestController extends Controller {
 
 	public function testing()
 	{
-		return $this->user->createUserDetails(100);
+		return dd($this->user->all());
 	}
 
 }

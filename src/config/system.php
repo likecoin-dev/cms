@@ -125,19 +125,6 @@ return array(
 
 		),
 
-		'Img' => array(
-
-			'class'	=> 'Pongo\Cms\Classes\Img',
-			'alias'	=> 'Pongo\Cms\Support\Facades\Img',
-			'depes' => array(
-				
-				'Pongo\Cms\Classes\Pongo',
-				'Pongo\Cms\Classes\Theme',
-
-			),
-
-		),
-
 		'Load' => array(
 
 			'class' => 'Pongo\Cms\Classes\Load',
@@ -159,6 +146,19 @@ return array(
 			'class'	=> 'Pongo\Cms\Classes\Media',
 			'alias'	=> 'Pongo\Cms\Support\Facades\Media',
 			'depes' => '',
+
+		),
+
+		'Picture' => array(
+
+			'class'	=> 'Pongo\Cms\Classes\Picture',
+			'alias'	=> 'Pongo\Cms\Support\Facades\Picture',
+			'depes' => array(
+				
+				'Pongo\Cms\Classes\Pongo',
+				'Pongo\Cms\Classes\Theme',
+
+			),
 
 		),
 

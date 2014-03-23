@@ -3,7 +3,7 @@
 use Pongo\Cms\Classes\Pongo as Pongo;
 use Pongo\Cms\Classes\Theme as Theme;
 
-class Img {
+class Picture {
 
 	/**
 	 * Image compression quality
