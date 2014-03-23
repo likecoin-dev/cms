@@ -4,21 +4,21 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class CreateMigrationCommand extends Command {
+class ImportAssetCommand extends Command {
 
 	/**
 	 * The console command name.
 	 *
 	 * @var string
 	 */
-	protected $name = 'pongo:create_migration';
+	protected $name = 'pongo:import_asset';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Create a workbench migration';
+	protected $description = 'Import assets from /public/local/app';
 
 	/**
 	 * Create a new command instance.
@@ -37,19 +37,23 @@ class CreateMigrationCommand extends Command {
 	 */
 	public function fire()
 	{
-		$action_name = $this->argument('action_name');
-		$str_arr = explode('_', $action_name);
-		$table_name = end($str_arr);
-		
-		// Calling asset:publish
-		$this->call('migrate:make', array(
-			'name' =>  $action_name,
-			'--bench' => 'pongocms/cms',
-			'--table' => $table_name,
-			'--create' => null
-		));
+		$path_to_copy_from = public_path('dev/dist');
+		$dirs_to_copy = \File::directories($path_to_copy_from);
+		$path_to_copy_into = base_path('workbench/pongocms/cms/public');
 
-		$this->info('Migration for table "' . $table_name . '" created successfully!');
+		foreach ($dirs_to_copy as $dir) {
+
+			$dir_arr = explode('/', $dir);
+			$dir_name = end($dir_arr);
+
+			\File::copyDirectory($dir, $path_to_copy_into . '/' . $dir_name); 
+
+			$this->info($dir_name . ' copied!');
+		}
+
+		$this->info('Assets imported successfully!');
+		// Calling asset:publish
+		$this->call('asset:publish', array('--bench' => 'pongocms/cms'));
 		return;
 	}
 
@@ -61,7 +65,7 @@ class CreateMigrationCommand extends Command {
 	protected function getArguments()
 	{
 		return array(
-			array('action_name', InputArgument::REQUIRED, 'Migration name to create'),
+		// 	array('example', InputArgument::REQUIRED, 'An example argument.'),
 		);
 	}
 

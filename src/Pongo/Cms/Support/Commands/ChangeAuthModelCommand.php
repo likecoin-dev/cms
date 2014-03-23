@@ -4,21 +4,21 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class CreateMigrationCommand extends Command {
+class ChangeAuthModelCommand extends Command {
 
 	/**
 	 * The console command name.
 	 *
 	 * @var string
 	 */
-	protected $name = 'pongo:create_migration';
+	protected $name = 'pongo:change_auth_model';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Create a workbench migration';
+	protected $description = 'Change /app/config/auth.php default model';
 
 	/**
 	 * Create a new command instance.
@@ -37,19 +37,15 @@ class CreateMigrationCommand extends Command {
 	 */
 	public function fire()
 	{
-		$action_name = $this->argument('action_name');
-		$str_arr = explode('_', $action_name);
-		$table_name = end($str_arr);
+		$model_to_use = 'Pongo\Cms\Models\User';
+		$file_to_open = app_path('config/auth.php');
+		$file_to_edit = \File::get($file_to_open);
 		
-		// Calling asset:publish
-		$this->call('migrate:make', array(
-			'name' =>  $action_name,
-			'--bench' => 'pongocms/cms',
-			'--table' => $table_name,
-			'--create' => null
-		));
+		$file_content = str_replace("'User'", "'{$model_to_use}'", $file_to_edit);
 
-		$this->info('Migration for table "' . $table_name . '" created successfully!');
+		\File::put($file_to_open, $file_content);
+
+		$this->info('Auth parameter updated!');
 		return;
 	}
 
@@ -61,7 +57,7 @@ class CreateMigrationCommand extends Command {
 	protected function getArguments()
 	{
 		return array(
-			array('action_name', InputArgument::REQUIRED, 'Migration name to create'),
+			// array('model', InputArgument::REQUIRED, 'Model to use'),
 		);
 	}
 

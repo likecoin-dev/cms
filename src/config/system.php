@@ -388,8 +388,8 @@ return array(
 	
 	'commands' => array(
 
-		// 'pongo:import_asset' 		=> 'Pongo\Cms\Commands\ImportAssetCommand',
-		// 'pongo:change_auth_model' 	=> 'Pongo\Cms\Commands\ChangeAuthModelCommand',
+		'pongo:import_asset' 		=> 'Pongo\Cms\Support\Commands\ImportAssetCommand',
+		'pongo:change_auth_model' 	=> 'Pongo\Cms\Support\Commands\ChangeAuthModelCommand',
 		'pongo:create_migration'	=> 'Pongo\Cms\Support\Commands\CreateMigrationCommand',
 
 	),
