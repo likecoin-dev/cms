@@ -86,6 +86,10 @@ return array(
 		// Dependency providers
 
 		'Prologue\Alerts\AlertsServiceProvider',
+		'Intervention\Image\ImageServiceProvider',
+		'Intervention\Helper\DateServiceProvider',
+		'Intervention\Helper\StringServiceProvider',
+		'Laracasts\Utilities\UtilitiesServiceProvider',
 
 	),
 
@@ -101,7 +105,7 @@ return array(
 
 			'class' => 'Pongo\Cms\Classes\Access',
 			'alias' => 'Pongo\Cms\Support\Facades\Access',
-			'repos' => '',
+			'depes' => '',
 
 		),
 
@@ -109,90 +113,86 @@ return array(
 
 			'class'	=> 'Pongo\Cms\Classes\Asset',
 			'alias'	=> 'Pongo\Cms\Support\Facades\Asset',
-			'repos' => '',
+			'depes' => '',
 
 		),
 
-		/*'Build' => array(
+		'Build' => array(
 
 			'class'	=> 'Pongo\Cms\Classes\Build',
 			'alias'	=> 'Pongo\Cms\Support\Facades\Build',
-			'repos' => '',
+			'depes' => '',
 
-		),*/
+		),
 
-		/*'Image' => array(
+		'Img' => array(
 
-			'class'	=> 'Pongo\Cms\Classes\Image',
-			'alias'	=> 'Pongo\Cms\Support\Facades\Image',
-			'repos' => array(
+			'class'	=> 'Pongo\Cms\Classes\Img',
+			'alias'	=> 'Pongo\Cms\Support\Facades\Img',
+			'depes' => array(
 				
-				'PHPImageWorkshop\ImageWorkshop',
+				'Pongo\Cms\Classes\Pongo',
+				'Pongo\Cms\Classes\Theme',
 
 			),
 
-		),*/
+		),
 
-		/*'Load' => array(
+		'Load' => array(
 
 			'class' => 'Pongo\Cms\Classes\Load',
 			'alias' => 'Pongo\Cms\Support\Facades\Load',
-			'repos' => array(
+			'depes' => '',
 
-				'Pongo\Cms\Support\Repositories\FileRepositoryEloquent',
-				'Pongo\Cms\Support\Repositories\PageRepositoryEloquent',
-
-			),
-
-		),*/
+		),
 
 		'Marker' => array(
 
 			'class'	=> 'Pongo\Cms\Classes\Marker',
 			'alias'	=> 'Pongo\Cms\Support\Facades\Marker',
-			'repos' => '',
+			'depes' => '',
 
 		),
 
-		/*'Media' => array(
+		'Media' => array(
 
 			'class'	=> 'Pongo\Cms\Classes\Media',
 			'alias'	=> 'Pongo\Cms\Support\Facades\Media',
-			'repos' => '',
+			'depes' => '',
 
-		),*/
+		),
 
 		'Pongo' => array(
 
 			'class'	=> 'Pongo\Cms\Classes\Pongo',
 			'alias'	=> 'Pongo\Cms\Support\Facades\Pongo',
-			'repos' => '',
+			'depes' => '',
 
 		),
 
-		/*'Render' => array(
+		'Render' => array(
 
 			'class' => 'Pongo\Cms\Classes\Render',
 			'alias' => 'Pongo\Cms\Support\Facades\Render',
-			'repos' => '',
+			'depes' => '',
 
-		),*/
+		),
 
-		/*'Theme' => array(
+		'Theme' => array(
 
 			'class' => 'Pongo\Cms\Classes\Theme',
 			'alias' => 'Pongo\Cms\Support\Facades\Theme',
-			'repos' => '',
+			'depes' => '',
 
-		),*/
+		),
 
-		/*'Tool' => array(
+		'Tool' => array(
 
 			'class' => 'Pongo\Cms\Classes\Tool',
 			'alias' => 'Pongo\Cms\Support\Facades\Tool',
-			'repos' => '',
+			'depes' => '',
 
-		),*/
+		),
 
 		// Dependency facades
 
@@ -200,7 +200,31 @@ return array(
 
 			'class' => 'Prologue\Alerts\Alert',
 			'alias' => 'Prologue\Alerts\Facades\Alert',
-			'repos' => '',
+			'depes' => '',
+
+		),
+
+		'Image' => array(
+
+			'class' => 'Intervention\Image\Image',
+			'alias' => 'Intervention\Image\Facades\Image',
+			'depes' => '',
+
+		),
+
+		'Date' => array(
+
+			'class' => 'Intervention\Helper\Date',
+			'alias' => 'Intervention\Helper\Facades\Date',
+			'depes' => '',
+
+		),
+
+		'String' => array(
+
+			'class' => 'Intervention\Helper\String',
+			'alias' => 'Intervention\Helper\Facades\String',
+			'depes' => '',
 
 		),
 

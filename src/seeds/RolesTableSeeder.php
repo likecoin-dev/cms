@@ -4,8 +4,10 @@ class RolesTableSeeder extends Seeder {
 
 	public function run()
 	{
+		DB::statement('SET FOREIGN_KEY_CHECKS = 0'); // disable foreign key constraints
+
 		// Reset table
-		// DB::table('roles')->truncate();
+		DB::table('roles')->truncate();
 
 		$roles = Pongo::system('roles');
 
@@ -20,6 +22,7 @@ class RolesTableSeeder extends Seeder {
 
 		}
 		
+		DB::statement('SET FOREIGN_KEY_CHECKS = 1'); // enable foreign key constraints
 	}
 
 }

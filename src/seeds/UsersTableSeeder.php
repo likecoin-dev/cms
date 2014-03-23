@@ -7,6 +7,8 @@ class UsersTableSeeder extends Seeder {
 
 	public function run()
 	{
+		DB::statement('SET FOREIGN_KEY_CHECKS = 0'); // disable foreign key constraints
+
 		// Reset table
 		DB::table('users')->truncate();
 		// Reset table
@@ -21,39 +23,47 @@ class UsersTableSeeder extends Seeder {
 								'is_valid' 	=> 1
 							);
 
-		$admin_user = array_merge($admin_account, $admin_settings);
-		
+		$admin_user = array_merge($admin_account, $admin_settings);		
 		$admin_user['password'] = Hash::make($admin_user['password']);
 		
 		$admin = User::create($admin_user);
-
 		UserDetail::create(array('user_id' => $admin->id));
 
 		// RANDOM 50 USERS
 
-		$user_account = Config::get('cms::settings.user_account');
+		// Faker data
+		$faker = Faker\Factory::create();
 
 		for($i=1; $i<=50; $i++) {
 
-			$random = Str::random();
+			// $random = Str::random();
 
 			$user_settings = 	array(
-									'username'	=> $random,
+									'role_id'	=> 4,
+									'username'	=> $faker->username,
+									'email'		=> $faker->email,
+									'password'	=> Hash::make($faker->word),
 									'lang' 		=> Config::get('cms::settings.language'),
 									'editor'	=> 0,
 									'is_valid' 	=> 1
 								);
 
-			$user_user = array_merge($user_account, $user_settings);
+			$user = User::create($user_settings);
 
-			$user_user['password'] = Hash::make($random);
+			$details = array(
+				'user_id' 		=> $user->id,
+				'name'			=> $faker->firstname,
+				'surname'		=> $faker->lastname,
+				'gender'		=> $faker->randomElement(array('m','f')),
+				'city'			=> $faker->city,
+				'bio'			=> $faker->text,
+				'birth_date' 	=> $faker->date('Y-m-d', '-18 years')
+			);
 
-			$user = User::create($user_user);
-
-			UserDetail::create(array('user_id' => $user->id));
-
+			UserDetail::create($details);
 		}
 
+		DB::statement('SET FOREIGN_KEY_CHECKS = 1'); // enable foreign key constraints
 	}
 
 }

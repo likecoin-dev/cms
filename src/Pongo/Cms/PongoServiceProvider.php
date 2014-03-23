@@ -97,25 +97,23 @@ class PongoServiceProvider extends ServiceProvider {
 
 		foreach ($facades as $facade => $path) {
 
-			$repos = array();
+			$injections = array();
 
-			if(is_array($path['repos'])) {
+			if(is_array($path['depes'])) {
 
-				foreach ($path['repos'] as $key => $repo) {
+				foreach ($path['depes'] as $key => $depinj) {
 
-					$repos[] = new $repo;
+					$injections[] = new $depinj;
 				}
 			}
 			
 			// Share facade name
-			$app[$facade] = $app->share(function($app) use ($path, $repos) {
-
-				return $this->createInstance($path['class'], $repos);
+			$app[$facade] = $app->share(function($app) use ($path, $injections) {
+				return $this->createInstance($path['class'], $injections);
 			});
 
 			// Alias facade
 			$app->booting(function() use ($facade, $path) {
-
 				$this->aliasLoader->alias($facade, $path['alias']);
 			});
 			
@@ -170,7 +168,7 @@ class PongoServiceProvider extends ServiceProvider {
 	}
 
 	/**
-	 * Instantiate a class with dependency repos
+	 * Instantiate a class with dependency classes
 	 * 
 	 * @param  class $class
 	 * @param  array $params
