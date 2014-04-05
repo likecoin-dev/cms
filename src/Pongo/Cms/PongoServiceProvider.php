@@ -35,6 +35,7 @@ class PongoServiceProvider extends ServiceProvider {
 		// Run accessor methods
 		$this->loadServiceProviders();
 		$this->bindRepositories();
+		$this->bindManagers();
 		$this->activateFacades();
 		$this->bootCommands();
 
@@ -68,6 +69,23 @@ class PongoServiceProvider extends ServiceProvider {
 	}
 
 	/**
+	 * Bind managers
+	 * 
+	 * @return void
+	 */
+	protected function bindManagers()
+	{
+		$app = $this->app;
+
+		$managers = \Config::get('cms::system.managers');
+
+		foreach ($managers as $manager) {
+			
+			$app->$manager['method']($manager['interface'], $manager['class']);
+		}
+	}
+
+	/**
 	 * Bind repositories
 	 *
 	 * @return void
@@ -80,7 +98,7 @@ class PongoServiceProvider extends ServiceProvider {
 
 		foreach ($repositories as $repo) {
 			
-			$app->$repo['method']($repo['interface'], $repo['repository']);
+			$app->$repo['method']($repo['interface'], $repo['class']);
 		}
 	}
 

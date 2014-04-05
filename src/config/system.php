@@ -229,6 +229,22 @@ return array(
 		),
 
 	),
+	
+	/**
+	 * IoC manager binds
+	 */
+
+	'managers' => array(
+
+		'loginManager' => array(
+
+			'method'		=> 'bind',
+			'interface' 	=> 'Pongo\Cms\Services\Managers\LoginManagerInterface',
+			'class' 		=> 'Pongo\Cms\Services\Managers\LoginManager',
+
+		),
+
+	),
 
 	/**
 	 * IoC repository binds
@@ -250,7 +266,7 @@ return array(
 
 			'method'		=> 'bind',
 			'interface' 	=> 'Pongo\Cms\Repositories\FileRepositoryInterface',
-			'repository' 	=> 'Pongo\Cms\Repositories\FileRepositoryEloquent',
+			'class' 		=> 'Pongo\Cms\Repositories\FileRepositoryEloquent',
 
 		),
 
@@ -258,7 +274,7 @@ return array(
 
 			'method'		=> 'singleton',
 			'interface' 	=> 'Pongo\Cms\Support\Repositories\PageRepositoryInterface',
-			'repository' 	=> 'Pongo\Cms\Support\Repositories\PageRepositoryEloquent',
+			'class' 		=> 'Pongo\Cms\Support\Repositories\PageRepositoryEloquent',
 
 		),	*/	
 
@@ -266,7 +282,7 @@ return array(
 
 			'method'		=> 'bind',
 			'interface' 	=> 'Pongo\Cms\Repositories\RoleRepositoryInterface',
-			'repository' 	=> 'Pongo\Cms\Repositories\RoleRepositoryEloquent',
+			'class' 		=> 'Pongo\Cms\Repositories\RoleRepositoryEloquent',
 
 		),
 
@@ -274,7 +290,7 @@ return array(
 
 			'method'		=> 'bind',
 			'interface' 	=> 'Pongo\Cms\Repositories\UserRepositoryInterface',
-			'repository' 	=> 'Pongo\Cms\Repositories\UserRepositoryEloquent',
+			'class' 		=> 'Pongo\Cms\Repositories\UserRepositoryEloquent',
 
 		),
 
@@ -282,7 +298,7 @@ return array(
 
 			'method'		=> 'bind',
 			'interface' 	=> 'Pongo\Cms\Repositories\UserDetailRepositoryInterface',
-			'repository' 	=> 'Pongo\Cms\Repositories\UserDetailRepositoryEloquent',
+			'class' 		=> 'Pongo\Cms\Repositories\UserDetailRepositoryEloquent',
 
 		),
 

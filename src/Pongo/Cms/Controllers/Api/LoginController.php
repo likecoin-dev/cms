@@ -54,22 +54,4 @@ class LoginController extends ApiController {
 		}*/
 	}
 
-	/**
-	 * Set constants values on login
-	 *
-	 * @return void
-	 */
-	protected function setConstants()
-	{
-		\Session::put('USERID', \Auth::user()->id);
-		\Session::put('USERNAME', \Auth::user()->username);
-		\Session::put('EMAIL', \Auth::user()->email);
-		\Session::put('ROLEID', \Auth::user()->role->id);
-		\Session::put('ROLENAME', \Auth::user()->role->name);
-		\Session::put('LEVEL', \Auth::user()->role->level);
-		\Session::put('LANG', \Auth::user()->lang);
-		\Session::put('CMSLANG', \Auth::user()->lang);
-		\Session::put('EDITOR', \Auth::user()->editor);
-	}
-
 }
