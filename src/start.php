@@ -11,8 +11,8 @@ define('USERNAME', Session::get('USERNAME'));
 define('EMAIL', Session::get('EMAIL'));
 define('ROLEID', Session::get('ROLEID'));
 define('ROLENAME', Session::get('ROLENAME'));
-define('LEVEL', Session::get('LEVEL'));
-define('LANG', Session::get('LANG'));
+define('LEVEL', Session::get('LEVEL', 0));
+define('LANG', Session::get('LANG', Config::get('cms::settings.language')));
 define('CMSLANG', Session::get('CMSLANG', Config::get('cms::settings.language')));
 define('EDITOR', Session::get('EDITOR'));
 

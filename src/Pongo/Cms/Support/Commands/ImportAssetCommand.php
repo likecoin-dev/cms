@@ -37,7 +37,7 @@ class ImportAssetCommand extends Command {
 	 */
 	public function fire()
 	{
-		$path_to_copy_from = public_path('dev/dist');
+		$path_to_copy_from = base_path('workbench/static/public');
 		$dirs_to_copy = \File::directories($path_to_copy_from);
 		$path_to_copy_into = base_path('workbench/pongocms/cms/public');
 

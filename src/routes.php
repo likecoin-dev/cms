@@ -18,12 +18,11 @@ Route::group(Config::get('cms::routes.cms_group_routes'), function() use ($pongo
 	Route::get('/testing', array('uses' => $pongoControllers.'TestController@testing', 'as' => 'test'));
 
 	// JS BOOTSTRAP
-	// Route::get('bootstrap.js', array('uses' => $pongoControllers.'BaseController@bootstrap', 'as' => 'js.bootstrap'));
+	Route::get('bootstrap.js', array('uses' => $pongoControllers.'BaseController@bootstrap', 'as' => 'js.bootstrap'));
 
 	// // LOGIN
-	// Route::get('/', array('uses' => $pongoControllers.'LoginController@index', 'as' => 'cms.index'));
-	// Route::get('login', array('uses' => $pongoControllers.'LoginController@index', 'as' => 'login.index'));
-	// Route::post('login', array('uses' => $pongoControllers.'LoginController@login', 'as' => 'post.login'));
+	Route::get('/', array('uses' => $pongoControllers.'LoginController@index', 'as' => 'cms.index'));
+	Route::get('login', array('uses' => $pongoControllers.'LoginController@index', 'as' => 'login.index'));
 	// Route::get('logout', array('uses' => $pongoControllers.'BaseController@logout', 'as' => 'logout'));
 	// Route::get('lang/{lang}', array('uses' => $pongoControllers.'BaseController@changeLang', 'as' => 'lang'));
 
@@ -65,6 +64,9 @@ Route::group(Config::get('cms::routes.cms_group_routes'), function() use ($pongo
 
 Route::group(Config::get('cms::routes.api_group_routes'), function() use ($apiControllers)
 {
+
+	// LOGIN	
+	Route::post('login', array('uses' => $apiControllers.'LoginController@login', 'as' => 'post.login'));
 
 	// SAVE
 	// Route::any('save', array('uses' => $apiControllers.'SaveController@save', 'as' => 'api.save'));

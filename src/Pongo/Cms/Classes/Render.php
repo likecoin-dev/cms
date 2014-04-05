@@ -14,7 +14,7 @@ class Render {
 	 * 
 	 * @var string
 	 */
-	private $development_path = 'dev/app/';
+	private $development_path = 'packages/pongocms/cms/';
 
 	/**
 	 * Render constructor

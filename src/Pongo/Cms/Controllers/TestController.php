@@ -31,7 +31,8 @@ class TestController extends Controller {
 
 	public function testing()
 	{
-		return dd($this->user->all());
+		DD(LEVEL);
+		// return dd($this->user->all());
 	}
 
 }
