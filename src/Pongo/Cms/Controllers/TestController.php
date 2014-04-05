@@ -1,9 +1,9 @@
 <?php namespace Pongo\Cms\Controllers;
 
-use Pongo\Cms\Classes\Access as Access;
-use Pongo\Cms\Repositories\UserDetailRepositoryInterface as UserDetail;
-use Pongo\Cms\Services\Validators\TestValidator as TestValidator;
-use Pongo\Cms\Services\Managers\CreateManager as CreateManager;
+// use Pongo\Cms\Classes\Access as Access;
+use Pongo\Cms\Repositories\UserRepositoryInterface as User;
+// use Pongo\Cms\Services\Validators\TestValidator as TestValidator;
+// use Pongo\Cms\Services\Managers\CreateManager as CreateManager;
 
 use Controller, Response;
 
@@ -13,11 +13,11 @@ class TestController extends Controller {
 
 	private $validator;
 
-	public function __construct(UserDetail $user, Access $access, TestValidator $validator)
+	public function __construct(User $user/*, Access $access, TestValidator $validator*/)
 	{
 		$this->user = $user;
-		$this->access = $access;
-		$this->validator = $validator;
+		/*$this->access = $access;
+		$this->validator = $validator;*/
 	}
 
 	public function create()
@@ -31,8 +31,8 @@ class TestController extends Controller {
 
 	public function testing()
 	{
-		DD(LEVEL);
-		// return dd($this->user->all());
+		// DD(LEVEL);
+		return $this->user->all();
 	}
 
 }

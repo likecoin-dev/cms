@@ -1,40 +1,32 @@
 <?php namespace Pongo\Cms\Services\Managers;
 
-class LoginManager extends GeneralManager {
+use Pongo\Cms\Classes\Access as Access;
+use Pongo\Cms\Repositories\UserRepositoryInterface as User;
+use Pongo\Cms\Services\Validators\LoginValidator as Validator;
 
-	private $repository;
+class LoginManager extends BaseManager implements LoginManagerInterface {
 
-	private $access;
-
-	private $validator;
-
-	public function __construct($repository, $access, $validator)
+	/**
+	 * LoginManager validator
+	 */
+	public function __construct(Access $access, User $user, Validator $validator)
 	{
 		parent::__construct();
 
-		$this->repository = $repository;
 		$this->access = $access;
+		$this->user = $user;
 		$this->validator = $validator;
-
-		/**
-		 * Get the Model from the Repository
-		 * 
-		 * @var object
-		 */
-		$this->model = $repository->getModel();
 	}
 
-	public function login($input = array())
+	public function login()
 	{
-		if ( ! empty($input)) $this->input = $input;
+		// if ( ! empty($input)) $this->input = $input;
 
-		/* Verificare di avere i permessi per operare */
-		/* Validare l'input */
-		/* Recuperare il Model dalla Repo */
-		/* Se valido, creare il record */
-		/* Restituire messaggio di errore o di OK */
-
-		return array('access' => $this->access);
+		 // Verificare di avere i permessi per operare 
+		 // Validare l'input 
+		 // Recuperare il Model dalla Repo 
+		 // Se valido, creare il record 
+		 // Restituire messaggio di errore o di OK
 	}
 
 	/**
@@ -42,7 +34,7 @@ class LoginManager extends GeneralManager {
 	 *
 	 * @return void
 	 */
-	protected function setConstants()
+	/*protected function setConstants()
 	{
 		\Session::put('USERID', \Auth::user()->id);
 		\Session::put('USERNAME', \Auth::user()->username);
@@ -53,6 +45,6 @@ class LoginManager extends GeneralManager {
 		\Session::put('LANG', \Auth::user()->lang);
 		\Session::put('CMSLANG', \Auth::user()->lang);
 		\Session::put('EDITOR', \Auth::user()->editor);
-	}
+	}*/
 
 }

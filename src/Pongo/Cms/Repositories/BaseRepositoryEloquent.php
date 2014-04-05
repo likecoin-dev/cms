@@ -14,6 +14,9 @@ abstract class BaseRepositoryEloquent implements BaseRepositoryInterface {
 	 */
 	protected $cache;
 
+	/**
+	 * Base Repository constructor
+	 */
 	function __construct(CacheInterface $cache)
 	{
 		$this->cache = $cache;

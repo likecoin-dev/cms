@@ -1,15 +1,18 @@
 <?php namespace Pongo\Cms\Controllers\Api;
 
+use Pongo\Cms\Services\Managers\LoginManager as LoginManager;
+
 class LoginController extends ApiController {
 
 	/**
-	 * Class constructor
-	 *
-	 * @return void
+	 * LoginController constructor
 	 */
-	public function __construct()
+	public function __construct(LoginManager $manager)
 	{
+		// Not apply pongo.auth.api filter
 		// parent::__construct();
+
+		$this->manager = $manager; 
 	}
 
 	/**
@@ -19,13 +22,21 @@ class LoginController extends ApiController {
 	 */
 	public function login()
 	{
-		$credentials = array(
+		$manager = $this->manager;
+
+		DD($manager->access->allowedCms());
+
+
+
+
+
+		/*$credentials = array(
 			'username' 	=> \Input::get('username'),
 			'password' 	=> \Input::get('password'),
 			'is_valid'	=> 1
-		);
+		);*/
 
-		return \Response::json($credentials);
+		// return \Response::json($credentials);
 
 		/*if (\Auth::attempt($credentials)) {
 
