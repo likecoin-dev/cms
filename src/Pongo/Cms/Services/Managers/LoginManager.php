@@ -1,32 +1,52 @@
 <?php namespace Pongo\Cms\Services\Managers;
 
-use Pongo\Cms\Classes\Access as Access;
-use Pongo\Cms\Repositories\UserRepositoryInterface as User;
+use Pongo\Cms\Classes\Access;
 use Pongo\Cms\Services\Validators\LoginValidator as Validator;
+use Pongo\Cms\Repositories\UserRepositoryInterface as User;
 
 class LoginManager extends BaseManager implements LoginManagerInterface {
 
 	/**
 	 * LoginManager validator
 	 */
-	public function __construct(Access $access, User $user, Validator $validator)
+	public function __construct(Access $access, Validator $validator, User $user)
 	{
-		parent::__construct();
-
 		$this->access = $access;
-		$this->user = $user;
 		$this->validator = $validator;
+		$this->model = $user;
 	}
 
 	public function login()
 	{
-		// if ( ! empty($input)) $this->input = $input;
+		if ($this->validator->fails()) {			
+			$this->errors = $this->validator->errors();
+		} else {
+			$credentials = array_merge($this->input, array('is_valid' => 1));
+			unset($credentials['_token']);
+			if ( \Auth::attempt($credentials) ) {
+				if($this->access->allowedCms(\Auth::user()->role->level)) {
+					$this->setConstants();
+					return true;
+					// \Alert::info(t('alert.info.welcome', array('user' => \Input::get('username'))))->flash();
+					// return \Redirect::route('dashboard');
+				} else {
+					\Auth::logout();
+					// \Alert::error(t('alert.error.unauthorized'))->flash();
+					// return \Redirect::route('login.index');
+				}
+			} else {
 
-		 // Verificare di avere i permessi per operare 
-		 // Validare l'input 
-		 // Recuperare il Model dalla Repo 
-		 // Se valido, creare il record 
-		 // Restituire messaggio di errore o di OK
+			}
+			
+		}
+
+		
+
+		// Verificare di avere i permessi per operare 
+		// Validare l'input 
+		// Recuperare il Model dalla Repo 
+		// Se valido, creare il record 
+		// Restituire messaggio di errore o di OK
 	}
 
 	/**
@@ -34,7 +54,7 @@ class LoginManager extends BaseManager implements LoginManagerInterface {
 	 *
 	 * @return void
 	 */
-	/*protected function setConstants()
+	protected function setConstants()
 	{
 		\Session::put('USERID', \Auth::user()->id);
 		\Session::put('USERNAME', \Auth::user()->username);
@@ -45,6 +65,6 @@ class LoginManager extends BaseManager implements LoginManagerInterface {
 		\Session::put('LANG', \Auth::user()->lang);
 		\Session::put('CMSLANG', \Auth::user()->lang);
 		\Session::put('EDITOR', \Auth::user()->editor);
-	}*/
+	}
 
 }

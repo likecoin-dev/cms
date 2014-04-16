@@ -1,6 +1,6 @@
 <?php namespace Pongo\Cms\Models;
 
-class Role extends BaseModel {
+class Model extends BaseModel {
 	
 	/**
 	 * The database table used by the model.

@@ -1,7 +1,6 @@
 <?php namespace Pongo\Cms;
 
 use Illuminate\Support\ServiceProvider;
-
 use Illuminate\Foundation\AliasLoader as AliasLoader;
 
 class PongoServiceProvider extends ServiceProvider {
@@ -56,6 +55,8 @@ class PongoServiceProvider extends ServiceProvider {
 	public function register()
 	{		
 		$app = $this->app;
+
+		$app->bind('Pongo\Cms\Services\Cache\CacheInterface', 'Pongo\Cms\Services\Cache\LaravelCache');
 	}
 
 	/**
@@ -77,7 +78,7 @@ class PongoServiceProvider extends ServiceProvider {
 	{
 		$app = $this->app;
 
-		$managers = \Config::get('cms::system.managers');
+		$managers = $app['config']['cms::system.managers'];
 
 		foreach ($managers as $manager) {
 			
@@ -94,10 +95,10 @@ class PongoServiceProvider extends ServiceProvider {
 	{		
 		$app = $this->app;
 
-		$repositories = \Config::get('cms::system.repositories');
+		$repositories = $app['config']['cms::system.repositories'];
 
 		foreach ($repositories as $repo) {
-			
+
 			$app->$repo['method']($repo['interface'], $repo['class']);
 		}
 	}
@@ -111,7 +112,7 @@ class PongoServiceProvider extends ServiceProvider {
 	{
 		$app = $this->app;
 
-		$facades = \Config::get('cms::system.facades');
+		$facades = $app['config']['cms::system.facades'];
 
 		foreach ($facades as $facade => $path) {
 
@@ -127,11 +128,13 @@ class PongoServiceProvider extends ServiceProvider {
 			
 			// Share facade name
 			$app[$facade] = $app->share(function($app) use ($path, $injections) {
+
 				return $this->createInstance($path['class'], $injections);
 			});
 
 			// Alias facade
 			$app->booting(function() use ($facade, $path) {
+
 				$this->aliasLoader->alias($facade, $path['alias']);
 			});
 			
@@ -147,7 +150,7 @@ class PongoServiceProvider extends ServiceProvider {
 	{
 		$app = $this->app;
 
-		$providers = \Config::get('cms::system.providers');
+		$providers = $app['config']['cms::system.providers'];
 
 		$provider_path = 'Pongo\Cms\Support\Providers\\';		
 
@@ -170,7 +173,7 @@ class PongoServiceProvider extends ServiceProvider {
 	{
 		$app = $this->app;
 
-		$commands = \Config::get('cms::system.commands');
+		$commands = $app['config']['cms::system.commands'];
 
 		foreach ($commands as $command => $class) {
 			

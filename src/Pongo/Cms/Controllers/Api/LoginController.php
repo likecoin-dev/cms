@@ -1,6 +1,6 @@
 <?php namespace Pongo\Cms\Controllers\Api;
 
-use Pongo\Cms\Services\Managers\LoginManager as LoginManager;
+use Pongo\Cms\Services\Managers\LoginManager;
 
 class LoginController extends ApiController {
 
@@ -11,7 +11,6 @@ class LoginController extends ApiController {
 	{
 		// Not apply pongo.auth.api filter
 		// parent::__construct();
-
 		$this->manager = $manager; 
 	}
 
@@ -22,10 +21,11 @@ class LoginController extends ApiController {
 	 */
 	public function login()
 	{
-		$manager = $this->manager;
-
-		DD($manager->access->allowedCms());
-
+		if ($this->manager->with(\Input::all())->login()) {
+			return $this->manager->redirect('dashboard');
+		} else {
+			return $this->manager->errors();
+		}
 
 
 

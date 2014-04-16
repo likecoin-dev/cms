@@ -2,8 +2,6 @@
 
 use Illuminate\Support\ServiceProvider;
 
-use Config;
-
 class MarkerServiceProvider extends ServiceProvider {
 
 	/**
@@ -16,7 +14,7 @@ class MarkerServiceProvider extends ServiceProvider {
 		$app = $this->app;
 
 		// Bind Markers according with cms::markers
-		foreach (Config::get('cms::markers') as $methodName => $marker) {
+		foreach ($app['config']['cms::markers'] as $methodName => $marker) {
 
 			$markerClass = $marker['class'];
 

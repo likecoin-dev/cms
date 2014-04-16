@@ -2,21 +2,15 @@
 
 class LoginValidator extends BaseValidator {
 
-	/**
-	 * Validation rules and messages
-	 */
-	public function __construct() {
-		
-		parent::__construct();
-		
-		static::$rules = array(
-			'username'		=> 'required',
-			'password'		=> 'requires'
-		);
+	protected $rules = array(
 
-		static::$messages = array(
-			'required' 		=> 'Il campo è richiesto'
-		);
-	}
-	
+		'username' => 'required',
+		'password' => 'required'
+	);
+
+	protected $messages = array(
+		
+		'required' 	=> 'validation.errors.required'
+	);
+
 }

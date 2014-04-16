@@ -1,41 +1,88 @@
 <?php namespace Pongo\Cms\Services\Validators;
 
-use Input, Validator;
+use Illuminate\Validation\Factory as PongoValidator;
 
-abstract class BaseValidator {
+abstract class BaseValidator implements ValidatorInterface {
 
 	/**
-	 * Incoming POST data
-	 * 					
-	 * @var mix
+	 * [$input description]
+	 * @var [type]
 	 */
-	protected $input;
+	public $input = array();
 
 	/**
-	 * Validation errors
-	 * 
-	 * @var object
+	 * [$data description]
+	 * @var [type]
 	 */
-	public $errors;
+	public $data = array();
 
 	/**
-	 * Validation messages
-	 * 
+	 * [$validator description]
+	 * @var [type]
+	 */
+	protected $validator;
+
+	/**
+	 * [$errors description]
 	 * @var array
 	 */
-	public static $messages;
+	protected $errors = array();
 
 	/**
-	 * Validations rules
-	 * 
+	 * [$rules description]
 	 * @var array
 	 */
-	public static $rules;
+	protected $rules = array();
 
+	/**
+	 * [$messages description]
+	 * @var array
+	 */
+	protected $messages = array();
 
-	public function __construct($input = null)
+	/**
+	 * BaseValidator constructor
+	 */
+	public function __construct(PongoValidator $validator)
 	{
-		$this->input = $input ? $input : Input::all();
+		$this->validator = $validator;
+	}
+
+	/**
+	 * [passes description]
+	 * @return [type] [description]
+	 */
+	public function passes()
+	{
+		if( ! empty($this->data)) $this->formatRules();
+		$validator = $this->validator->make(
+			$this->input,
+			$this->rules,
+			$this->messages
+		);
+		if($validator->fails())	{
+			$this->errors = $validator->messages();
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * [fails description]
+	 * @return [type] [description]
+	 */
+	public function fails()
+	{
+		return ! $this->passes();
+	}
+
+	/**
+	 * [errors description]
+	 * @return [type] [description]
+	 */
+	public function errors($msg = 'alert.error.input_validator')
+	{
+		return $this->formatErrors($msg);
 	}
 
 	/**
@@ -43,18 +90,14 @@ abstract class BaseValidator {
 	 * 
 	 * @return array
 	 */
-	public function formatErrors($msg = 'alert.error.input_validator')
+	private function formatErrors($msg)
 	{
 		$errors = $this->errors;
-
-		foreach (static::$rules as $name => $rule) {
-
+		foreach ($this->rules as $name => $rule) {
 			if($errors->has($name)) {
-				$error_msg[$name] = $errors->first($name);	
-			}			
-
+				$error_msg[$name] = t($errors->first($name));
+			}
 		}
-
 		return array(
 			'status' 	=> 'error',
 			'msg'		=> t($msg),
@@ -62,54 +105,14 @@ abstract class BaseValidator {
 		);
 	}
 
-	/**
-	 * Get validation errors
-	 * 
-	 * @return object
-	 */
-	public function getErrors()
+	private function formatRules()
 	{
-		return $this->errors;
-	}
-
-	/**
-	 * Check validation
-	 * 
-	 * @return bool validation result
-	 */
-	public function passes()
-	{		
-		$validation = Validator::make($this->input, static::$rules, static::$messages);
-
-		if ($validation->passes()) return true;
-
-		$this->errors = $validation->messages();
-
-		return false;
-	}
-
-	/**
-	 * Format upload errors array
-	 * 
-	 * @return array
-	 */
-	public function uploadErrors()
-	{
-		$errors = $this->errors;
-
-		foreach (static::$rules as $name => $rule) {
-
-			if($errors->has($name)) {
-				$error_msg[$name] = $errors->first($name);	
-			}			
-
+		foreach ($this->rules as $field => $rule) {
+			foreach ($this->data as $var => $value) {
+				$rules[$field] = str_replace('{'.$var.'}', $value, $rule);
+			}
 		}
-
-		return array(
-			'status' 	=> 'error',
-			'icon'		=> 'fa fa-times error',
-			'errors'	=> $error_msg
-		);
+		return $rules;
 	}
-
+	
 }

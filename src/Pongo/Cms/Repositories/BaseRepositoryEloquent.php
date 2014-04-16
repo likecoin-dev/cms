@@ -1,26 +1,11 @@
 <?php namespace Pongo\Cms\Repositories;
 
-use Pongo\Cms\Services\Cache\CacheInterface;
-
 abstract class BaseRepositoryEloquent implements BaseRepositoryInterface {
 	
 	/**
 	 * @var Model
 	 */
-	protected $model;
-
-	/**
-	 * @var Cache
-	 */
-	protected $cache;
-
-	/**
-	 * Base Repository constructor
-	 */
-	function __construct(CacheInterface $cache)
-	{
-		$this->cache = $cache;
-	}
+	protected $model;	
 
 	public function all()
 	{
@@ -78,9 +63,14 @@ abstract class BaseRepositoryEloquent implements BaseRepositoryInterface {
 	 * 
 	 * @return object
 	 */
-	private function getModel()
+	public function getModel()
 	{
 		return $this->model;
+	}
+
+	public function testCache()
+	{
+		return $this->cache;
 	}
 
 }

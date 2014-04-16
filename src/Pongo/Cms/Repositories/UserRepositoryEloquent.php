@@ -1,12 +1,33 @@
 <?php namespace Pongo\Cms\Repositories;
 
 use Pongo\Cms\Models\User as User;
+use Pongo\Cms\Services\Cache\CacheInterface;
 
 class UserRepositoryEloquent extends BaseRepositoryEloquent implements UserRepositoryInterface {
 
-	function __construct(User $model)
+
+	/**
+	 * @var Cache
+	 */
+	protected $cache;
+
+	/**
+	 * @var Config
+	 */
+	protected $config;
+
+	/**
+	 * User Repository constructor
+	 */
+	function __construct(User $model, CacheInterface $cache)
 	{
 		$this->model = $model;
+		$this->cache = $cache;
+
+		// Set cache parameters
+		$this->cache->cachekey = 'users';
+		$this->cache->minutes = 10;
+
 	}
 
 	public function getUserLevel($user_id)

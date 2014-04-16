@@ -4,7 +4,7 @@ interface CacheInterface {
 
 	public function get($key);
 
-	public function put($key, $value, $minutes = null)
+	public function put($key, $value, $minutes = null);
 
 	public function putPaginated(
 		$currentPage,

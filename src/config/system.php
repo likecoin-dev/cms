@@ -82,6 +82,7 @@ return array(
 
 		'EventServiceProvider',
 		'MarkerServiceProvider',
+		// 'ValidatorServiceProvider',
 
 		// Dependency providers
 
@@ -275,6 +276,7 @@ return array(
 			'method'		=> 'singleton',
 			'interface' 	=> 'Pongo\Cms\Support\Repositories\PageRepositoryInterface',
 			'class' 		=> 'Pongo\Cms\Support\Repositories\PageRepositoryEloquent',
+			'depes' => '',
 
 		),	*/	
 

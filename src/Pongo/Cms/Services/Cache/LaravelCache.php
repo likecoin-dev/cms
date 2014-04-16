@@ -5,14 +5,16 @@ use Illuminate\Cache\CacheManager;
 class LaravelCache implements CacheInterface {
 	
 	protected $cache;
-	protected $cachekey;
-	protected $minutes;
+	
+	public $cachekey;
+	
+	public $minutes;
 
-	public function __construct(CacheManager $cache, $cachekey, $minutes = null)
+	public function __construct(CacheManager $cache)
 	{
 		$this->cache = $cache;
-		$this->cachekey = $cachekey;
-		$this->minutes = $minutes;
+		$this->cachekey = 'pongocms';
+		$this->minutes = 10;
 	}
 
 	public function get($key)
@@ -29,7 +31,7 @@ class LaravelCache implements CacheInterface {
 		return $this->cache->/*section($this->cachekey)->*/put($key, $value, $minutes);
 	}
 
-	public function putPaginated($currentPage, $perPage, $totalItems, $items, $key, $minutes=null)
+	public function putPaginated($currentPage, $perPage, $totalItems, $items, $key, $minutes = null)
 	{
 		$cached = new \StdClass;
 

@@ -5,14 +5,6 @@ use Controller;
 class BaseController extends Controller {
 
 	/**
-	 * Class constructor
-	 */
-	public function __construct()
-	{
-
-	}
-
-	/**
 	 * Generate bootstrap javascript virtual file
 	 * 
 	 * @return void
@@ -20,11 +12,8 @@ class BaseController extends Controller {
 	public function bootstrap()
 	{
 		$contents = \Render::view('partials.bootstrap');
-
 		$response = \Response::make($contents, 200);
-
 		$response->header('Content-Type', 'application/javascript');
-
 		return $response;
 	}
 
@@ -36,10 +25,8 @@ class BaseController extends Controller {
 	public function changeLang($lang)
 	{
 		if(isset($lang)) {
-
 			\Session::put('CMSLANG', $lang);
 		}
-
 		return \Redirect::back();
 	}
 
@@ -51,9 +38,7 @@ class BaseController extends Controller {
 	public function logout()
 	{
 		\Auth::logout();
-
 		\Alert::info(t('alert.info.logout'))->flash();
-
 		return \Redirect::route('login.index');
 	}
 

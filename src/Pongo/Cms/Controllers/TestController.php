@@ -32,7 +32,7 @@ class TestController extends Controller {
 	public function testing()
 	{
 		// DD(LEVEL);
-		return $this->user->all();
+		return DD($this->user->searchUser('admin', 'username'));
 	}
 
 }
