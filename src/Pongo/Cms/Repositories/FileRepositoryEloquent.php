@@ -1,12 +1,12 @@
-<?php namespace Pongo\Cms\Support\Repositories;
+<?php namespace Pongo\Cms\Repositories;
 
 use Pongo\Cms\Models\File as File;
 
 class FileRepositoryEloquent extends BaseRepositoryEloquent implements FileRepositoryInterface {
 
-	function __construct(File $model)
+	function __construct(File $file)
 	{
-		$this->model = $model;
+		$this->model = $file;
 	}
 
 	public function countFilePages($file_id)

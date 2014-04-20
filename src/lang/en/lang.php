@@ -8,6 +8,7 @@ return array(
 			
 			'logout'		=> 'You have been logged out',
 			'page_lang'		=> 'Editing content in :lang',
+			'redirecting'	=> 'Redirecting...',
 			'welcome'		=> 'Welcome back, :user',
 
 		),
@@ -20,7 +21,7 @@ return array(
 			'delete_item'			=> 'Unable to delete this item',
 			'element_created'		=> 'Unable to create element',
 			'element_order'			=> 'Unable to save order',
-			'input_validator'		=> 'Check form fields',
+			'input_validator'		=> 'Something went wrong!',
 			'login' 				=> 'Access denied, please retry',
 			'not_granted'			=> 'Editing not allowed',
 			'page_cant_delete'		=> 'Unable to delete this page',
@@ -285,6 +286,17 @@ return array(
 
 		),
 
+		'login' => array(
+
+			'form' => array(
+
+				'password' => 'Password',
+				'remember' => 'Remember me',
+				'username' => 'Username',
+			),
+
+		),
+
 		'role' => array(
 
 			'settings' => array(
@@ -371,7 +383,7 @@ return array(
 		'banners'		=> 'Banners',
 		'blog'			=> 'Blog',
 		'cmslang'		=> 'Interface in',
-		'dashboard'		=> 'Dasboard',
+		'dashboard'		=> 'Dashboard',
 		'downloads'		=> 'Downloads',
 		'files'			=> 'Files',
 		'galleries'		=> 'Galleries',

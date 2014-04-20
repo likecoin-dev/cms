@@ -1,26 +1,24 @@
 @extends('cms::layouts.base')
 
-@section('header')	
-	@parent
+@section('content')
+	
+	<div class="section" id="dashboard">
+					
+		{{Render::sectionDashboard()}}
+
+	</div>
+
 @stop
 
 @section('footer-js')
 	@parent
-	{{--Render::asset('scripts/sections/dashboard.js')--}}
+	{{Render::asset('js/pages/dashboard.js')}}
 @stop
 
-@section('content')
-
-	<h1>Dashboard</h1>
-
-	{{LEVEL}}
-
-	{{MARKER('[$IMAGE[{"file":"test.jpg", "value":"1"}]]')}}
-
-	{{MARKER('[$IMAGE[file:test.jpg|value:1]]')}}
-
-	{{MARKER('[$IMAGE[file:test.jpg]]')}}
-
-	{{MARKER('[$IMAGE[file:test.jpg|value1:1|value2:2]]')}}
-
+@section('debug')
+{{--LEVEL}}
+{{MARKER('[$IMAGE[{"file":"test.jpg", "value":"1"}]]')}}
+{{MARKER('[$IMAGE[file:test.jpg|value:1]]')}}
+{{MARKER('[$IMAGE[file:test.jpg]]')}}
+{{MARKER('[$IMAGE[file:test.jpg|value1:1|value2:2]]')--}}
 @stop

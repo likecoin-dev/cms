@@ -5,8 +5,9 @@ interface BaseManagerInterface {
 	public function delete($id);
 	public function update($id);
 	public function errors();
-	public function redirect($route);
+	public function redirectTo($route);
 	public function success();
 	public function with(array $input);
+	public function withInput();
 	
 }

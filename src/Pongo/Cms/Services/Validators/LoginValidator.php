@@ -3,13 +3,11 @@
 class LoginValidator extends BaseValidator {
 
 	protected $rules = array(
-
 		'username' => 'required',
 		'password' => 'required'
 	);
 
-	protected $messages = array(
-		
+	protected $messages = array(		
 		'required' 	=> 'validation.errors.required'
 	);
 

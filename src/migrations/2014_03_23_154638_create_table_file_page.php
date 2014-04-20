@@ -12,9 +12,11 @@ class CreateTableFilePage extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('page', function(Blueprint $table)
+		Schema::create('file_page', function(Blueprint $table)
 		{
-			//
+			$table->increments('id')->unsigned();
+			$table->integer('file_id');
+			$table->integer('page_id');
 		});
 	}
 
@@ -25,10 +27,7 @@ class CreateTableFilePage extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('page', function(Blueprint $table)
-		{
-			//
-		});
+		Schema::drop('file_page');
 	}
 
 }

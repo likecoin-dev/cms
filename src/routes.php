@@ -24,12 +24,13 @@ Route::group(Config::get('cms::routes.cms_group_routes'), function() use ($pongo
 	Route::get('/', array('uses' => $pongoControllers.'LoginController@index', 'as' => 'cms.index'));
 	Route::get('login', array('uses' => $pongoControllers.'LoginController@index', 'as' => 'login.index'));
 	Route::get('logout', array('uses' => $pongoControllers.'BaseController@logout', 'as' => 'logout'));
-	// Route::get('lang/{lang}', array('uses' => $pongoControllers.'BaseController@changeLang', 'as' => 'lang'));
+	Route::get('lang/{lang}', array('uses' => $pongoControllers.'BaseController@changeLang', 'as' => 'lang'));
 
 	// // DASHBOARD
 	Route::get('dashboard', array('uses' => $pongoControllers.'DashboardController@showDashboard', 'as' => 'dashboard'));
 
 	// // PAGE
+	Route::get('page/{page_id}', array('uses' => $pongoControllers.'PageController@edit', 'as' => 'page'));
 	// Route::get('page/settings/{page_id}', array('uses' => $pongoControllers.'PageController@settingsPage', 'as' => 'page.settings'));
 	// Route::get('page/layout/{page_id}', array('uses' => $pongoControllers.'PageController@layoutPage', 'as' => 'page.layout'));
 	// Route::get('page/seo/{page_id}', array('uses' => $pongoControllers.'PageController@seoPage', 'as' => 'page.seo'));
@@ -50,10 +51,11 @@ Route::group(Config::get('cms::routes.cms_group_routes'), function() use ($pongo
 	// Route::get('file/edit/{file_id}', array('uses' => $pongoControllers.'FileController@editFile', 'as' => 'file.edit'));
 
 	// // ROLE
+	Route::get('roles', array('uses' => $pongoControllers.'RoleController@allRoles', 'as' => 'roles'));
 	// Route::get('role/settings/{role_id?}', array('uses' => $pongoControllers.'RoleController@settingsRole', 'as' => 'role.settings'));
 
 	// // USER
-	// Route::get('users', array('uses' => $pongoControllers.'UserController@allUsers', 'as' => 'users'));
+	Route::get('users', array('uses' => $pongoControllers.'UserController@allUsers', 'as' => 'users'));
 	// Route::get('user/settings/{user_id?}', array('uses' => $pongoControllers.'UserController@settingsUser', 'as' => 'user.settings'));
 	// Route::get('user/password/{user_id?}', array('uses' => $pongoControllers.'UserController@passwordUser', 'as' => 'user.password'));
 	// Route::get('user/details/{user_id?}', array('uses' => $pongoControllers.'UserController@detailsUser', 'as' => 'user.details'));
@@ -75,7 +77,7 @@ Route::group(Config::get('cms::routes.api_group_routes'), function() use ($apiCo
 
 	// // PAGE
 	// Route::any('page/create', array('uses' => $apiControllers.'PageController@createPage', 'as' => 'api.page.create'));
-	// Route::any('page/lang', array('uses' => $apiControllers.'PageController@changeLang', 'as' => 'api.page.lang'));
+	Route::any('page/lang', array('uses' => $apiControllers.'PageController@switchLanguage', 'as' => 'api.page.lang'));
 	// Route::any('page/order', array('uses' => $apiControllers.'PageController@orderPages', 'as' => 'api.page.order'));
 
 	// 	// SETTINGS

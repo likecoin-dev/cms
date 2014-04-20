@@ -130,7 +130,12 @@ return array(
 
 			'class' => 'Pongo\Cms\Classes\Load',
 			'alias' => 'Pongo\Cms\Support\Facades\Load',
-			'depes' => '',
+			'depes' => array(
+				
+				array('interface' => 'Pongo\Cms\Repositories\FileRepositoryInterface'),
+				array('interface' => 'Pongo\Cms\Repositories\PageRepositoryInterface'),
+
+			),
 
 		),
 
@@ -156,8 +161,8 @@ return array(
 			'alias'	=> 'Pongo\Cms\Support\Facades\Picture',
 			'depes' => array(
 				
-				'Pongo\Cms\Classes\Pongo',
-				'Pongo\Cms\Classes\Theme',
+				array('class' => 'Pongo\Cms\Classes\Pongo'),
+				array('class' => 'Pongo\Cms\Classes\Theme'),
 
 			),
 
@@ -271,14 +276,13 @@ return array(
 
 		),
 
-		/*'page' => array(
+		'page' => array(
 
-			'method'		=> 'singleton',
-			'interface' 	=> 'Pongo\Cms\Support\Repositories\PageRepositoryInterface',
-			'class' 		=> 'Pongo\Cms\Support\Repositories\PageRepositoryEloquent',
-			'depes' => '',
+			'method'		=> 'bind',
+			'interface' 	=> 'Pongo\Cms\Repositories\PageRepositoryInterface',
+			'class' 		=> 'Pongo\Cms\Repositories\PageRepositoryEloquent',
 
-		),	*/	
+		),
 
 		'role' => array(
 
@@ -305,6 +309,22 @@ return array(
 		),
 
 	),
+
+	/**
+	 * IoC manager binds
+	 */
+
+	'services' => array(
+
+		'cacheService' => array(
+
+			'method'		=> 'singleton',
+			'interface' 	=> 'Pongo\Cms\Services\Cache\CacheInterface',
+			'class' 		=> 'Pongo\Cms\Services\Cache\LaravelCache',
+
+		),
+
+	),
 	
 	/**
 	 * Admin interface - Sections Menu array
@@ -323,15 +343,17 @@ return array(
 			
 			'roles' => array(
 
-				'route' 		=> 'role.settings',
-				'min_access' 	=> 'manager'
+				'route' 		=> 'roles',
+				'min_access' 	=> 'manager',
+				'dashb_icon'	=> 'fa-users',
 
 			),
 			
 			'users' => array(
 				
 				'route' 		=> 'users',
-				'min_access' 	=> 'manager'
+				'min_access' 	=> 'manager',
+				'dashb_icon'	=> 'fa-user',
 
 			),
 		),

@@ -14,7 +14,7 @@ class CreateTableUserDetails extends Migration {
 	{
 		Schema::create('user_details', function(Blueprint $table)
 		{
-			$table->increments('id');
+			$table->increments('id')->unsigned();
 			$table->integer('user_id')->unsigned()->index();
 
 			foreach (Pongo::forms('user_details') as $name => $config) {

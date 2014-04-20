@@ -1,7 +1,7 @@
 <?php namespace Pongo\Cms\Classes;
 
-use Pongo\Cms\Support\Repositories\FileRepositoryInterface as File;
-use Pongo\Cms\Support\Repositories\PageRepositoryInterface as Page;
+use Pongo\Cms\Repositories\FileRepositoryInterface as File;
+use Pongo\Cms\Repositories\PageRepositoryInterface as Page;
 
 class Load {
 
@@ -120,8 +120,9 @@ class Load {
 	public function pageList($parent_id, $lang, $page_id = 0, $partial = 'pageitem')
 	{
 		$items = $this->page->getPageList($parent_id, $lang);
-
+		
 		$item_view = \Render::view('partials.items.' . $partial);
+		$item_view['count'] 	= count($items);
 		$item_view['items'] 	= $items;
 		$item_view['page_id'] 	= $page_id;
 		$item_view['parent_id'] = $parent_id;
@@ -169,44 +170,29 @@ class Load {
 	protected function recursivePageTree($id, $field, $separator, $url, $link, $context)
 	{
 		$page = $this->page->getPage($id);
-
-		if($field == 'slug') {
-			
+		if($field == 'slug') {			
 			$separator = '';
-
 			$slug_arr = explode('/', $page->$field);
-
 			$page_field = '/' . end($slug_arr);
-
 		} else {
-
 			$page_field = $page->$field;
 		}
 
 		if($context == 'cms') {
-
 			$slug = link_to_cms('page/edit/' . $page->id, $page_field);
-
 		} else {
-
 			$slug = link_to($page->slug, $page_field);
 		}
 
 		if($page->parent_id == 0) {
-
 			$str = ($link and !$url) ? $slug : $page_field;
-
 		} else {
-
 			if($link and !$url) {
-
 				$str = $this->recursivePageTree($page->parent_id, $field, $separator, $url, $link, $context) . $separator . $slug;
 			} else {
-
 				$str = $this->recursivePageTree($page->parent_id, $field, $separator, $url, $link, $context) . $separator . $page_field;
 			}
 		}
-
 		return $str;				  
 	}
 

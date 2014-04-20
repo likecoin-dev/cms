@@ -14,20 +14,19 @@ class UserRepositoryEloquent extends BaseRepositoryEloquent implements UserRepos
 	/**
 	 * @var Config
 	 */
-	protected $config;
+	// protected $config;
 
 	/**
 	 * User Repository constructor
 	 */
-	function __construct(User $model, CacheInterface $cache)
+	function __construct(User $user, CacheInterface $cache)
 	{
-		$this->model = $model;
+		$this->model = $user;
 		$this->cache = $cache;
 
 		// Set cache parameters
 		$this->cache->cachekey = 'users';
 		$this->cache->minutes = 10;
-
 	}
 
 	public function getUserLevel($user_id)

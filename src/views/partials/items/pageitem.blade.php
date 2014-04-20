@@ -1,5 +1,3 @@
-{{-- */ $count = count($items); /* --}}
-
 @foreach($items as $key => $item)
 
 	@if($parent_id > 0 and $key == 0)
@@ -7,28 +5,20 @@
 	@endif
 
 	<li class="dd-item" data-id="{{$item->id}}">
+
+		<p class="dd-handle">{{Tool::isHome($item->is_home)}}{{$item->name}}</p>
 		
-		<div class="dd-handle{{Tool::isValid($item->is_valid)}}">
-
-			{{Tool::isHome($item->is_home)}}
-			
-			{{--Tool::unChecked($item->is_valid)--}}
-
-			<span>{{$item->name}}</span>
-
-		</div>
-		
-		<a href="{{route('page.settings', array('page_id' => $item->id))}}"{{active($item->id, $page_id)}}>
-			
-			<i class="fa fa-chevron-right"></i>
-
-		</a>
-
 		@if($item->id > 0)
 
 			{{Load::pageList($item->id, $item->lang, $page_id, $partial)}}
 
 		@endif
+
+		<label><input type="checkbox"{{Tool::isChecked($item->is_valid, 1)}}><span></span></label>
+		
+		<a href="{{route('page', array('page_id' => $item->id))}}"{{active($item->id, $page_id)}}>			
+			<i class="fa fa-chevron-right"></i>
+		</a>
 
 	</li>
 

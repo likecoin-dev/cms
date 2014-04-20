@@ -16,9 +16,9 @@ class DatabaseSeeder extends Seeder {
 		// $this->call('ElementPageTableSeeder');
 		// $this->call('FilesTableSeeder');
 		// $this->call('FilePageTableSeeder');
-		// $this->call('PagesTableSeeder');
 		$this->call('RolesTableSeeder');
-		$this->call('UsersTableSeeder');		
+		$this->call('UsersTableSeeder');
+		$this->call('PagesTableSeeder');	
 
 		$this->command->info('PongoCMS seeded!');
 	}

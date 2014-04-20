@@ -65,10 +65,10 @@ class Tool {
 	{
 		if(is_array($fix)) {
 
-			return (in_array($var, $fix)) ? ' checked="checked"' : '';
+			return (in_array($var, $fix)) ? ' checked="checked"' : ' checked=""';
 		}
 
-		return ($var == $fix) ? ' checked="checked"' : '';
+		return ($var == $fix) ? ' checked="checked"' : ' checked=""';
 	}
 
 	/**

@@ -32,9 +32,7 @@
 		
 	@yield('layout')
 
-	@yield('page-bar')
-
-	@yield('modal')
+	@yield('sidebar')
 
 	<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 	<!-- <script>
@@ -54,9 +52,7 @@
 	{{Render::asset('js/pongo.min.js')}}
 	
 	{{Render::scripts('footer')}}
-	@section('footer-js')
-	{{Render::asset('js/main.js')}}
-	@show
+	@yield('footer-js')
 
 </body>
 </html>

@@ -38,7 +38,7 @@ class BaseController extends Controller {
 	public function logout()
 	{
 		\Auth::logout();
-		\Alert::info(t('alert.info.logout'))->flash();
+		\Alert::success(t('alert.info.logout'))->flash();
 		return \Redirect::route('login.index');
 	}
 

@@ -8,6 +8,11 @@ abstract class BaseManager implements BaseManagerInterface  {
 	public $errors = array();
 
 	/**
+	 * @var $success
+	 */
+	public $success = array();
+
+	/**
 	 * @var $input
 	 */
 	protected $input;
@@ -67,14 +72,17 @@ abstract class BaseManager implements BaseManagerInterface  {
 	}
 
 	/**
-	 * [redirect description]
+	 * [redirectTo description]
 	 * @param  [type] $route [description]
+	 * @param  string $msg   [description]
 	 * @return [type]        [description]
 	 */
-	public function redirect($route)
+	public function redirectTo($route, $msg = 'alert.info.redirecting')
 	{	
 		$redirect = array(
-			'status'	=> 'redirect',
+			'redirect'	=> true,
+			'status'	=> 'success',
+			'msg'		=> t($msg),
 			'route'		=> route($route)
 		);
 		return \Response::json($redirect);
@@ -86,7 +94,7 @@ abstract class BaseManager implements BaseManagerInterface  {
 	 */
 	public function success()
 	{
-
+		return \Response::json($this->success);
 	}
 
 	/**
@@ -101,6 +109,48 @@ abstract class BaseManager implements BaseManagerInterface  {
 		$this->validator->input = $input;
 		$this->validator->data = $data;
 		return $this;
+	}
+
+	/**
+	 * [withInput description]
+	 * @return [type] [description]
+	 */
+	public function withInput()
+	{
+		$this->input = \Input::all();
+		$this->validator->input = $this->input;
+		return $this;
+	}
+
+	/**
+	 * Format errors array
+	 * 
+	 * @return array
+	 */
+	protected function formatResponse($status, $message, $subst = array())
+	{
+		return array(
+			'status' 	=> $status,
+			'msg'		=> t($message, $subst)
+		);
+	}
+
+	/**
+	 * [setErrors description]
+	 * @param [type] $errors [description]
+	 */
+	protected function setErrors($messages, $subst = array())
+	{
+		$this->errors = is_array($messages) ? $messages : $this->formatResponse('error', $messages, $subst);
+	}
+
+	/**
+	 * [setSuccess description]
+	 * @param [type] $success [description]
+	 */
+	protected function setSuccess($messages, $subst = array())
+	{
+		$this->success = is_array($messages) ? $messages : $this->formatResponse('success', $messages, $subst);
 	}
 	
 }

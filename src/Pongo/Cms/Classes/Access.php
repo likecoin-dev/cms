@@ -1,21 +1,21 @@
 <?php namespace Pongo\Cms\Classes;
 
 use Pongo\Cms\Repositories\RoleRepositoryInterface as Role;
-use Pongo\Cms\Repositories\UserRepositoryInterface as User;
+// use Pongo\Cms\Repositories\UserRepositoryInterface as User;
 
 class Access {
 
 	protected $role;
 
-	protected $user;
+	// protected $user;
 
 	/**
 	 * Render constructor
 	 */
-	public function __construct(Role $role, User $user)
+	public function __construct(Role $role/*, User $user*/)
 	{
 		$this->role = $role;
-		$this->user = $user;
+		// $this->user = $user;
 	}
 
 	/**
@@ -53,11 +53,8 @@ class Access {
 	public function allowedCms($level = null)
 	{
 		if(is_null($level)) $level = LEVEL;
-
 		$min_access = \Pongo::system('min_access');
-
 		$min_level = \Pongo::system('roles.' . $min_access);
-
 		return ($level >= $min_level) ? true : false;
 	}
 
@@ -70,23 +67,20 @@ class Access {
 	public function grantEdit($role_level)
 	{
 		if(!is_numeric($role_level)) {
-
 			$role = \Pongo::system('sections.' . $role_level . '.min_access');
-
 			$role_level = \Pongo::system('roles.' . $role);
 		}
 
 		$blocked = ($role_level > LEVEL) ? true : false;
 
 		if($blocked) {
-
 			$response = array(
 				'status' 	=> 'error',
 				'msg'		=> t('alert.error.not_granted')
 			);
-
 			return $response;
-		} 
+		}
+		return $blocked;
 	}
 
 	/**
@@ -115,7 +109,7 @@ class Access {
 	 * @param  int $role_id
 	 * @return string
 	 */
-	public function roleList($role_id, $partial = 'roleitem')
+	/*public function roleList($role_id, $partial = 'roleitem')
 	{
 		$items = $this->role->getRolesByLevel();
 
@@ -126,7 +120,7 @@ class Access {
 		$item_view['role_id'] 	= $role_id;
 
 		return $item_view;
-	}
+	}*/
 
 	/**
 	 * Get max level role available
@@ -144,7 +138,7 @@ class Access {
 	 * @param  int $role_id
 	 * @return string
 	 */
-	public function userList($user_id)
+	/*public function userList($user_id)
 	{
 		\Render::assetAdd('footer', 'paginator', 'scripts/plugins/paginator.js');
 
@@ -157,6 +151,6 @@ class Access {
 		$item_view['user_id'] 	= $user_id;
 
 		return $item_view;
-	}
+	}*/
 
 }

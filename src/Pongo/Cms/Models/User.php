@@ -89,4 +89,31 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
+	/**
+	 * [getRememberToken description]
+	 * @return [type] [description]
+	 */
+	public function getRememberToken()
+	{
+		return $this->remember_token;
+	}
+
+	/**
+	 * [setRememberToken description]
+	 * @param [type] $value [description]
+	 */
+	public function setRememberToken($value)
+	{
+		$this->remember_token = $value;
+	}
+
+	/**
+	 * [getRememberTokenName description]
+	 * @return [type] [description]
+	 */
+	public function getRememberTokenName()
+	{
+		return 'remember_token';
+	}
+
 }

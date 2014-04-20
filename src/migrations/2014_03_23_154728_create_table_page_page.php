@@ -12,9 +12,11 @@ class CreateTablePagePage extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('page', function(Blueprint $table)
+		Schema::create('page_page', function(Blueprint $table)
 		{
-			//
+			$table->increments('id');
+			$table->integer('page_id');
+			$table->integer('rel_id');
 		});
 	}
 
@@ -25,10 +27,7 @@ class CreateTablePagePage extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('page', function(Blueprint $table)
-		{
-			//
-		});
+		Schema::drop('page_page');
 	}
 
 }

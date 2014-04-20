@@ -17,14 +17,6 @@ class Render {
 	private $development_path = 'packages/pongocms/cms/';
 
 	/**
-	 * Render constructor
-	 */
-	public function __construct()
-	{
-
-	}
-
-	/**
 	 * Asset shortcut
 	 * 
 	 * @param  string $source Asset path
@@ -34,11 +26,8 @@ class Render {
 	public function asset($source = null, $attributes = array())
 	{		
 		if ( ! is_null($source)) {
-
 			$type = (pathinfo($source, PATHINFO_EXTENSION) == 'css') ? 'style' : 'script';
-
 			$path = env('local') ? $this->development_path : $this->asset_path;
-
 			return \HTML::$type($path . $source, $attributes);
 		} 
 	}
@@ -55,7 +44,6 @@ class Render {
 	public function assetAdd($container = 'default', $name = 'asset', $source = '', $dependency = null)
 	{
 		$path = env('local')  ? $this->development_path : $this->asset_path;
-
 		return \Asset::container($container)->add($name, $path . $source, $dependency);
 	}
 
@@ -113,26 +101,19 @@ class Render {
 	public function layoutPreview($header, $layout, $footer)
 	{
 		$layout_view = \Theme::view('layouts.' . $layout);
-
 		$layout_zones = \Theme::layout($layout);
-
+		
 		foreach ($layout_zones as $zone => $name) {
-
 			$layout_view[$zone] = st('settings.layout.' . $layout . '.' . $zone, $name);
 		}
 
 		$layout_view = strip_tags($layout_view, '<div>');
-
 		$attrib_to_remove = array('class', 'id', 'rel');
 
-		foreach ($attrib_to_remove as $attrib) {
-			
+		foreach ($attrib_to_remove as $attrib) {			
 			$attrib_values = \Tool::getAllAttributes($attrib, $layout_view);
-
 			if(!empty($attrib_values)) {
-
 				foreach ($attrib_values as $value) {
-
 					if(substr($value, 0, 4) != 'col-')
 						$layout_view = str_replace(' '.$attrib.'="'.$value.'"', '', $layout_view);
 				}
@@ -140,14 +121,22 @@ class Render {
 		}
 
 		$view = $this->view('partials.previews.layout');
-
 		$view['header'] = st('settings.header.' . $header, \Theme::config('header.' . $header));
-
 		$view['layout'] = $layout_view;
-
 		$view['footer'] = st('settings.footer.' . $footer, \Theme::config('footer.' . $footer));
-
 		return $view;
+	}
+
+	/**
+	 * Render Dashboard icons
+	 * 
+	 * @return string   View content
+	 */
+	public function sectionDashboard()
+	{
+		$dashboard_view = $this->view('partials.items.dashboarditem');
+		$dashboard_view['items'] = $this->flattenSections();
+		return $dashboard_view;
 	}
 
 	/**
@@ -160,9 +149,7 @@ class Render {
 	public function sectionMenu($sections = array())
 	{
 		$menu_view = $this->view('partials.items.menuitem');
-
-		$menu_view['sections'] 	= (!empty($sections)) ? $sections : \Pongo::system('sections');
-
+		$menu_view['sections'] = (!empty($sections)) ? $sections : \Pongo::system('sections');
 		return $menu_view;
 	}
 
@@ -177,16 +164,34 @@ class Render {
 	{		
 		// Point to cms views
 		$view_name = 'cms::' . $name;
-
 		// Set to 'default' view if view not found
 		if ( ! \View::exists($view_name)) {
-
-			$view_name_arr = explode('.', $view_name);
-			
+			$view_name_arr = explode('.', $view_name);			
 			$view_name = str_replace(end($view_name_arr), 'default', $view_name);
 		}
-
 		return \View::make($view_name, $data);
+	}
+
+	/**
+	 * Flatten the systems sections array
+	 * 
+	 * @return [type] [description]
+	 */
+	private function flattenSections()
+	{
+		$sections = \Pongo::system('sections');
+		$return = array();
+		foreach ($sections as $key => $item) {
+			$arr = array_keys($item);
+			if(is_array($item[$arr[0]])) {
+				foreach ($arr as $subkey) {
+					$return[$subkey] = $item[$subkey];
+				}
+			} else {
+				$return[$key] = $item;
+			}
+		}
+		return $return;
 	}
 	
 }

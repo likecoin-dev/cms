@@ -12,9 +12,12 @@ class CreateTableBlockPage extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('page', function(Blueprint $table)
+		Schema::create('block_page', function(Blueprint $table)
 		{
-			//
+			$table->increments('id')->unsigned();
+			$table->integer('block_id');
+			$table->integer('page_id');
+			$table->integer('order_id')->defaults(Config::get('cms::system.default_order'));
 		});
 	}
 
@@ -25,10 +28,7 @@ class CreateTableBlockPage extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('page', function(Blueprint $table)
-		{
-			//
-		});
+		Schema::drop('block_page');
 	}
 
 }

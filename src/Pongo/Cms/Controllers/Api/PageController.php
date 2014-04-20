@@ -1,32 +1,17 @@
 <?php namespace Pongo\Cms\Controllers\Api;
 
-use Pongo\Cms\Support\Repositories\PageRepositoryInterface as Page;
-use Pongo\Cms\Support\Repositories\ElementRepositoryInterface as Element;
-
-use Pongo\Cms\Support\Validators\Page\SettingsValidator as SettingsValidator;
+use Pongo\Cms\Services\Managers\PageManager;
 
 class PageController extends ApiController {
 
 	/**
-	 * Default order
-	 * 
-	 * @var int
+	 * LoginController constructor
 	 */
-	private $default_order;
-
-	/**
-	 * Class constructor
-	 * @param Page    $page 
-	 * @param Element $element
-	 */
-	public function __construct(Page $page, Element $element)
+	public function __construct(PageManager $manager)
 	{
+		// Apply auth filter
 		parent::__construct();
-
-		$this->page = $page;
-		$this->element = $element;
-
-		$this->default_order = \Pongo::system('default_order');
+		$this->manager = $manager; 
 	}
 
 	/**
@@ -34,30 +19,11 @@ class PageController extends ApiController {
 	 * 
 	 * @return string json encoded object
 	 */
-	public function changeLang()
+	public function switchLanguage()
 	{
-		if(\Input::has('lang')) {
-
-			$lang = \Input::get('lang');
-			$label = \Pongo::settings('languages.' . $lang . '.lang');
-
-			\Session::put('LANG', $lang);
-
-			$response = array(
-				'status' 	=> 'info',
-				'msg'		=> t('alert.info.page_lang', array('lang' => $label))
-			);
-
-		} else {
-
-			$response = array(
-				'status' 	=> 'error',
-				'msg'		=> t('alert.error.page_lang')
-			);
-
+		if ($this->manager->withInput()->switchLanguage()) {
+			return $this->manager->success();
 		}
-
-		return json_encode($response);
 	}
 
 	/**
