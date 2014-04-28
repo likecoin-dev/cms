@@ -7,7 +7,7 @@ class LoginValidator extends BaseValidator {
 		'password' => 'required'
 	);
 
-	protected $messages = array(		
+	protected $messages = array(
 		'required' 	=> 'validation.errors.required'
 	);
 

@@ -1,26 +1,30 @@
 <?php namespace Pongo\Cms\Controllers;
 
-use Pongo\Cms\Support\Repositories\PageRepositoryInterface as Page;
-use Pongo\Cms\Support\Repositories\RoleRepositoryInterface as Role;
+use Pongo\Cms\Services\Managers\PageManager;
 
 class PageController extends BaseController {
 
-	public function __construct(Page $page, Role $role)
+	/**
+	 * LoginController constructor
+	 */
+	public function __construct(PageManager $manager)
 	{
-		parent::__construct();
-
 		$this->beforeFilter('pongo.auth');
-
-		$this->page = $page;
-		$this->role = $role;
+		$this->manager = $manager; 
 	}
 
-	public function deletedPage()
+	/*public function create()
+	{
+		// $page = $this->manager->withEager('file')->loadPage();
+		return \Render::view('sections.page.page');
+	}*/
+
+	/*public function deletedPage()
 	{
 		return \Render::view('sections.page.deleted');
-	}
+	}*/
 
-	public function layoutPage($page_id)
+	/*public function layoutPage($page_id)
 	{
 		\Pongo::viewShare('page_id', $page_id);
 
@@ -46,14 +50,14 @@ class PageController extends BaseController {
 		$view['footer_selected'] 	= !empty($page->footer) ? $page->footer : 'default';
 
 		return $view;
-	}
+	}*/
 
-	public function linkPage()
+	/*public function linkPage()
 	{
 		
-	}
+	}*/
 
-	public function filesPage($page_id)
+	/*public function filesPage($page_id)
 	{
 		\Pongo::viewShare('page_id', $page_id);
 
@@ -70,9 +74,9 @@ class PageController extends BaseController {
 		$view['page_link'] 	= '';
 
 		return $view;
-	}
+	}*/
 
-	public function seoPage($page_id)
+	/*public function seoPage($page_id)
 	{
 		\Pongo::viewShare('page_id', $page_id);
 
@@ -94,7 +98,7 @@ class PageController extends BaseController {
 		$view['page_link'] 	= '';
 
 		return $view;
-	}
+	}*/
 
 	/**
 	 * Show page edit settings
@@ -102,7 +106,7 @@ class PageController extends BaseController {
 	 * @param  int $id
 	 * @return string     view page
 	 */
-	public function settingsPage($page_id)
+	/*public function settingsPage($page_id)
 	{
 		\Pongo::viewShare('page_id', $page_id);
 
@@ -143,6 +147,6 @@ class PageController extends BaseController {
 		$view['languages']	= \Pongo::settings('languages');
 
 		return $view;
-	}
+	}*/
 
 }

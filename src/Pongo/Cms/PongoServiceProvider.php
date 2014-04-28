@@ -56,7 +56,6 @@ class PongoServiceProvider extends ServiceProvider {
 	public function register()
 	{		
 		$app = $this->app;
-		// $app->bind('Pongo\Cms\Services\Cache\CacheInterface', 'Pongo\Cms\Services\Cache\LaravelCache');
 	}
 
 	/**

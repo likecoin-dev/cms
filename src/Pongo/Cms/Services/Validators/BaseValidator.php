@@ -49,22 +49,42 @@ abstract class BaseValidator implements ValidatorInterface {
 	}
 
 	/**
-	 * [passes description]
-	 * @return [type] [description]
+	 * Make the validation
+	 * @return bool
 	 */
 	public function passes()
 	{
-		if( ! empty($this->data)) $this->formatRules();
+		if( ! empty($this->data)) {
+			$this->rules = $this->formatRules();
+		}
+		
 		$validator = $this->validator->make(
 			$this->input,
 			$this->rules,
 			$this->messages
 		);
+
 		if($validator->fails())	{
 			$this->errors = $validator->messages();
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Format custom validation rule parameters
+	 * @return array
+	 */
+	private function formatRules()
+	{
+		foreach ($this->rules as $field => $rule) {
+			foreach ($this->data as $var) {
+				if(array_key_exists($var, $this->input)) {
+					$rules[$field] = str_replace('{'.$var.'}', $this->input[$var], $rule);
+				}
+			}
+		}
+		return $rules;
 	}
 
 	/**
@@ -103,16 +123,6 @@ abstract class BaseValidator implements ValidatorInterface {
 			'msg'		=> t($msg),
 			'errors'	=> $error_msg
 		);
-	}
-
-	private function formatRules()
-	{
-		foreach ($this->rules as $field => $rule) {
-			foreach ($this->data as $var => $value) {
-				$rules[$field] = str_replace('{'.$var.'}', $value, $rule);
-			}
-		}
-		return $rules;
 	}
 	
 }

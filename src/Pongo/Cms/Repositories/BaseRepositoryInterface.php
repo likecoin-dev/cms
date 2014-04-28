@@ -8,7 +8,7 @@ interface BaseRepositoryInterface {
 	
 	public function all();
 
-	public function create($create_array);
+	public function create(array $item);
 
 	public function find($id);
 

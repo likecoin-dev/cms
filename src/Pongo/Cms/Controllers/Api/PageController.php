@@ -4,9 +4,6 @@ use Pongo\Cms\Services\Managers\PageManager;
 
 class PageController extends ApiController {
 
-	/**
-	 * LoginController constructor
-	 */
 	public function __construct(PageManager $manager)
 	{
 		// Apply auth filter
@@ -15,11 +12,22 @@ class PageController extends ApiController {
 	}
 
 	/**
+	 * Create a new empty page
+	 * @return [type] [description]
+	 */
+	public function create()
+	{
+		if ($this->manager->withInput()->createEmptyPage()) {
+			return $this->manager->success();
+		}
+	}
+
+	/**
 	 * Set the new LANG constant
 	 * 
 	 * @return string json encoded object
 	 */
-	public function switchLanguage()
+	public function lang()
 	{
 		if ($this->manager->withInput()->switchLanguage()) {
 			return $this->manager->success();
@@ -27,119 +35,52 @@ class PageController extends ApiController {
 	}
 
 	/**
-	 * Create a new page
+	 * Move page order
 	 * 
 	 * @return string json encoded object
 	 */
-	public function createPage()
+	public function move()
 	{
-		if(\Input::has('lang')) {
-
-			$lang = \Input::get('lang');
-			$name = t('template.page.new', array(), $lang);
-
-			$page_arr = array(
-				'parent_id' 	=> 0,
-				'lang' 			=> $lang,
-				'name' 			=> $name,
-				'slug' 			=> '/' . \Str::slug($name),
-				'title' 		=> $name,
-				'template'		=> 'default',
-				'header'		=> 'default',
-				'layout'		=> 'default',
-				'footer'		=> 'default',
-				'author_id' 	=> USERID,
-				'access_level' 	=> 0,				
-				'role_level' 	=> LEVEL,
-				'order_id' 		=> $this->default_order,
-				'is_valid' 		=> 0
-			);
-
-			$page = $this->page->createPage($page_arr);
-
-			$response = array(
-				'status' 	=> 'success',
-				'msg'		=> t('alert.success.page_created'),
-				'id'		=> $page->id,
-				'name'		=> $name,
-				'url'		=> route('page.settings', array('page_id' => $page->id)),
-				'cls'		=> 'new',
-				'lang'		=> $lang
-			);
-
-		} else {
-
-			$response = array(
-				'status' 	=> 'error',
-				'msg'		=> t('alert.error.page_created')
-			);
-
+		if ($this->manager->withInput()->movePage()) {
+			return $this->manager->success();
 		}
-
-		return json_encode($response);
 	}
 
 	/**
-	 * Re-order pages on Nestable drag&drop
-	 * 
-	 * @return string json encoded object
+	 * [save description]
+	 * @return [type] [description]
 	 */
-	public function orderPages()
+	public function save()
 	{
-		if(\Input::has('pages')) {
-
-			$pages = json_decode(\Input::get('pages'), true);
-
-			// Recursive update
-			$this->updateOrderRecursivePage($pages, 0);
-
-			$response = array(
-				'status' 	=> 'success',
-				'msg'		=> t('alert.success.page_order')
-			);
-
+		if ($this->manager->withInput()->savePage()) {
+			return $this->manager->success();
 		} else {
-
-			$response = array(
-				'status' 	=> 'error',
-				'msg'		=> t('alert.error.page_order')
-			);
-
-		}		
-
-		return json_encode($response);
+			return $this->manager->errors();
+		}
 	}
 
 	/**
-	 * Reorder recursive pages
-	 * 
-	 * @param  array $pages
-	 * @param  int $parent
-	 * @return void
+	 * [valid description]
+	 * @return [type] [description]
 	 */
-	protected function updateOrderRecursivePage($pages, $parent)
+	public function valid()
 	{
-		foreach ($pages as $key => $page_arr) {
-
-			// Get page ID
-			$page_id = $page_arr['id'];
-
-			// Update pages 1st level
-			$page = $this->page->getPage($page_id);
-			$page->parent_id = $parent;
-			$page->order_id = $key + 1;
-			$this->page->savePage($page);
-
-			$page->slug = \Load::pageTree($page->id, 'slug', '/');
-			$this->page->savePage($page);
-
-			// Recursive update
-			if(array_key_exists('children', $page_arr)) {
-				$this->updateOrderRecursivePage($page_arr['children'], $page_id);
-			}
-
+		if ($this->manager->withInput()->validPage()) {
+			return $this->manager->success();
 		}
 	}
+
+
+
+
+
+
+
+
+
+
+
+	
 
 	/**
 	 * Clone a page with elements and files
@@ -221,7 +162,7 @@ class PageController extends ApiController {
 
 			\Alert::success(t('alert.success.page_cloned'))->flash();
 
-			return \Redirect::route('page.settings', array('page_id' => $new_page->id));
+			return \Redirect::route('page.edit', array('page_id' => $new_page->id));
 
 		} else {
 
@@ -256,7 +197,7 @@ class PageController extends ApiController {
 
 					\Alert::error(t('alert.error.page_has_elements'))->flash();
 
-					return \Redirect::route('page.settings', array('id' => $page_id));
+					return \Redirect::route('page.edit', array('id' => $page_id));
 
 				// Has subpages
 
@@ -264,7 +205,7 @@ class PageController extends ApiController {
 
 					\Alert::error(t('alert.error.page_has_subpages'))->flash();
 
-					return \Redirect::route('page.settings', array('id' => $page_id));
+					return \Redirect::route('page.edit', array('id' => $page_id));
 
 				// It's OK, ready to delete
 
@@ -289,7 +230,7 @@ class PageController extends ApiController {
 
 					\Alert::error(t('alert.error.page_has_subpages'))->flash();
 
-					return \Redirect::route('page.settings', array('id' => $page_id));
+					return \Redirect::route('page.edit', array('id' => $page_id));
 
 				// It's OK, ready to delete
 
@@ -330,7 +271,7 @@ class PageController extends ApiController {
 
 			\Alert::error(t('alert.error.page_cant_delete'))->flash();
 
-			return \Redirect::route('page.settings', array('id', $page_id));	
+			return \Redirect::route('page.edit', array('id', $page_id));	
 		}
 
 	}

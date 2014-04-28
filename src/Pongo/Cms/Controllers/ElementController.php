@@ -59,7 +59,7 @@ class ElementController extends BaseController {
 		$view['name']			= $element->name;
 		$view['text']			= $element->text;
 
-		$view['page_link']		= \HTML::link(route('page.settings', array('page_id' => $page->id)), $page->name);
+		$view['page_link']		= \HTML::link(route('page.edit', array('page_id' => $page->id)), $page->name);
 
 		$view['n_files'] 		= $n_files;
 
@@ -92,7 +92,7 @@ class ElementController extends BaseController {
 		$view['zone_selected'] 	= $element->zone;		
 		$view['is_valid'] 		= $element->is_valid;
 
-		$view['page_link']		= \HTML::link(route('page.settings', array('page_id' => $page->id)), $page->name);
+		$view['page_link']		= \HTML::link(route('page.edit', array('page_id' => $page->id)), $page->name);
 
 		$view['template_selected'] 	= !empty($page->template) ? $page->template : 'default';
 		$view['header_selected'] 	= !empty($page->header) ? $page->header : 'default';

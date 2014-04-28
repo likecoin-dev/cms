@@ -1,8 +1,7 @@
 (function() {
-	Pongo.Toggle.togglePages();
-	Pongo.Toggle.toggleOptions();
-	Pongo.Toggle.pageSelectLang();
-	Pongo.Nestable.pageList();
-	Pongo.Nestable.pageExpColl();
+	Pongo.Factory.createPage();
+	Pongo.Form.init();
+	Pongo.Nestable.init();
+	Pongo.Toggle.init();
 	console.log('logged.js loaded!');
 }).call(this);

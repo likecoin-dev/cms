@@ -3,16 +3,19 @@
 use Pongo\Cms\Services\Managers\LoginManager;
 
 Route::filter('pongo.guest', function() {
-	if (Auth::check() or Auth::viaRemember())	{
-		LoginManager::setSessionConstants(\Auth::user()->lang);
+	if (Auth::check()) {
 		return Redirect::route('dashboard');
 	}
 });
 
 Route::filter('pongo.auth', function() {
-	if (Auth::guest())	{
+	if (Auth::guest()) {
 		Alert::error(t('alert.error.unauthorized'))->flash();
 		return Redirect::route('login.index');
+	}
+	if (USERNAME == '') {
+		LoginManager::setSessionConstants(Auth::user()->lang);
+		return Redirect::route('dashboard');
 	}
 });
 
@@ -26,5 +29,12 @@ Route::filter('pongo.auth.api', function() {
 				'type' => 'expired'
 			)
 		);
+	}
+});
+
+Route::filter('pongo.access', function($route, $request, $section) {
+	if ( ! Access::grantEdit($section)) {
+		Alert::error(t('alert.error.not_granted'))->flash();
+		return Redirect::route('dashboard');
 	}
 });

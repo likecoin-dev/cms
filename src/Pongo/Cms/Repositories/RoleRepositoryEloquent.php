@@ -9,6 +9,11 @@ class RoleRepositoryEloquent extends BaseRepositoryEloquent implements RoleRepos
 		$this->model = $model;
 	}
 
+	/**
+	 * [deleteRoleUsers description]
+	 * @param  [type] $role_id [description]
+	 * @return [type]          [description]
+	 */
 	public function deleteRoleUsers($role_id)
 	{
 		return $this->model
@@ -17,6 +22,10 @@ class RoleRepositoryEloquent extends BaseRepositoryEloquent implements RoleRepos
 					->delete();
 	}
 
+	/**
+	 * [getRoles description]
+	 * @return [type] [description]
+	 */
 	public function getRoles()
 	{
 		return $this->model
@@ -26,6 +35,11 @@ class RoleRepositoryEloquent extends BaseRepositoryEloquent implements RoleRepos
 					->get();
 	}
 
+	/**
+	 * [getRolesByLevel description]
+	 * @param  [type] $level [description]
+	 * @return [type]        [description]
+	 */
 	public function getRolesByLevel($level)
 	{
 		return $this->model
@@ -34,6 +48,31 @@ class RoleRepositoryEloquent extends BaseRepositoryEloquent implements RoleRepos
 					->orderBy('level', 'desc')
 					->orderBy('id', 'asc')
 					->get();
+	}
+
+	/**
+	 * [getRolesList description]
+	 * @return [type] [description]
+	 */
+	public function getRolesList()
+	{
+		return $this->model
+					->orderBy('level', 'desc')
+					->orderBy('id', 'asc')
+					->get();
+	}
+
+	/**
+	 * [getRolesListPaginate description]
+	 * @param  [type] $per_page [description]
+	 * @return [type]           [description]
+	 */
+	public function getRolesListPaginate($per_page)
+	{
+		return $this->model
+					->orderBy('level', 'desc')
+					->orderBy('id', 'asc')
+					->paginate($per_page);
 	}
 
 }

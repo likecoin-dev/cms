@@ -44,6 +44,28 @@ class Pongo {
 	}
 
 	/**
+	 * Flatten the systems sections array
+	 * 
+	 * @return [type] [description]
+	 */
+	public function flattenSections()
+	{
+		$sections = $this->system('sections');
+		$return = array();
+		foreach ($sections as $key => $item) {
+			$arr = array_keys($item);
+			if(is_array($item[$arr[0]])) {
+				foreach ($arr as $subkey) {
+					$return[$subkey] = $item[$subkey];
+				}
+			} else {
+				$return[$key] = $item;
+			}
+		}
+		return $return;
+	}
+
+	/**
 	 * Get config form values
 	 * 
 	 * @param  string $key

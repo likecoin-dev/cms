@@ -13,7 +13,7 @@ class LoginController extends BaseController {
 
 	/**
 	 * Login form
-	 * @return void
+	 * @return view
 	 */
 	public function index()
 	{

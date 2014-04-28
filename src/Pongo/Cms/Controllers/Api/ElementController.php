@@ -208,7 +208,7 @@ class ElementController extends ApiController {
 				return \Redirect::route('element.deleted');
 			}			
 
-			return \Redirect::route('page.settings', array('page_id' => $page_id));
+			return \Redirect::route('page.edit', array('page_id' => $page_id));
 
 		} else {
 

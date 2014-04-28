@@ -5,6 +5,11 @@ use Controller;
 class BaseController extends Controller {
 
 	/**
+	 * @var $manager
+	 */
+	protected $manager;
+
+	/**
 	 * Generate bootstrap javascript virtual file
 	 * 
 	 * @return void

@@ -6,7 +6,7 @@
 		
 		<header>
 			
-			<h2>{{t('heading.page.bar_title')}}</h2>
+			<h2>{{t('sidebar.pages.header')}}</h2>
 
 			<div class="page-controls">
 				<i class="fa fa-plus-square" data-action="expand-all"></i>
@@ -19,16 +19,17 @@
 				@endforeach
 			</select>
 
-			<button id="create-page" class="btn btn-primary loading">
+			<button id="create-page" class="btn btn-primary pongo-loading">
 				<i class="fa fa-plus-circle"></i> {{t('form.button.page')}}
 			</button>
 
 		</header>
 		
+		{{ Form::open(array('route' => 'api.page.valid')) }}
 		@foreach(Pongo::settings('languages') as $lang_key => $lang)
-		<div class="dd pages-wrapper" rel="{{$lang_key}}">
+		<div class="dd nestable pages-wrapper pongo-moving pongo-checking" rel="{{$lang_key}}">
 			
-			<ol class="dd-list ol-nested left">
+			<ol class="dd-list ol-nested left pongo-active">
 
 				{{Load::pageList(0, $lang_key, $page_id)}}
 
@@ -36,6 +37,7 @@
 
 		</div>
 		@endforeach
+		{{ Form::close() }}
 
 	</div>
 

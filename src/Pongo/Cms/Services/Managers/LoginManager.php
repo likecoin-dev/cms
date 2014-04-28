@@ -4,7 +4,7 @@ use Pongo\Cms\Classes\Access;
 use Pongo\Cms\Services\Validators\LoginValidator as Validator;
 use Pongo\Cms\Repositories\UserRepositoryInterface as User;
 
-class LoginManager extends BaseManager implements LoginManagerInterface {
+class LoginManager extends BaseManager {
 
 	public function __construct(Access $access, Validator $validator, User $user)
 	{
@@ -18,8 +18,8 @@ class LoginManager extends BaseManager implements LoginManagerInterface {
 	 */
 	public function login()
 	{
-		if ($this->validator->fails()) {			
-			$this->setErrors($this->validator->errors());
+		if ($this->validator->fails()) {
+			return $this->setError($this->validator->errors());
 		} else {
 			$remember = \Input::has('remember');
 			$credentials = array(
@@ -34,12 +34,10 @@ class LoginManager extends BaseManager implements LoginManagerInterface {
 					return true;
 				} else {
 					\Auth::logout();
-					$this->setErrors('alert.error.unauthorized');
-					return false;
+					return $this->setError('alert.error.unauthorized');
 				}
 			} else {
-				$this->setErrors('alert.error.login');
-				return false;
+				return $this->setError('alert.error.login');
 			}	
 		}
 	}

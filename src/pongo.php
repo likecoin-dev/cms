@@ -1,6 +1,6 @@
 <?php
 
-use Pongo\Cms\Support\Validators\PongoValidator;
+use Pongo\Cms\Services\Validators\PongoValidator;
 
 /**
  * Instantiate CustomValidator class

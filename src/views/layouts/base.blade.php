@@ -2,9 +2,11 @@
 
 @section('layout')
 	
-	<div class="wrapper">
+	{{Pongo::showAlert()}}
 
-		{{Pongo::showAlert()}}
+	@yield('modal')
+
+	<div class="wrapper">
 
 		@include('cms::partials.navbar')
 
@@ -25,8 +27,6 @@
 @section('sidebar')
 	@include('cms::partials.sidebar')
 @stop
-
-@yield('modal')
 
 @section('footer-js')
 	{{Render::asset('js/logged.js')}}

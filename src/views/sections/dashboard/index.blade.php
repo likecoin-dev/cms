@@ -12,7 +12,7 @@
 
 @section('footer-js')
 	@parent
-	{{Render::asset('js/pages/dashboard.js')}}
+	{{Render::asset('js/sections/dashboard.js')}}
 @stop
 
 @section('debug')

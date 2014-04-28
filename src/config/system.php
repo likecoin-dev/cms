@@ -106,7 +106,11 @@ return array(
 
 			'class' => 'Pongo\Cms\Classes\Access',
 			'alias' => 'Pongo\Cms\Support\Facades\Access',
-			'depes' => '',
+			'depes' => array(
+				
+				array('interface' => 'Pongo\Cms\Repositories\RoleRepositoryInterface'),
+
+			),
 
 		),
 
@@ -244,7 +248,7 @@ return array(
 
 		'loginManager' => array(
 
-			'method'		=> 'bind',
+			'method'		=> 'singleton',
 			'interface' 	=> 'Pongo\Cms\Services\Managers\LoginManagerInterface',
 			'class' 		=> 'Pongo\Cms\Services\Managers\LoginManager',
 
@@ -270,7 +274,7 @@ return array(
 		
 		'file' => array(
 
-			'method'		=> 'bind',
+			'method'		=> 'singleton',
 			'interface' 	=> 'Pongo\Cms\Repositories\FileRepositoryInterface',
 			'class' 		=> 'Pongo\Cms\Repositories\FileRepositoryEloquent',
 
@@ -278,7 +282,7 @@ return array(
 
 		'page' => array(
 
-			'method'		=> 'bind',
+			'method'		=> 'singleton',
 			'interface' 	=> 'Pongo\Cms\Repositories\PageRepositoryInterface',
 			'class' 		=> 'Pongo\Cms\Repositories\PageRepositoryEloquent',
 
@@ -286,7 +290,7 @@ return array(
 
 		'role' => array(
 
-			'method'		=> 'bind',
+			'method'		=> 'singleton',
 			'interface' 	=> 'Pongo\Cms\Repositories\RoleRepositoryInterface',
 			'class' 		=> 'Pongo\Cms\Repositories\RoleRepositoryEloquent',
 
@@ -294,7 +298,7 @@ return array(
 
 		'user' => array(
 
-			'method'		=> 'bind',
+			'method'		=> 'singleton',
 			'interface' 	=> 'Pongo\Cms\Repositories\UserRepositoryInterface',
 			'class' 		=> 'Pongo\Cms\Repositories\UserRepositoryEloquent',
 
@@ -302,7 +306,7 @@ return array(
 
 		'userdetail' => array(
 
-			'method'		=> 'bind',
+			'method'		=> 'singleton',
 			'interface' 	=> 'Pongo\Cms\Repositories\UserDetailRepositoryInterface',
 			'class' 		=> 'Pongo\Cms\Repositories\UserDetailRepositoryEloquent',
 
@@ -332,10 +336,18 @@ return array(
 	
 	'sections' => array(
 
+		'pages' => array(
+
+			'class' 		=> 'pages-toggle',
+			'min_access' 	=> 'editor',
+			'dashb_icon'	=> 'fa-sitemap',
+
+		),
+
 		'dashboard' => array(
 
 			'route' 		=> 'dashboard',
-			'min_access' 	=> 'editor'
+			'min_access' 	=> 'editor',
 
 		),
 

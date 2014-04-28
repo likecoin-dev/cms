@@ -21,9 +21,9 @@ return array(
 			'delete_item'			=> 'Unable to delete this item',
 			'element_created'		=> 'Unable to create element',
 			'element_order'			=> 'Unable to save order',
-			'input_validator'		=> 'Something went wrong!',
+			'input_validator'		=> 'Please, check the form',
 			'login' 				=> 'Access denied, please retry',
-			'not_granted'			=> 'Editing not allowed',
+			'not_granted'			=> 'You can\'t access this section',
 			'page_cant_delete'		=> 'Unable to delete this page',
 			'page_created'			=> 'Unable to create page',
 			'page_has_elements'		=> 'This page still contains elements',
@@ -55,9 +55,11 @@ return array(
 			'page_cloned'		=> 'Page successfully cloned',
 			'page_created'		=> 'New page created',
 			'page_deleted'		=> 'The page has been deleted',
+			'page_modified'		=> 'The page has been modified',
 			'page_order'		=> 'New page order saved',
 			'role_created'		=> 'Role successfully created',
 			'role_deleted'		=> 'Role successfully deleted',
+			'role_modified'		=> 'The role has been modified',
 			'save'				=> 'Successfully saved',
 			'upload_completed'	=> 'Files successfully uploaded',
 			'upload_comp_err'	=> 'Files uploaded with some errors',
@@ -99,6 +101,7 @@ return array(
 
 		'button' => array(
 
+			'back'			=> 'Back to list',
 			'cancel'		=> 'Cancel',
 			'choose'		=> 'Select files',
 			'clone'			=> 'Clone',
@@ -106,6 +109,7 @@ return array(
 			'delete'		=> 'Delete',
 			'element' 		=> 'Element',
 			'load'			=> 'Load more...',
+			'login'			=> 'Login',
 			'ok'			=> 'Ok',
 			'page' 			=> 'Page',
 			'role'			=> 'Role',
@@ -129,14 +133,6 @@ return array(
 
 		),
 
-		'placeholder' => array(
-
-			'password'	=> 'Enter your password',
-			'search' => 'Search an item',
-			'username'	=> 'Enter your username',
-
-		),
-
 		'select' => array(
 
 			'admin' 	=> 'Admin',
@@ -152,90 +148,26 @@ return array(
 
 	),
 
-	'heading' => array(
-
-		'element' => array(
-
-			'bar_title' 	=> 'Page elements',
-			'content_title' => 'Content',
-
-		),
-
-		'file' => array(
-
-			'bar_title' => 'Page files',
-
-		),
-
-		'layout' => array(
-
-			'bar_title' => 'Content layout',
-
-		),
-
-		'marker' => array(
-
-			'bar_title' => 'Markers',
-
-		),
-
-		'option' => array(
-
-			'bar_title' => 'Options',
-
-		),
-
-		'page' => array(
-
-			'bar_title' 			=> 'Page manager',
-			'layout_title' 			=> 'Layout',
-			'seo_title'		 		=> 'Seo',
-			'files_title' 			=> 'Upload Files',
-			'files_create_title' 	=> 'Create Files',
-			'linked_title' 			=> 'Linked pages',
-			'settings_title' 		=> 'Settings',
-
-		),
-
-		'role' => array(
-
-			'bar_title' 		=> 'User roles',
-			'bar_title_single' 	=> 'User role',
-			'roles_title' 		=> 'Roles',
-
-		),
-
-		'user' => array(
-
-			'bar_title' 		=> 'Users',
-			'details_title' 	=> 'Details',
-			'password_title' 	=> 'Password',
-			'users_title' 		=> 'Users',
-
-		),
-
-	),
-
 	'label' => array(
 
 		'page' => array(
 
 			'settings' => array(
 
-				'browse_by' 	=> 'Who can visit this?',
 				'check_all_ele' => 'All page elements',
 				'choose_lang'	=> 'In which language to clone this page?',
 				'clone'			=> '[CLONATO]',
 				'create_slug' 	=> 'Slug',
-				'edit_by' 		=> 'Who can edit this?',
+				'edit_by' 		=> 'This page can be edited by',
 				'force_delete'	=> 'Delete page and detach all elements',
-				'may_contain'	=> 'What can contain?',
+				'may_contain'	=> 'What this page will contain?',
 				'media_all'		=> 'All page files',
 				'name' 			=> 'Page name',
 				'page_include'	=> 'Include also',
-				'set_hp' 		=> 'Home Page',
+				'set_hp' 		=> 'Set as Home Page',
 				'slug' 			=> 'Page slug',
 				'slug_preview'	=> 'Slug preview',
+				'view_by'		=> 'This page can be viewed by',
 
 			),
 
@@ -388,6 +320,7 @@ return array(
 		'files'			=> 'Files',
 		'galleries'		=> 'Galleries',
 		'menu'			=> 'Menu',
+		'pages'			=> 'Pages',
 		'roles'			=> 'Roles',
 		'shop'			=> 'Shop',
 		'tools'			=> 'Tools',
@@ -410,9 +343,71 @@ return array(
 
 		),
 
-	),	
+	),
+
+	'placeholder' => array(
+
+		'login' => array(
+
+			'password'	=> 'Enter your password',
+			'username'	=> 'Enter your username',
+
+		),
+
+		'page' => array(
+
+			'settings' => array(
+
+				'name' => 'Set a name for the page',
+				'slug' => 'set-a-slug-token-for-the-page',
+
+			),
+
+		),
+
+		'role' => array(
+
+			'settings' => array(
+
+				'name' => 'Set a unique name for the role',
+
+			),
+
+		),
+		
+		'search' => 'Search an item',		
+
+	),
+
+	'sidebar' => array(
+
+		'page' => array(
+
+			'assets' 	=> 'Assets',
+			'header' 	=> 'Page',
+			'layout' 	=> 'Layout',
+			'seo' 		=> 'Seo',
+			'settings' 	=> 'Settings',
+
+		),
+
+		'pages' => array(
+
+			'header' 	=> 'Page manager',
+
+		),
+
+		'role' => array(
+
+			'header' => 'Roles'
+
+		),
+
+	),
 
 	'template' => array(
+
+		'created' => 'Created at :timedate',
 
 		'element' => array(
 
@@ -428,7 +423,7 @@ return array(
 
 		'role' => array(
 
-			'new'			=> 'New role',
+			'new'			=> 'new role',
 
 		),
 
@@ -452,6 +447,7 @@ return array(
 			'integer'		=> 'This value must be an integer',
 			'is_slug'		=> 'Click the button to generate a correct slug',
 			'max_username'	=> 'Username can\'t exceed :max chars',
+			'min'			=> 'This field must have at least :min chars',
 			'min_password'	=> 'Password must be at least :min chars',
 			'not_image'		=> 'This tool is not for images',
 			'required' 		=> 'This field is required',

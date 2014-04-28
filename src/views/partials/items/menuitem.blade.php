@@ -1,9 +1,11 @@
 @if(is_array($sections))
 	@foreach($sections as $key => $section)
-		@if(array_key_exists('route', $section))
+		@if(array_key_exists('route', $section) or array_key_exists('class', $section))
+			@if(array_key_exists('route', $section))
 			<li>
 				{{link_to_route($section['route'], t('menu.' . $key))}}
 			</li>
+			@endif
 		@else
 			<li class="dropdown">
 				@if(!empty($section))

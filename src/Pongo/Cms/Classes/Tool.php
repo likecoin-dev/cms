@@ -43,6 +43,17 @@ class Tool {
 	}
 
 	/**
+	 * [getJson description]
+	 * @param  [type]  $key   [description]
+	 * @param  boolean $array [description]
+	 * @return [type]         [description]
+	 */
+	public function getJson($key, $array = true)
+	{
+		return json_decode(\Input::get($key), $array);
+	}
+
+	/**
 	 * Print out class=active if true
 	 * 
 	 * @param  string $var 
@@ -65,10 +76,10 @@ class Tool {
 	{
 		if(is_array($fix)) {
 
-			return (in_array($var, $fix)) ? ' checked="checked"' : ' checked=""';
+			return (in_array($var, $fix)) ? ' checked="checked"' : '';
 		}
 
-		return ($var == $fix) ? ' checked="checked"' : ' checked=""';
+		return ($var == $fix) ? ' checked="checked"' : '';
 	}
 
 	/**

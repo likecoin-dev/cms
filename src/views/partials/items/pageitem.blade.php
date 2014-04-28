@@ -7,19 +7,14 @@
 	<li class="dd-item" data-id="{{$item->id}}">
 
 		<p class="dd-handle">{{Tool::isHome($item->is_home)}}{{$item->name}}</p>
-		
-		@if($item->id > 0)
-
-			{{Load::pageList($item->id, $item->lang, $page_id, $partial)}}
-
-		@endif
-
-		<label><input type="checkbox"{{Tool::isChecked($item->is_valid, 1)}}><span></span></label>
-		
-		<a href="{{route('page', array('page_id' => $item->id))}}"{{active($item->id, $page_id)}}>			
+		<label><input type="checkbox" value="{{$item->id}}" class="pongo-checkbox"{{Tool::isChecked($item->is_valid, 1)}}><span></span></label>
+		<a href="{{route('page.edit', array('page_id' => $item->id))}}"{{active($item->id, $page_id)}}>
 			<i class="fa fa-chevron-right"></i>
 		</a>
 
+		@if($item->id > 0)
+			{{Load::pageList($item->id, $item->lang, $page_id, $partial)}}
+		@endif
 	</li>
 
 	@if($parent_id > 0 and $key == $count-1)

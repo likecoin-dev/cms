@@ -37,7 +37,46 @@ abstract class BaseManager implements BaseManagerInterface  {
 	 * @param  [type] $id [description]
 	 * @return [type]     [description]
 	 */
-	public function create($id)
+	public function create(array $item)
+	{
+
+	}
+
+	/**
+	 * [getOne description]
+	 * @param  [type] $id [description]
+	 * @return [type]     [description]
+	 */
+	public function getOne($id)
+	{
+		return $this->model->find($id);
+	}
+
+	/**
+	 * [getOne description]
+	 * @param  [type] $id [description]
+	 * @return [type]     [description]
+	 */
+	public function getAll()
+	{
+		return $this->model->all();
+	}
+
+	/**
+	 * [getPaginate description]
+	 * @return [type] [description]
+	 */
+	public function getPaginate($per_page)
+	{
+		return $this->model->paginate($per_page);
+	}
+
+	/**
+	 * [update description]
+	 * @param  [type] $id [description]
+	 * @return [type]     [description]
+	 */
+	public function update($id)
 	{
 
 	}
@@ -49,17 +88,7 @@ abstract class BaseManager implements BaseManagerInterface  {
 	 */
 	public function delete($id)
 	{
-
-	}
-
-	/**
-	 * [update description]
-	 * @param  [type] $id [description]
-	 * @return [type]     [description]
-	 */
-	public function update($id)
-	{
-
+		return $this->model->find($id)->delete();
 	}
 
 	/**
@@ -74,17 +103,18 @@ abstract class BaseManager implements BaseManagerInterface  {
 	/**
 	 * [redirectTo description]
 	 * @param  [type] $route [description]
-	 * @param  string $msg   [description]
+	 * @param  [type] $msg   [description]
 	 * @return [type]        [description]
 	 */
-	public function redirectTo($route, $msg = 'alert.info.redirecting')
+	public function redirectTo($route, $msg = false)
 	{	
 		$redirect = array(
 			'redirect'	=> true,
 			'status'	=> 'success',
-			'msg'		=> t($msg),
+			'msg'		=> (!$msg) ? $msg : t($msg),
 			'route'		=> route($route)
 		);
+
 		return \Response::json($redirect);
 	}
 
@@ -95,31 +125,6 @@ abstract class BaseManager implements BaseManagerInterface  {
 	public function success()
 	{
 		return \Response::json($this->success);
-	}
-
-	/**
-	 * [with description]
-	 * @param  array  $input [description]
-	 * @param  array  $data  [description]
-	 * @return [type]        [description]
-	 */
-	public function with(array $input, array $data = array())
-	{
-		$this->input = $input;
-		$this->validator->input = $input;
-		$this->validator->data = $data;
-		return $this;
-	}
-
-	/**
-	 * [withInput description]
-	 * @return [type] [description]
-	 */
-	public function withInput()
-	{
-		$this->input = \Input::all();
-		$this->validator->input = $this->input;
-		return $this;
 	}
 
 	/**
@@ -136,12 +141,13 @@ abstract class BaseManager implements BaseManagerInterface  {
 	}
 
 	/**
-	 * [setErrors description]
+	 * [setError description]
 	 * @param [type] $errors [description]
 	 */
-	protected function setErrors($messages, $subst = array())
+	protected function setError($messages, $subst = array())
 	{
 		$this->errors = is_array($messages) ? $messages : $this->formatResponse('error', $messages, $subst);
+		return false;
 	}
 
 	/**
@@ -151,6 +157,48 @@ abstract class BaseManager implements BaseManagerInterface  {
 	protected function setSuccess($messages, $subst = array())
 	{
 		$this->success = is_array($messages) ? $messages : $this->formatResponse('success', $messages, $subst);
+		return true;
+	}
+
+	/**
+	 * [with description]
+	 * @param  array  $input [description]
+	 * @param  array  $data  [description]
+	 * @return [type]        [description]
+	 */
+	public function with(array $input, $data = array())
+	{
+		$this->input = $input;
+		$this->validator->input = $input;
+		if (is_string($data)) $data = func_get_args();
+		$this->validator->data = $data;
+		return $this;
+	}
+
+	/**
+	 * [withInput description]
+	 * @param  array  $data [description]
+	 * @return [type]       [description]
+	 */
+	public function withInput($data = array())
+	{
+		$this->input = \Input::all();
+		$this->validator->input = $this->input;
+		if (is_string($data)) $data = func_get_args();
+		$this->validator->data = $data;
+		return $this;
+	}
+
+	/**
+	 * [withEager description]
+	 * @param  [type] $relations [description]
+	 * @return [type]            [description]
+	 */
+	public function withEager($relations)
+	{
+		if (is_string($relations)) $relations = func_get_args();
+		$this->model->eagers = $relations;
+		return $this;
 	}
 	
 }

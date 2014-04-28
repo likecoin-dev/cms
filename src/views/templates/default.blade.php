@@ -46,6 +46,7 @@
 
 	{{Render::asset('js/lib/jquery.min.js')}}
 	{{Render::asset('js/lib/underscore.min.js')}}
+	{{Render::asset('js/lib/knockout.min.js')}}
 	{{Render::asset('js/lib/bootstrap.min.js')}}
 
 	{{Render::asset('js/plugins.min.js')}}

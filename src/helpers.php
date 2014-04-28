@@ -198,6 +198,21 @@ if ( ! function_exists('checked'))
 	}
 }
 
+if ( ! function_exists('get_json'))
+{
+	/**
+	 * Get json input
+	 * 
+	 * @param  string $key
+	 * @param  bool   $array
+	 * @return array
+	 */
+	function get_json($key, $array = true)
+	{
+		return Tool::getJson($key, $array);
+	}
+}
+
 if ( ! function_exists('is_empty'))
 {
 	/**

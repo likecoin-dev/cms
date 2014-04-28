@@ -1,6 +1,6 @@
 <?php namespace Pongo\Cms\Controllers;
 
-use Pongo\Cms\Support\Repositories\RoleRepositoryInterface as Role;
+use Pongo\Cms\Services\Managers\RoleManager;
 
 class RoleController extends BaseController {
 
@@ -9,34 +9,31 @@ class RoleController extends BaseController {
 	 * 
 	 * @param Role    $role
 	 */
-	public function __construct(Role $role)
+	public function __construct(RoleManager $manager)
 	{
-		parent::__construct();
-
 		$this->beforeFilter('pongo.auth');
-
-		$this->role = $role;
+		$this->beforeFilter('pongo.access:roles');
+		$this->manager = $manager;
 	}
 
 	/**
-	 * Show role settings page
-	 * 
-	 * @param  int $role_id
-	 * @return string     view page
+	 * [list description]
+	 * @return [type] [description]
 	 */
-	public function settingsRole($role_id = null)
+	public function index()
 	{
-		if(is_null($role_id)) $role_id = ROLEID;
+		$roles = $this->manager->getRolesList();
+		return \Render::view('sections.roles.index', array('roles' => $roles));		
+	}
 
-		$role = $this->role->getRole($role_id);
-
-		$view = \Render::view('sections.role.settings');
-		$view['section'] 		= 'roles';
-		$view['role_id'] 		= $role_id;
-		$view['section_name'] 	= t('menu.roles');		
-		$view['name']			= $role->name;
-
-		return $view;
+	/**
+	 * [edit description]
+	 * @return [type] [description]
+	 */
+	public function edit($role_id)
+	{
+		$role = $this->manager->getOne($role_id);
+		return \Render::view('sections.roles.edit', array('role' => $role));
 	}
 
 }

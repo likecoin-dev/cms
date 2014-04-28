@@ -3,18 +3,24 @@
 abstract class BaseRepositoryEloquent implements BaseRepositoryInterface {
 	
 	/**
+	 * [$eagers description]
+	 * @var array
+	 */
+	public $eagers;
+
+	/**
 	 * @var Model
 	 */
-	protected $model;	
+	protected $model;
 
 	public function all()
 	{
 		return $this->model->all();
 	}
 
-	public function create($create_array)
+	public function create(array $item)
 	{
-		return $this->model->create($create_array);
+		return $this->model->create($item);
 	}
 
 	public function find($id)
@@ -66,11 +72,6 @@ abstract class BaseRepositoryEloquent implements BaseRepositoryInterface {
 	public function getModel()
 	{
 		return $this->model;
-	}
-
-	public function testCache()
-	{
-		return $this->cache;
 	}
 
 }

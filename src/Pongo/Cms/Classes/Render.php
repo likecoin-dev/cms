@@ -48,6 +48,20 @@ class Render {
 	}
 
 	/**
+	 * [breadCrumb description]
+	 * @param  array  $routes [description]
+	 * @return [type]         [description]
+	 */
+	public function breadCrumb($routes)
+	{
+		if (is_string($routes)) $routes = func_get_args();
+		$breadcrumb_view = $this->view('partials.breadcrumb');
+		$breadcrumb_view['sections'] = \Pongo::flattenSections();
+		$breadcrumb_view['routes'] = $routes;
+		return $breadcrumb_view;
+	}
+
+	/**
 	 * Bootstrap virtual asset
 	 * 
 	 * @param  string $source
@@ -134,8 +148,8 @@ class Render {
 	 */
 	public function sectionDashboard()
 	{
-		$dashboard_view = $this->view('partials.items.dashboarditem');
-		$dashboard_view['items'] = $this->flattenSections();
+		$dashboard_view = $this->view('sections.dashboard.partials.item');
+		$dashboard_view['items'] = \Pongo::flattenSections();
 		return $dashboard_view;
 	}
 
@@ -170,28 +184,6 @@ class Render {
 			$view_name = str_replace(end($view_name_arr), 'default', $view_name);
 		}
 		return \View::make($view_name, $data);
-	}
-
-	/**
-	 * Flatten the systems sections array
-	 * 
-	 * @return [type] [description]
-	 */
-	private function flattenSections()
-	{
-		$sections = \Pongo::system('sections');
-		$return = array();
-		foreach ($sections as $key => $item) {
-			$arr = array_keys($item);
-			if(is_array($item[$arr[0]])) {
-				foreach ($arr as $subkey) {
-					$return[$subkey] = $item[$subkey];
-				}
-			} else {
-				$return[$key] = $item;
-			}
-		}
-		return $return;
 	}
 	
 }

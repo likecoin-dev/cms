@@ -61,26 +61,20 @@ class Access {
 	/**
 	 * Check page role_level against user level
 	 * 
-	 * @param  int $role_level page role_level
-	 * @return void
+	 * @param  int / string $role_level page role_level
+	 * @return bool
 	 */
-	public function grantEdit($role_level)
+	public function grantEdit($min_access_level)
 	{
-		if(!is_numeric($role_level)) {
-			$role = \Pongo::system('sections.' . $role_level . '.min_access');
-			$role_level = \Pongo::system('roles.' . $role);
+		if (is_numeric($min_access_level)) {
+			return (LEVEL >= $min_access_level) ? true : false;
+		} else {
+			$sections = \Pongo::flattenSections();
+			$access = $sections[$min_access_level]['min_access'];
+			$accessLevel = \Pongo::system('roles.' . $access);
+			return (LEVEL >= $accessLevel) ? true : false;
 		}
-
-		$blocked = ($role_level > LEVEL) ? true : false;
-
-		if($blocked) {
-			$response = array(
-				'status' 	=> 'error',
-				'msg'		=> t('alert.error.not_granted')
-			);
-			return $response;
-		}
-		return $blocked;
+		return false;
 	}
 
 	/**

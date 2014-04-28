@@ -401,6 +401,8 @@ return array(
 
 	'template' => array(
 
+		'created' => 'Creata alle :timedate',
+
 		'element' => array(
 
 			'new'			=> 'Nuovo elemento',

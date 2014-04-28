@@ -1,13 +1,16 @@
 <?php namespace Pongo\Cms\Services\Managers;
 
 interface BaseManagerInterface {
-	public function create($id);
-	public function delete($id);
+	public function create(array $item);
+	public function getOne($id);
+	public function getAll();
+	public function getPaginate($per_page);
 	public function update($id);
+	public function delete($id);
 	public function errors();
 	public function redirectTo($route);
 	public function success();
-	public function with(array $input);
-	public function withInput();
-	
+	public function with(array $input, $data);
+	public function withInput($data);
+	public function withEager($relations);	
 }

@@ -169,7 +169,7 @@ class Load {
 	 */
 	protected function recursivePageTree($id, $field, $separator, $url, $link, $context)
 	{
-		$page = $this->page->getPage($id);
+		$page = $this->page->find($id);
 		if($field == 'slug') {			
 			$separator = '';
 			$slug_arr = explode('/', $page->$field);

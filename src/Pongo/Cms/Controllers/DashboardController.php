@@ -7,9 +7,9 @@ class DashboardController extends BaseController {
 		$this->beforeFilter('pongo.auth');
 	}
 
-	public function showDashboard()
+	public function index()
 	{
-		return \Render::view('sections.dashboard.dashboard');
+		return \Render::view('sections.dashboard.index');
 	}
 
 }
