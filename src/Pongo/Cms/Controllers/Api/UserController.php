@@ -1,70 +1,66 @@
 <?php namespace Pongo\Cms\Controllers\Api;
 
-use Pongo\Cms\Support\Repositories\UserRepositoryInterface as User;
-
-use Pongo\Cms\Support\Validators\User\SettingsValidator as SettingsValidator;
-use Pongo\Cms\Support\Validators\User\PasswordValidator as PasswordValidator;
-use Pongo\Cms\Support\Validators\User\DetailsValidator as DetailsValidator;
+use Pongo\Cms\Services\Managers\UserManager;
 
 class UserController extends ApiController {
 
-	/**
-	 * Class constructor
-	 * 
-	 * @param User    $user
-	 */
-	public function __construct(User $user)
+	public function __construct(UserManager $manager)
 	{
+		// Apply auth filter
 		parent::__construct();
-
-		$this->user = $user;
+		$this->manager = $manager;
 	}
 
 	/**
-	 * Create a new User
-	 * 
+	 * Create a new empty user
+	 * @return [type] [description]
+	 */
+	public function create()
+	{
+		if ($this->manager->createEmptyUser()) {
+			return $this->manager->success();
+		}
+	}
+
+	/**
+	 * [delete description]
+	 * @return [type] [description]
+	 */
+	public function delete()
+	{
+		if ($this->manager->withInput()->deleteUser()) {
+			return $this->manager->success();
+		}
+	}
+
+	/**
+	 * Save the role model
 	 * @return json object
 	 */
-	public function createUser()
+	public function save()
 	{
-		if(\Input::has('create')) {
-
-			$user_account = \Pongo::settings('user_account');
-
-			$user_arr = array(
-				'role_id'	=> $user_account['role_id'],
-				'username' 	=> $user_account['username'],
-				'email'		=> $user_account['email'],
-				'password'	=> \Hash::make($user_account['password']),
-				'lang'		=> CMSLANG,
-				'editor'	=> 0,
-				'is_valid' 	=> 0
-			);
-
-			$new_user = $this->user->createUser($user_arr);
-
-			$this->user->createUserDetails($new_user->id);
-
-			$response = array(
-				'status' 	=> 'success',
-				'msg'		=> t('alert.success.user_created'),
-				'id'		=> $new_user->id,
-				'name'		=> $new_user->username,
-				'url'		=> route('user.settings', array('user_id' => $new_user->id)),
-				'cls'		=> 'new'
-			);
-
+		if ($this->manager->withInput('id')->saveUser()) {
+			return $this->manager->redirectTo('users');
 		} else {
-
-			$response = array(
-				'status' 	=> 'error',
-				'msg'		=> t('alert.error.user_created')
-			);
-
+			return $this->manager->errors();
 		}
-
-		return json_encode($response);
 	}
+
+	/**
+	 * [valid description]
+	 * @return [type] [description]
+	 */
+	public function valid()
+	{
+		if ($this->manager->withInput()->validUser()) {
+			return $this->manager->success();
+		}
+	}
+
+
+
+
+
 
 	/**
 	 * Save user details

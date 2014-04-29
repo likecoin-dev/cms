@@ -154,6 +154,20 @@ class Render {
 	}
 
 	/**
+	 * Render PongoCMS search engine
+	 * @param  [type] $model [description]
+	 * @param  array  $items [description]
+	 * @return [type]        [description]
+	 */
+	public function searchForm($model, $items = array())
+	{
+		$search_view = $this->view('partials.forms.searchform');
+		$search_view['model'] = $model;
+		$search_view['items'] = $items;
+		return $search_view;
+	}
+
+	/**
 	 * Render PongoCMS main menu
 	 * Based on config/system.php sections array
 	 *

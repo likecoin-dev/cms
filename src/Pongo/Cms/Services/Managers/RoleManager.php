@@ -24,7 +24,7 @@ class RoleManager extends BaseManager {
 		
 		$default_role = array(
 			'name' 		=> $name,
-			'level' 	=> 2,		// Set as 'user'+1 level
+			'level' 	=> 0,		// Set as 'guest' level
 			'is_valid'	=> 0
 		);
 
@@ -71,7 +71,7 @@ class RoleManager extends BaseManager {
 	 */
 	public function getRolesList()
 	{	
-		return $this->model->getRolesListPaginate(XPAGE);
+		return $this->model->getRolesList();
 	}
 
 	/**
@@ -98,7 +98,7 @@ class RoleManager extends BaseManager {
 				}		
 			}
 
-			return $this->setSuccess('alert.success.element_order');
+			return $this->setSuccess('alert.success.order_saved');
 		}
 	}
 

@@ -44,12 +44,12 @@ class UserRepositoryEloquent extends BaseRepositoryEloquent implements UserRepos
 					->details;
 	}
 
-	public function getUsersWithRoles($limit)
+	public function getUsersWithRole($per_page)
 	{
 		return $this->model
 					->with('role')
-					->orderBy('username')
-					->paginate($limit);
+					->orderBy('username', 'asc')
+					->paginate($per_page);
 	}
 
 	public function searchUser($search, $field)

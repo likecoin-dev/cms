@@ -5,13 +5,8 @@ interface UserRepositoryInterface {
 	/**
 	 * Custom methods for User
 	 */
-
 	public function getUserLevel($user_id);
-
 	public function getUserDetails($user_id);
-
-	public function getUsersWithRoles($limit);
-
-	public function searchUser($search, $field);
-	
+	public function getUsersWithRole($per_page);
+	public function searchUser($search, $field);	
 }

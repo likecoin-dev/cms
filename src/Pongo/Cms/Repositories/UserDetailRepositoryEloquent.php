@@ -15,4 +15,11 @@ class UserDetailRepositoryEloquent extends BaseRepositoryEloquent implements Use
 					->create(array('user_id' => $user_id));
 	}
 
+	public function deleteUserDetails($user_id)
+	{
+		return $this->model
+					->where('user_id', $user_id)
+					->delete();
+	}
+
 }

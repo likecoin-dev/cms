@@ -29,7 +29,7 @@
 					<div class="tab-pane active" id="roles">
 						
 						{{ Form::open(array('route' => 'api.role.valid')) }}
-						<div class="dl nestable tab-wrapper pongo-moving pongo-checking pongo-confirming">
+						<div class="dl tab-wrapper pongo-moving pongo-checking pongo-confirming">
 
 							<ol class="dl-list ol-list pongo-active">
 

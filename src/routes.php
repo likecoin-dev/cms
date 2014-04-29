@@ -56,6 +56,7 @@ Route::group(Config::get('cms::routes.cms_group_routes'), function() use ($pongo
 
 	// // USER
 	Route::get('users', array('uses' => $pongoControllers.'UserController@index', 'as' => 'users'));
+	Route::get('user/edit/{user_id?}', array('uses' => $pongoControllers.'UserController@edit', 'as' => 'user.edit'));
 	// Route::get('user/settings/{user_id?}', array('uses' => $pongoControllers.'UserController@settingsUser', 'as' => 'user.settings'));
 	// Route::get('user/password/{user_id?}', array('uses' => $pongoControllers.'UserController@passwordUser', 'as' => 'user.password'));
 	// Route::get('user/details/{user_id?}', array('uses' => $pongoControllers.'UserController@detailsUser', 'as' => 'user.details'));
@@ -126,9 +127,11 @@ Route::group(Config::get('cms::routes.api_group_routes'), function() use ($apiCo
 	// 	Route::any('role/settings/delete', array('uses' => $apiControllers.'RoleController@roleSettingsDelete', 'as' => 'api.role.settings.delete'));
 
 	// // USER
-	// Route::any('user/order', array('uses' => $apiControllers.'UserController@orderUser', 'as' => 'api.user.order'));
-	// Route::any('user/create', array('uses' => $apiControllers.'UserController@createUser', 'as' => 'api.user.create'));
-	// Route::any('user/search', array('uses' => $apiControllers.'UserController@searchUser', 'as' => 'api.user.search'));
+	Route::post('user/create', array('uses' => $apiControllers.'UserController@create', 'as' => 'api.user.create'));
+	Route::post('user/delete', array('uses' => $apiControllers.'UserController@delete', 'as' => 'api.user.delete'));
+	Route::post('user/save', array('uses' => $apiControllers.'UserController@save', 'as' => 'api.user.save'));
+	Route::post('user/search', array('uses' => $apiControllers.'UserController@search', 'as' => 'api.user.search'));
+	Route::post('user/valid', array('uses' => $apiControllers.'UserController@valid', 'as' => 'api.user.valid'));
 	
 	// 	// SETTINGS
 	// 	Route::any('user/settings/save', array('uses' => $apiControllers.'UserController@userSettingsSave', 'as' => 'api.user.settings.save'));

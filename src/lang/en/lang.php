@@ -52,6 +52,7 @@ return array(
 			'element_order'		=> 'New element order saved',
 			'file_created'		=> 'File entry successfully saved',
 			'item_remove'		=> 'This item has been removed',
+			'order_saved'		=> 'New order saved',
 			'page_cloned'		=> 'Page successfully cloned',
 			'page_created'		=> 'New page created',
 			'page_deleted'		=> 'The page has been deleted',
@@ -65,6 +66,7 @@ return array(
 			'upload_comp_err'	=> 'Files uploaded with some errors',
 			'user_created'		=> 'User successfully created',
 			'user_deleted'		=> 'The user has been deleted',
+			'user_modified'		=> 'The user has been modified',
 
 		),
 
@@ -114,6 +116,7 @@ return array(
 			'page' 			=> 'Page',
 			'role'			=> 'Role',
 			'save'			=> 'Save',
+			'search'		=> 'Search',
 			'upload'		=> 'Start upload',
 			'upload_files'	=> 'Upload files',
 			'user'			=> 'User',
@@ -137,12 +140,19 @@ return array(
 
 			'admin' 	=> 'Admin',
 			'blogs'		=> 'Blog posts',
+			'city'		=> 'City',
+			'contains'	=> 'contains',
 			'editor' 	=> 'Editor',
+			'equal_to'	=> 'equal to',
+			'email'		=> 'E-mail',
 			'guest' 	=> 'Guest',
+			'is_valid'	=> 'Is enabled',
+			'lastname'	=> 'Last name',
 			'manager' 	=> 'Manager',
 			'pages'		=> 'Other pages',
 			'products'	=> 'Products',
 			'user' 		=> 'User',
+			'username'	=> 'Username',
 
 		),
 
@@ -400,6 +410,12 @@ return array(
 		'role' => array(
 
 			'header' => 'Roles'
+
+		),
+
+		'user' => array(
+
+			'header' => 'Users'
 
 		),
 

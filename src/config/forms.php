@@ -62,7 +62,7 @@ return array(
 
 	'user_details' => array(
 
-		'name' => array(
+		'firstname' => array(
 
 			'form' 		=> 'text',
 			'type' 		=> 'string',
@@ -71,7 +71,7 @@ return array(
 
 		),
 
-		'surname' => array(
+		'lastname' => array(
 
 			'form' 		=> 'text',
 			'type' 		=> 'string',

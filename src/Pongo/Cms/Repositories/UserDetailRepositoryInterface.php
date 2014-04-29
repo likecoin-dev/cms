@@ -7,5 +7,6 @@ interface UserDetailRepositoryInterface {
 	 */
 
 	public function createUserDetails($user_id);
+	public function deleteUserDetails($user_id);
 	
 }

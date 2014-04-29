@@ -10,19 +10,6 @@ class RoleRepositoryEloquent extends BaseRepositoryEloquent implements RoleRepos
 	}
 
 	/**
-	 * [deleteRoleUsers description]
-	 * @param  [type] $role_id [description]
-	 * @return [type]          [description]
-	 */
-	public function deleteRoleUsers($role_id)
-	{
-		return $this->model
-					->find($role_id)
-					->users()
-					->delete();
-	}
-
-	/**
 	 * [getRoles description]
 	 * @return [type] [description]
 	 */

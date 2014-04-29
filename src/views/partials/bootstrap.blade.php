@@ -20,4 +20,5 @@ Pongo.directionality = '{{Pongo::settings('languages.'.CMSLANG.'.dir')}}';
 Pongo.cancel = '{{t('form.button.cancel')}}';
 Pongo.upload = '{{t('form.button.upload')}}';
 Pongo.load = '{{t('form.button.load')}}';
+Pongo.ipp = '{{XPAGE}}';
 Pongo.results = '{{t('label.user.all.results')}}';

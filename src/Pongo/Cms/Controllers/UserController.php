@@ -1,6 +1,6 @@
 <?php namespace Pongo\Cms\Controllers;
 
-use Pongo\Cms\Support\Repositories\UserRepositoryInterface as User;
+use Pongo\Cms\Services\Managers\UserManager;
 
 class UserController extends BaseController {
 
@@ -9,14 +9,40 @@ class UserController extends BaseController {
 	 * 
 	 * @param Role    $role
 	 */
-	public function __construct(User $user)
+	public function __construct(UserManager $manager)
 	{
-		parent::__construct();
-
 		$this->beforeFilter('pongo.auth');
-
-		$this->user	= $user;
+		$this->beforeFilter('pongo.access:users');
+		$this->manager = $manager;
 	}
+
+	/**
+	 * [list description]
+	 * @return [type] [description]
+	 */
+	public function index()
+	{
+		$users = $this->manager->getUsersList();
+		return \Render::view('sections.users.index', array('users' => $users));		
+	}
+
+	/**
+	 * [edit description]
+	 * @return [type] [description]
+	 */
+	public function edit($user_id)
+	{
+		$user = $this->manager->getOne($user_id);
+		return \Render::view('sections.users.edit', array('user' => $user));
+	}
+
+
+
+
+
+
+
+
 
 	/**
 	 * Show users list

@@ -52,8 +52,8 @@ class UsersTableSeeder extends Seeder {
 
 			$details = array(
 				'user_id' 		=> $user->id,
-				'name'			=> $faker->firstname,
-				'surname'		=> $faker->lastname,
+				'firstname'		=> $faker->firstname,
+				'lastname'		=> $faker->lastname,
 				'gender'		=> $faker->randomElement(array('m','f')),
 				'city'			=> $faker->city,
 				'bio'			=> $faker->text,
