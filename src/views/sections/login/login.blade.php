@@ -31,7 +31,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<button type="button" class="pongo-submit pongo-loading btn btn-primary btn-block">{{t('form.button.login')}}</button>
+							<button type="button" class="pongo-ajax-submit pongo-loading btn btn-primary btn-block">{{t('form.button.login')}}</button>
 						</div>
 					{{ Form::close() }}
 					<footer>PongoCMS v2.0.0 &copy; Pongoweb.it</footer>

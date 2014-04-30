@@ -95,7 +95,7 @@ class PageRepositoryEloquent extends BaseRepositoryEloquent implements PageRepos
 	public function getPageBySlug($slug)
 	{
 		return Page::where('slug', $slug)
-				   ->where('is_valid', 1)
+				   ->where('is_active', 1)
 				   ->first();
 	}
 

@@ -22,7 +22,7 @@ class CreateTableUsers extends Migration {
 			$table->string('remember_token', 100)->nullable();
 			$table->string('lang', 5);
 			$table->string('editor', 20);
-			$table->boolean('is_valid');
+			$table->boolean('is_active');
 			$table->timestamps();
 			$table->foreign('role_id')->references('id')->on('roles')->onDelete('CASCADE')->onUpdate('CASCADE');
 		});

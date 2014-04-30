@@ -43,6 +43,16 @@ class Tool {
 	}
 
 	/**
+	 * [filterSearchField description]
+	 * @param  [type] $field [description]
+	 * @return [type]        [description]
+	 */
+	public function filterSearchField($field)
+	{
+		return (strpos($field, ':') !== false) ? explode(':', $field)[1] : $field;
+	}
+
+	/**
 	 * [getJson description]
 	 * @param  [type]  $key   [description]
 	 * @param  boolean $array [description]
@@ -85,7 +95,7 @@ class Tool {
 	/**
 	 * Print icon homepage
 	 * 
-	 * @param  string $is_valid
+	 * @param  string $is_active
 	 * @return string
 	 */
 	public function isHome($is_home)
@@ -106,25 +116,37 @@ class Tool {
 	}
 
 	/**
-	 * Print class invalid if not valid
+	 * Print class inactive if not valid
 	 * 
-	 * @param  string $is_valid
+	 * @param  string $is_active
 	 * @return string
 	 */
-	public function isValid($is_valid)
+	public function isInactive($is_active)
 	{
-		return (!$is_valid) ? ' invalid' : '';
+		return (!$is_active) ? ' inactive' : '';
 	}
 
 	/**
 	 * Print icon checked/unchecked
 	 * 
-	 * @param  string $is_valid
+	 * @param  string $is_active
 	 * @return string
 	 */
-	public function unChecked($is_valid)
+	public function unChecked($is_active)
 	{
-		return ($is_valid) ? '<i class="fa fa-check-square-o check"></i>' : '<i class="fa fa-unchecked check"></i>';
+		return ($is_active) ? '<i class="fa fa-check-square-o check"></i>' : '<i class="fa fa-unchecked check"></i>';
+	}
+
+	/**
+	 * [printSQL description]
+	 * @return [type] [description]
+	 */
+	public function printSQL()
+	{
+		\Event::listen('illuminate.query', function($sql)
+		{
+			D($sql);
+		});
 	}
 
 	/**
@@ -137,25 +159,16 @@ class Tool {
 	public function slugBack($url, $back = 0)
 	{
 		if($back > 0) {
-
 			$segments = explode('/', $url);
-
 			if(is_array($segments)) {
-
 				$n_segments = count($segments) - $back;
-
 				$tmp_url = '';
-
 				for ($i=1; $i < $n_segments; $i++) {
-
 					$tmp_url .= '/' . $segments[$i];
 				}
-
 				return $tmp_url;
 			}
-
 		}
-
 		return $url;
 	}
 	
@@ -169,23 +182,15 @@ class Tool {
 	public function slugSlice($url, $back = 0)
 	{
 		if($back > 0) {
-
 			$segments = array_reverse(explode('/', $url));
-
 			array_pop($segments);
-
 			if(is_array($segments)) {
-
 				if($back == 1) {
-
 					return $segments[0];
 				}
-
 				return $segments;
 			}
-
 		}
-
 		return $url;
 	}
 

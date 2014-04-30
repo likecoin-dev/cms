@@ -289,7 +289,7 @@ class UserController extends ApiController {
 
 			$user = $this->user->getUser($user_id);
 
-			$user->is_valid = $valid;
+			$user->is_active = $valid;
 
 			$this->user->saveUser($user);
 
@@ -386,7 +386,7 @@ class UserController extends ApiController {
 					'cls' => 'new',
 					'name' => $user->username,
 					'url' => route('user.settings', array('user_id' => $user->id)),
-					'checked' => ($user->is_valid) ? ' checked="checked"' : ''
+					'checked' => ($user->is_active) ? ' checked="checked"' : ''
 				);
 
 				$response[] = $user_obj;

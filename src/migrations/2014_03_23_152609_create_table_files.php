@@ -23,7 +23,7 @@ class CreateTableFiles extends Migration {
 			$table->integer('h');
 			$table->string('path', 100);
 			$table->boolean('is_image');
-			$table->boolean('is_valid');
+			$table->boolean('is_active');
 			$table->timestamps();
 		});
 	}

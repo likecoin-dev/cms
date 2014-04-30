@@ -1,24 +1,25 @@
 <div class="search-form">
-	{{ Form::open(array('route' => 'api.'.$model.'.search'), array('class' => 'form-inline', 'role' => 'form')) }}
+	{{ Form::open(array('route' => $model.'.search'), array('class' => 'form-inline', 'role' => 'form')) }}
 		<div class="row">
 			<div class="col-xs-2">
 				<select name="field" id="field" class="form-control">
 					@foreach($items as $item)
-					<option value="{{$item}}">{{t('form.select.'.$item)}}</option>
+					<option value="{{$item}}"{{Tool::isSelected(Input::old('field'), $item)}}>{{t('form.select.'.Tool::filterSearchField($item))}}</option>
 					@endforeach
 				</select>
 			</div>
 			<div class="col-xs-2 no-margin">
-				<select name="search" id="search" class="form-control">
-					<option value="equal">{{t('form.select.equal_to')}}</option>
-					<option value="contain">{{t('form.select.contains')}}</option>
+				<select name="type" id="type" class="form-control">
+					<option value="equal"{{Tool::isSelected(Input::old('type'), 'equal')}}>{{t('form.select.equal_to')}}</option>
+					<option value="contain"{{Tool::isSelected(Input::old('type'), 'contain')}}>{{t('form.select.contains')}}</option>
+					<option value="start"{{Tool::isSelected(Input::old('type'), 'start')}}>{{t('form.select.start_by')}}</option>
 				</select>
 			</div>
 			<div class="col-xs-6">
-				<input type="text" name="q" class="form-control" placeholder="{{t('placeholder.search')}}">
+				<input type="text" name="q" class="form-control" value="{{Input::old('q')}}" placeholder="{{t('placeholder.search')}}">
 			</div>
 			<div class="col-xs-2 no-margin-left">
-				<button class="btn btn-primary pongo-submit">
+				<button class="btn btn-primary pongo-form-submit pongo-loading">
 					<i class="fa fa-search"></i> {{t('form.button.search')}}
 				</button>
 			</div>

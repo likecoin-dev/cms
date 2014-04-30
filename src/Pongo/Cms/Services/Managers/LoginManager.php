@@ -23,9 +23,9 @@ class LoginManager extends BaseManager {
 		} else {
 			$remember = \Input::has('remember');
 			$credentials = array(
-				'username' => $this->input['username'],
-				'password' => $this->input['password'],
-				'is_valid' => 1
+				'username' 	=> $this->input['username'],
+				'password' 	=> $this->input['password'],
+				'is_active' => 1
 			);
 			if ( \Auth::attempt($credentials, $remember) ) {
 				if($this->access->allowedCms(\Auth::user()->role->level)) {

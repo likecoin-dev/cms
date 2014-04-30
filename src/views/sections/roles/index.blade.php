@@ -47,7 +47,7 @@
 									@else
 									<li class="dl-item move" data-id="{{$role->id}}">
 										<p class="dd-handle">{{$role->name}}</p>
-										<label><input type="checkbox" value="{{$role->id}}" class="pongo-checkbox"{{Tool::isChecked($role->is_valid, 1)}}><span></span></label>
+										<label><input type="checkbox" value="{{$role->id}}" class="pongo-checkbox"{{Tool::isChecked($role->is_active, 1)}}><span></span></label>
 										<div class="btn-edit">
 											<a href="{{route('role.edit', array('role_id' => $role->id))}}" class="btn btn-sm btn-primary">
 												<i class="fa fa-pencil-square-o"></i></a>
@@ -91,7 +91,7 @@
 				<div class="modal-body buttons">
 					{{ Form::open(array('route' => 'api.role.delete')) }}
 					{{ Form::hidden('item_id') }}
-					<button class="btn btn-sm btn-danger pongo-submit pongo-loading">{{t('form.button.delete')}}</button>
+					<button class="btn btn-sm btn-danger pongo-ajax-submit pongo-loading">{{t('form.button.delete')}}</button>
 					<button class="btn btn-sm btn-primary" data-dismiss="modal">{{t('form.button.cancel')}}</button>
 					{{ Form::close() }}
 				</div>

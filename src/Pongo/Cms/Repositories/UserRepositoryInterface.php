@@ -8,5 +8,4 @@ interface UserRepositoryInterface {
 	public function getUserLevel($user_id);
 	public function getUserDetails($user_id);
 	public function getUsersWithRole($per_page);
-	public function searchUser($search, $field);	
 }

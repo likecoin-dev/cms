@@ -1,4 +1,4 @@
 (function() {
-	Pongo.Form.submitForm();
+	Pongo.Form.submitAjax();
 	console.log('pages/login.js loaded!');
 }).call(this);

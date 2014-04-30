@@ -239,22 +239,6 @@ return array(
 		),
 
 	),
-	
-	/**
-	 * IoC manager binds
-	 */
-
-	'managers' => array(
-
-		'loginManager' => array(
-
-			'method'		=> 'singleton',
-			'interface' 	=> 'Pongo\Cms\Services\Managers\LoginManagerInterface',
-			'class' 		=> 'Pongo\Cms\Services\Managers\LoginManager',
-
-		),
-
-	),
 
 	/**
 	 * IoC repository binds
@@ -325,6 +309,14 @@ return array(
 			'method'		=> 'singleton',
 			'interface' 	=> 'Pongo\Cms\Services\Cache\CacheInterface',
 			'class' 		=> 'Pongo\Cms\Services\Cache\LaravelCache',
+
+		),
+
+		'searchService' => array(
+
+			'method'		=> 'singleton',
+			'interface' 	=> 'Pongo\Cms\Services\Search\SearchInterface',
+			'class' 		=> 'Pongo\Cms\Services\Search\Search',
 
 		),
 

@@ -10,7 +10,7 @@
 		</div>
 		
 		<div class="form-submit">
-			<button class="btn btn-success pongo-submit pongo-loading">{{t('form.button.save')}}</button>
+			<button class="btn btn-success pongo-ajax-submit pongo-loading">{{t('form.button.save')}}</button>
 			<a href="{{route('roles')}}" class="btn btn-primary">{{t('form.button.back')}}</a>
 		</div>
 

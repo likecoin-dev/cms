@@ -35,7 +35,6 @@ class PongoServiceProvider extends ServiceProvider {
 		$this->loadServiceProviders();
 		$this->bindServices();
 		$this->bindRepositories();
-		$this->bindManagers();
 		$this->activateFacades();
 		$this->bootCommands();
 

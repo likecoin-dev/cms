@@ -12,7 +12,7 @@
 		</div>
 
 		<label>
-			<input type="checkbox" value="{{$element->id}}" {{Tool::isChecked($element->is_valid, 1)}} class="is_valid">
+			<input type="checkbox" value="{{$element->id}}" {{Tool::isChecked($element->is_active, 1)}} class="is_active">
 			<span></span>
 		</label>
 

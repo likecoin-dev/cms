@@ -33,19 +33,14 @@ abstract class BaseManager implements BaseManagerInterface  {
 	protected $related;
 
 	/**
+	 * @var [type]
+	 */
+	protected $search;
+
+	/**
 	 * @var $validator
 	 */
 	protected $validator;
-
-	/**
-	 * [create description]
-	 * @param  [type] $id [description]
-	 * @return [type]     [description]
-	 */
-	public function create(array $item)
-	{
-
-	}
 
 	/**
 	 * [getOne description]
@@ -77,6 +72,15 @@ abstract class BaseManager implements BaseManagerInterface  {
 	}
 
 	/**
+	 * Get paginator additional parameters
+	 * @return [type] [description]
+	 */
+	public function getParams()
+	{
+		return $this->search->params;
+	}
+
+	/**
 	 * [update description]
 	 * @param  [type] $id [description]
 	 * @return [type]     [description]
@@ -103,6 +107,24 @@ abstract class BaseManager implements BaseManagerInterface  {
 	public function errors()
 	{
 		return \Response::json($this->errors);
+	}
+
+	/**
+	 * [hasInput description]
+	 * @return boolean [description]
+	 */
+	public function withInputOnly()
+	{
+		return $this->withInput()->hasInput();
+	}
+
+	/**
+	 * [hasInput description]
+	 * @return boolean [description]
+	 */
+	public function hasInput()
+	{
+		return ! empty($this->input);
 	}
 
 	/**
@@ -142,6 +164,21 @@ abstract class BaseManager implements BaseManagerInterface  {
 		return array(
 			'status' 	=> $status,
 			'msg'		=> t($message, $subst)
+		);
+	}
+
+	/**
+	 * [searchUser description]
+	 * @return [type] [description]
+	 */
+	public function search($key = 'items')
+	{
+		// \Input::flash();
+		$results = $this->search->setParams($this->input)->getResults(XPAGE);
+
+		return array(
+			$key => $results,
+			'params' => $this->getParams()
 		);
 	}
 

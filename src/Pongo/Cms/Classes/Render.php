@@ -73,6 +73,18 @@ class Render {
 	}
 
 	/**
+	 * [noResult description]
+	 * @param  string $name [description]
+	 * @return [type]       [description]
+	 */
+	public function noResult($name = 'empty')
+	{
+		$item_view = $this->view('partials.items.noresult');
+		$item_view['name'] = $name;
+		return $item_view;
+	}
+
+	/**
 	 * Asset container wrapper for scripts
 	 * 
 	 * @param  string $name Container name

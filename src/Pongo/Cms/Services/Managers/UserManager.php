@@ -1,18 +1,23 @@
 <?php namespace Pongo\Cms\Services\Managers;
 
 use Pongo\Cms\Classes\Access;
+use Pongo\Cms\Services\Search\Search;
 use Pongo\Cms\Services\Validators\UserValidator as Validator;
 use Pongo\Cms\Repositories\UserRepositoryInterface as User;
 use Pongo\Cms\Repositories\UserDetailRepositoryInterface as UserDetail;
 
 class UserManager extends BaseManager {
 
-	public function __construct(Access $access, Validator $validator, User $user, UserDetail $userdetail)
+	public function __construct(Access $access, Search $search, Validator $validator, User $user, UserDetail $userdetail)
 	{
 		$this->access = $access;
 		$this->validator = $validator;
 		$this->model = $user;
 		$this->related = $userdetail;
+
+		// Enabling search
+		$this->search = $search;
+		$this->search->model = $this->model;
 	}
 
 	/**
@@ -32,7 +37,7 @@ class UserManager extends BaseManager {
 			'password'	=> \Hash::make($user_account['password']),
 			'lang'		=> CMSLANG,
 			'editor'	=> 0,
-			'is_valid' 	=> 0
+			'is_active' => 0
 		);
 
 		$user = $this->model->create($default_user);
@@ -94,7 +99,7 @@ class UserManager extends BaseManager {
 			$user_id = $this->input['item_id'];
 			$value = $this->input['action'];
 			$user = $this->model->find($user_id);
-			$user->is_valid = $value;
+			$user->is_active = $value;
 			$user->save();
 			return $this->setSuccess('alert.success.user_modified');
 		}

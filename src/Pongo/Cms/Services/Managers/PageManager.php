@@ -113,7 +113,7 @@ class PageManager extends BaseManager {
 		$page_id = $this->input['item_id'];
 		$value = $this->input['action'];
 		$page = $this->model->find($page_id);
-		$page->is_valid = $value;
+		$page->is_active = $value;
 		$page->save();
 		return $this->setSuccess('alert.success.page_modified');
 	}

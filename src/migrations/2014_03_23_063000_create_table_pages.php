@@ -31,7 +31,7 @@ class CreateTablePages extends Migration {
 			$table->integer('role_level');
 			$table->integer('order_id')->defaults(Config::get('cms::system.default_order'));
 			$table->boolean('is_home');
-			$table->boolean('is_valid');
+			$table->boolean('is_active');
 			$table->timestamps();
 		});
 	}

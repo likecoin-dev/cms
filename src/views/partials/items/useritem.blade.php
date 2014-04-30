@@ -13,7 +13,7 @@
 			<span>{{$user->username}}</span>
 
 			<label>
-				<input type="checkbox" value="{{$user->id}}" {{Tool::isChecked($user->is_valid, 1)}} class="is_valid">
+				<input type="checkbox" value="{{$user->id}}" {{Tool::isChecked($user->is_active, 1)}} class="is_active">
 				<span></span>
 			</label>
 

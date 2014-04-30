@@ -21,7 +21,7 @@ class CreateTableBlocks extends Migration {
 			$table->text('text');
 			$table->string('zone', 10);
 			$table->integer('author_id');
-			$table->boolean('is_valid');
+			$table->boolean('is_active');
 			$table->timestamps();
 		});
 	}

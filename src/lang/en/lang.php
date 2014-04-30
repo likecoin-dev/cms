@@ -110,7 +110,8 @@ return array(
 			'create'		=> 'Create',			
 			'delete'		=> 'Delete',
 			'element' 		=> 'Element',
-			'load'			=> 'Load more...',
+			'load'			=> 'Load',
+			'loadmore'		=> 'Load more...',
 			'login'			=> 'Login',
 			'ok'			=> 'Ok',
 			'page' 			=> 'Page',
@@ -146,11 +147,12 @@ return array(
 			'equal_to'	=> 'equal to',
 			'email'		=> 'E-mail',
 			'guest' 	=> 'Guest',
-			'is_valid'	=> 'Is enabled',
+			'is_active'	=> 'Is enabled',
 			'lastname'	=> 'Last name',
 			'manager' 	=> 'Manager',
 			'pages'		=> 'Other pages',
 			'products'	=> 'Products',
+			'start_by'	=> 'starts by',
 			'user' 		=> 'User',
 			'username'	=> 'Username',
 
@@ -159,6 +161,13 @@ return array(
 	),
 
 	'label' => array(
+
+		'noresult' => array(
+
+			'empty' 	=> 'This list is empty',
+			'search' 	=> 'Your search returned no results',
+
+		),
 
 		'page' => array(
 

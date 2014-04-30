@@ -17,7 +17,7 @@ class CreateTableRoles extends Migration {
 			$table->increments('id')->unsigned();
 			$table->string('name', 50);
 			$table->integer('level');
-			$table->boolean('is_valid')->default(1);
+			$table->boolean('is_active')->default(1);
 		});
 	}
 

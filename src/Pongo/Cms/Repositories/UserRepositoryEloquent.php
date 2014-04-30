@@ -52,12 +52,4 @@ class UserRepositoryEloquent extends BaseRepositoryEloquent implements UserRepos
 					->paginate($per_page);
 	}
 
-	public function searchUser($search, $field)
-	{
-		return $this->model
-					->where($field, 'like', $search . '%')
-					->orderBy($field, 'asc')
-					->get();
-	}
-
 }

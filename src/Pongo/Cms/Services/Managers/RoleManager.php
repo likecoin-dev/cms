@@ -25,7 +25,7 @@ class RoleManager extends BaseManager {
 		$default_role = array(
 			'name' 		=> $name,
 			'level' 	=> 0,		// Set as 'guest' level
-			'is_valid'	=> 0
+			'is_active'	=> 0
 		);
 
 		$role = $this->model->create($default_role);
@@ -129,7 +129,7 @@ class RoleManager extends BaseManager {
 			$role_id = $this->input['item_id'];
 			$value = $this->input['action'];
 			$role = $this->model->find($role_id);
-			$role->is_valid = $value;
+			$role->is_active = $value;
 			$role->save();
 			return $this->setSuccess('alert.success.role_modified');
 		}

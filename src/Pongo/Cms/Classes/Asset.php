@@ -296,7 +296,7 @@ class Asset_Container {
 		{
 			foreach ($assets[$asset]['dependencies'] as $key => $dependency)
 			{
-				if ( ! $this->dependency_is_valid($asset, $dependency, $original, $assets))
+				if ( ! $this->dependency_is_active($asset, $dependency, $original, $assets))
 				{
 					unset($assets[$asset]['dependencies'][$key]);
 
@@ -326,7 +326,7 @@ class Asset_Container {
 	 * @param  array   $assets
 	 * @return bool
 	 */
-	protected function dependency_is_valid($asset, $dependency, $original, $assets)
+	protected function dependency_is_active($asset, $dependency, $original, $assets)
 	{
 		if ( ! isset($original[$dependency]))
 		{

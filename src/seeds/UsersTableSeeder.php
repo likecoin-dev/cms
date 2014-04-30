@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder {
 								'role_id' 	=> 1,
 								'lang' 		=> Config::get('cms::settings.language'),
 								'editor'	=> 0,
-								'is_valid' 	=> 1
+								'is_active' => 1
 							);
 
 		$admin_user = array_merge($admin_account, $admin_settings);		
@@ -45,7 +45,7 @@ class UsersTableSeeder extends Seeder {
 									'password'	=> Hash::make($faker->word),
 									'lang' 		=> Config::get('cms::settings.language'),
 									'editor'	=> 0,
-									'is_valid' 	=> 1
+									'is_active' => 1
 								);
 
 			$user = User::create($user_settings);

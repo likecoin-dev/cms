@@ -51,7 +51,7 @@ class ElementController extends ApiController {
 				'text' 		=> '',
 				'zone' 		=> 'ZONE1',
 				'author_id' => USERID,
-				'is_valid' 	=> 0
+				'is_active' => 0
 			);
 
 			$element = $this->element->createElement($element_arr);
@@ -146,7 +146,7 @@ class ElementController extends ApiController {
 					// Remove id and time_stamps
 					unset($new_element_arr['id'], $new_element_arr['created_at'], $new_element_arr['updated_at']);
 
-					$new_element_arr['is_valid'] = 0;
+					$new_element_arr['is_active'] = 0;
 
 					$new_element = $this->element->createElement($new_element_arr);
 
@@ -244,7 +244,7 @@ class ElementController extends ApiController {
 
 				$element = $this->element->getElement($element_id);
 
-				$valid = isset($is_valid) ? 1 : 0;
+				$valid = isset($is_active) ? 1 : 0;
 				
 				$element->attrib 	= $attrib;
 				$element->name 		= $name;
@@ -296,7 +296,7 @@ class ElementController extends ApiController {
 
 			$element = $this->element->getElement($element_id);
 
-			$element->is_valid = $valid;
+			$element->is_active = $valid;
 
 			$this->element->saveElement($element);
 

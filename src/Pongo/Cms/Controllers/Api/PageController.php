@@ -114,7 +114,7 @@ class PageController extends ApiController {
 			$new_page_arr['author_id'] 	= USERID;
 			$new_page_arr['role_level'] = LEVEL;
 			$new_page_arr['is_home'] 	= 0;
-			$new_page_arr['is_valid'] 	= 0;
+			$new_page_arr['is_active'] 	= 0;
 
 			// Create new page
 			$new_page = $this->page->createPage($new_page_arr);
@@ -133,7 +133,7 @@ class PageController extends ApiController {
 					unset($new_element_arr['id'], $new_element_arr['created_at'], $new_element_arr['updated_at']);
 
 					$new_element_arr['lang'] 		= ($lang != $element->lang) ? $lang : $element->lang;
-					$new_element_arr['is_valid'] 	= 0;
+					$new_element_arr['is_active'] 	= 0;
 
 					$new_element = $this->element->createElement($new_element_arr);
 
@@ -471,7 +471,7 @@ class PageController extends ApiController {
 			
 			$full_slug = $slug_base . '/' . \Str::slug($slug_last);
 			$home = isset($is_home) ? 1 : 0;
-			$valid = isset($is_valid) ? 1 : 0;
+			$valid = isset($is_active) ? 1 : 0;
 
 			// Disable all home pages in lang
 			if($home == 1) {
@@ -485,7 +485,7 @@ class PageController extends ApiController {
 			$page->role_level 	= $role_level;
 			$page->wrapper_id 	= $wrapper_id;
 			$page->is_home 		= $home;
-			$page->is_valid 	= $valid;
+			$page->is_active 	= $valid;
 
 			$this->page->savePage($page);
 

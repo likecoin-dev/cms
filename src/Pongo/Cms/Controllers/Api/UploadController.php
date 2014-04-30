@@ -65,7 +65,7 @@ class UploadController extends ApiController {
 					'h'			=> 0,
 					'path'		=> $http_path,
 					'is_image'	=> 0,
-					'is_valid'	=> 1
+					'is_active'	=> 1
 				);
 
 				// Write into db
@@ -324,7 +324,7 @@ class UploadController extends ApiController {
 			'h'			=> $image_h,
 			'path'		=> $http_path,
 			'is_image'	=> $is_image,
-			'is_valid'	=> 1
+			'is_active'	=> 1
 		);
 	}
 

@@ -90,7 +90,7 @@ class ElementController extends BaseController {
 		$view['attrib']			= $element->attrib;
 		$view['zones']			= \Theme::zones($page->layout);
 		$view['zone_selected'] 	= $element->zone;		
-		$view['is_valid'] 		= $element->is_valid;
+		$view['is_active'] 		= $element->is_active;
 
 		$view['page_link']		= \HTML::link(route('page.edit', array('page_id' => $page->id)), $page->name);
 

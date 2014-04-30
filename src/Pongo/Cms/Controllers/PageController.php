@@ -131,7 +131,7 @@ class PageController extends BaseController {
 		$view['slug_base'] 		= \Tool::slugBack($page->slug, 1);
 		$view['slug'] 			= $page->slug;
 		$view['is_home'] 		= $page->is_home;
-		$view['is_valid'] 		= $page->is_valid;
+		$view['is_active'] 		= $page->is_active;
 		
 		$view['access_level'] 	= $page->access_level;
 		$view['role_level'] 	= $page->role_level;

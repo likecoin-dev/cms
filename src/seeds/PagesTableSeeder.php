@@ -31,7 +31,7 @@ class PagesTableSeeder extends Seeder {
 				'role_level' => Config::get('cms::system.roles.admin'),
 				'order_id' => Config::get('cms::system.default_order'),
 				'is_home' => 1,
-				'is_valid' => 1
+				'is_active' => 1
 			),
 
 			array(
@@ -50,7 +50,7 @@ class PagesTableSeeder extends Seeder {
 				'role_level' => Config::get('cms::system.roles.admin'),
 				'order_id' => Config::get('cms::system.default_order'),
 				'is_home' => 0,
-				'is_valid' => 1
+				'is_active' => 1
 			),
 
 			array(
@@ -69,7 +69,7 @@ class PagesTableSeeder extends Seeder {
 				'role_level' => Config::get('cms::system.roles.admin'),
 				'order_id' => Config::get('cms::system.default_order'),
 				'is_home' => 0,
-				'is_valid' => 1
+				'is_active' => 1
 			),
 
 			array(
@@ -88,7 +88,7 @@ class PagesTableSeeder extends Seeder {
 				'role_level' => Config::get('cms::system.roles.admin'),
 				'order_id' => Config::get('cms::system.default_order'),
 				'is_home' => 0,
-				'is_valid' => 1
+				'is_active' => 1
 			),
 
 			// IT pages
@@ -109,7 +109,7 @@ class PagesTableSeeder extends Seeder {
 				'role_level' => Config::get('cms::system.roles.admin'),
 				'order_id' => Config::get('cms::system.default_order'),
 				'is_home' => 1,
-				'is_valid' => 1
+				'is_active' => 1
 			),
 
 			array(
@@ -128,7 +128,7 @@ class PagesTableSeeder extends Seeder {
 				'role_level' => Config::get('cms::system.roles.admin'),
 				'order_id' => Config::get('cms::system.default_order'),
 				'is_home' => 0,
-				'is_valid' => 1
+				'is_active' => 1
 			),
 
 			array(
@@ -147,7 +147,7 @@ class PagesTableSeeder extends Seeder {
 				'role_level' => Config::get('cms::system.roles.admin'),
 				'order_id' => Config::get('cms::system.default_order'),
 				'is_home' => 0,
-				'is_valid' => 1
+				'is_active' => 1
 			),
 
 			array(
@@ -166,7 +166,7 @@ class PagesTableSeeder extends Seeder {
 				'role_level' => Config::get('cms::system.roles.admin'),
 				'order_id' => Config::get('cms::system.default_order'),
 				'is_home' => 0,
-				'is_valid' => 1
+				'is_active' => 1
 			),
 
 		);
