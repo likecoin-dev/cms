@@ -1,6 +1,6 @@
 <div class="tab-pane" id="details">
 
-	{{ Form::open(array('route' => 'api.user.save.details')) }}
+	{{ Form::model($user->details, array('route' => 'api.user.save.details')) }}
 
 		{{ Form::hidden('id', $user->id) }}
 		{{ Form::hidden('section', 'details') }}

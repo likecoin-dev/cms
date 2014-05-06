@@ -4,7 +4,7 @@
 	<ol class="dd-list">
 	@endif
 
-	<li class="dd-item" data-id="{{$item->id}}">
+	<li class="dd-item move" data-id="{{$item->id}}">
 
 		<p class="dd-handle">{{Tool::isHome($item->is_home)}}{{$item->name}}</p>
 		<label><input type="checkbox" value="{{$item->id}}" class="pongo-checkbox"{{Tool::isChecked($item->is_active, 1)}}><span></span></label>
