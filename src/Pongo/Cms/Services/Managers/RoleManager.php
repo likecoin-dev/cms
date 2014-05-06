@@ -4,13 +4,15 @@ use Pongo\Cms\Classes\Access;
 use Pongo\Cms\Services\Validators\RoleValidator as Validator;
 use Pongo\Cms\Repositories\RoleRepositoryInterface as Role;
 
-class RoleManager extends BaseManager {
+class RoleManager extends BaseManager {	
 
 	public function __construct(Access $access, Validator $validator, Role $role)
 	{
 		$this->access = $access;
 		$this->validator = $validator;
 		$this->model = $role;
+
+		$this->section = 'roles';
 	}
 
 	/**
@@ -94,6 +96,10 @@ class RoleManager extends BaseManager {
 						$role->level = $prev_role->level - 1;
 						if($role->level <= 0) $role->level = 0;
 						$role->save();
+
+						if($role->name == ROLENAME) {
+							\Session::put('LEVEL', $role->level);
+						}
 					}
 				}		
 			}
@@ -108,14 +114,25 @@ class RoleManager extends BaseManager {
 	 */
 	public function saveRole()
 	{
-		if ($this->validator->fails()) {
-			return $this->setError($this->validator->errors());
+		if($check = $this->canEdit()) {
+
+			if ($this->validator->fails()) {
+				return $this->setError($this->validator->errors());
+			} else {
+				$id = $this->input['id'];
+				$role = $this->model->find($id);
+				$role->name = $this->input['name'];
+				$role->save();
+
+				if($id == ROLEID) {
+					\Session::put('ROLENAME', $role->name);
+				}
+
+				return true;
+			}
+
 		} else {
-			$id = $this->input['id'];
-			$role = $this->model->find($id);
-			$role->name = $this->input['name'];
-			$role->save();
-			return true;
+			return $check;
 		}
 	}
 

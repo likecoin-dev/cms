@@ -82,7 +82,7 @@ return array(
 
 		'EventServiceProvider',
 		'MarkerServiceProvider',
-		// 'ValidatorServiceProvider',
+		'ValidatorServiceProvider',
 
 		// Dependency providers
 
@@ -138,6 +138,7 @@ return array(
 				
 				array('interface' => 'Pongo\Cms\Repositories\FileRepositoryInterface'),
 				array('interface' => 'Pongo\Cms\Repositories\PageRepositoryInterface'),
+				array('interface' => 'Pongo\Cms\Repositories\RoleRepositoryInterface'),
 
 			),
 

@@ -1,6 +1,7 @@
 <?php namespace Pongo\Cms\Support\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Pongo\Cms\Services\Validators\PongoValidator;
 
 class ValidatorServiceProvider extends ServiceProvider {
 
@@ -11,8 +12,13 @@ class ValidatorServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app->bind('Symfony\Component\Translation\TranslatorInterface', function($app) {
-			return $app['translator']; 
+
+	}
+
+	public function boot()
+	{
+		$this->app->validator->resolver(function($translator, $data, $rules, $messages) {
+			return new PongoValidator($translator, $data, $rules, $messages);
 		});
 	}
 

@@ -11,7 +11,7 @@
 				<h2>{{ t('sidebar.user.header') }}</h2>
 				
 				<div class="side-wrapper">
-					@include('cms::sections.users.partials.sidebar')	
+					@include('cms::sections.users.partials.sidebar')
 				</div>
 
 			</div>
@@ -22,7 +22,7 @@
 					
 					{{ Render::breadCrumb('dashboard', 'users') }}
 					
-					{{ Render::searchForm('user', array('username', 'email', 'details:lastname', 'details:city', 'is_active')) }}
+					{{ Render::searchForm('user', array('username', 'email', 'details:lastname', 'details:city', 'role:name', 'is_active')) }}
 
 				</div>
 				

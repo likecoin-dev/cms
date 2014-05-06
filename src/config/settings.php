@@ -60,7 +60,7 @@ return array(
 	 */
 	'editors' => array(
 
-		'TinyMCE',
+		'Froala WYSIWYG Editor',
 
 	),
 

@@ -52,12 +52,13 @@ class Render {
 	 * @param  array  $routes [description]
 	 * @return [type]         [description]
 	 */
-	public function breadCrumb($routes)
+	public function breadCrumb($routes, $last = null)
 	{
 		if (is_string($routes)) $routes = func_get_args();
 		$breadcrumb_view = $this->view('partials.breadcrumb');
 		$breadcrumb_view['sections'] = \Pongo::flattenSections();
 		$breadcrumb_view['routes'] = $routes;
+		$breadcrumb_view['last'] = $last;
 		return $breadcrumb_view;
 	}
 
@@ -73,6 +74,26 @@ class Render {
 	}
 
 	/**
+	 * [currentLanguage description]
+	 * @return [type] [description]
+	 */
+	public function currentLanguage()
+	{
+		return $this->language(LANG);
+	}
+
+	/**
+	 * [language description]
+	 * @param  [type] $lang [description]
+	 * @return [type]       [description]
+	 */
+	public function language($lang)
+	{
+		$languages = \Pongo::settings('languages');
+		return $languages[$lang]['lang'];
+	}
+
+	/**
 	 * [noResult description]
 	 * @param  string $name [description]
 	 * @return [type]       [description]
@@ -82,6 +103,18 @@ class Render {
 		$item_view = $this->view('partials.items.noresult');
 		$item_view['name'] = $name;
 		return $item_view;
+	}
+
+	/**
+	 * [optionsToggle description]
+	 * @param  string $icon [description]
+	 * @return [type]       [description]
+	 */
+	public function optionsToggle($icon = 'fa-bars')
+	{
+		$otbutton_view = $this->view('partials.optionstoggle');
+		$otbutton_view['icon'] = $icon;
+		return $otbutton_view;
 	}
 
 	/**

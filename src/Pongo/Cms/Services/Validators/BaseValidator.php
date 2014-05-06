@@ -17,10 +17,28 @@ abstract class BaseValidator implements ValidatorInterface {
 	public $data = array();
 
 	/**
+	 * [$section description]
+	 * @var [type]
+	 */
+	public $section;
+
+	/**
 	 * [$validator description]
 	 * @var [type]
 	 */
 	protected $validator;
+
+	/**
+	 * [$custom_rules description]
+	 * @var array
+	 */
+	public $custom_rules;
+
+	/**
+	 * [$custom_messages description]
+	 * @var array
+	 */
+	public $custom_messages;
 
 	/**
 	 * [$errors description]
@@ -54,10 +72,28 @@ abstract class BaseValidator implements ValidatorInterface {
 	 */
 	public function passes()
 	{
-		if( ! empty($this->data)) {
-			$this->rules = $this->formatRules();
+		// Check if custom rules exist
+		if( ! empty($this->custom_rules)) {
+
+			$rules = empty($this->data) ?
+				$this->createCustomRules() :
+				$this->formatRules($this->createCustomRules());
+
+			$messages = $this->createCustomMessages($rules);
+
+		} else {
+			
+			$rules = empty($this->data) ?
+				$this->rules[$this->section] :
+				$this->formatRules($this->rules[$this->section]);
+			
+			$messages = $this->formatMessages();
 		}
-		
+
+		// Set new rules and messages
+		$this->rules = $rules;
+		$this->messages = $messages;
+
 		$validator = $this->validator->make(
 			$this->input,
 			$this->rules,
@@ -72,12 +108,41 @@ abstract class BaseValidator implements ValidatorInterface {
 	}
 
 	/**
+	 * [createCustomRules description]
+	 * @return [type] [description]
+	 */
+	private function createCustomRules()
+	{
+		foreach ($this->custom_rules as $field => $value) {
+			$rules[$field] = $value;
+		}
+		return $rules;
+	}
+
+	/**
+	 * [createCustomMessages description]
+	 * @param  [type] $rules [description]
+	 * @return [type]        [description]
+	 */
+	private function createCustomMessages($rules)
+	{
+		foreach($rules as $rule) {
+			$rules_arr = explode('|', $rule);
+			foreach ($rules_arr as $rule_name) {				
+				$name = str_replace(strstr($rule_name, ':'), '', $rule_name);
+				$rule_msg[$name] = t('validation.errors.' . $name);
+			}
+		}
+		return $rule_msg;
+	}
+
+	/**
 	 * Format custom validation rule parameters
 	 * @return array
 	 */
-	private function formatRules()
+	private function formatRules($rules)
 	{
-		foreach ($this->rules as $field => $rule) {
+		foreach ($rules as $field => $rule) {
 			foreach ($this->data as $var) {
 				if(array_key_exists($var, $this->input)) {
 					$rules[$field] = str_replace('{'.$var.'}', $this->input[$var], $rule);
@@ -85,6 +150,18 @@ abstract class BaseValidator implements ValidatorInterface {
 			}
 		}
 		return $rules;
+	}
+
+	/**
+	 * [formatMessages description]
+	 * @return [type] [description]
+	 */
+	private function formatMessages()
+	{
+		foreach ($this->messages as $rule => $message) {
+			$msg[$rule] = t($message);
+		}
+		return $msg;
 	}
 
 	/**
@@ -115,7 +192,7 @@ abstract class BaseValidator implements ValidatorInterface {
 		$errors = $this->errors;
 		foreach ($this->rules as $name => $rule) {
 			if($errors->has($name)) {
-				$error_msg[$name] = t($errors->first($name));
+				$error_msg[$name] = $errors->first($name);
 			}
 		}
 		return array(

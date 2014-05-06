@@ -16,9 +16,8 @@ class RoleRepositoryEloquent extends BaseRepositoryEloquent implements RoleRepos
 	public function getRoles()
 	{
 		return $this->model
-					->where('level', '>', 0)
-					->orderBy('level', 'desc')
-					->orderBy('id', 'asc')
+					->hasLevel()
+					->order()
 					->get();
 	}
 
@@ -30,10 +29,9 @@ class RoleRepositoryEloquent extends BaseRepositoryEloquent implements RoleRepos
 	public function getRolesByLevel($level)
 	{
 		return $this->model
-					->where('level', '>', 0)
-					->where('level', '<=', $level)
-					->orderBy('level', 'desc')
-					->orderBy('id', 'asc')
+					->hasLevel()
+					->levelUnderEqual($level)
+					->order()
 					->get();
 	}
 
@@ -44,8 +42,20 @@ class RoleRepositoryEloquent extends BaseRepositoryEloquent implements RoleRepos
 	public function getRolesList()
 	{
 		return $this->model
-					->orderBy('level', 'desc')
-					->orderBy('id', 'asc')
+					->order()
+					->get();
+	}
+
+	/**
+	 * [getActiveRolesList description]
+	 * @return [type] [description]
+	 */
+	public function getActiveRolesList()
+	{
+		return $this->model
+					->active()
+					->hasLevel()
+					->order()
 					->get();
 	}
 

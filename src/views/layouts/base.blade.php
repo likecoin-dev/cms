@@ -25,7 +25,11 @@
 @stop
 
 @section('sidebar')
+	
+	@yield('sidebar-right')
+
 	@include('cms::partials.sidebar')
+
 @stop
 
 @section('footer-js')

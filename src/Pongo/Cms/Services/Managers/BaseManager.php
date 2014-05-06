@@ -30,12 +30,17 @@ abstract class BaseManager implements BaseManagerInterface  {
 	/**
 	 * @var $related
 	 */
-	protected $related;
+	protected $related = array();
 
 	/**
 	 * @var [type]
 	 */
 	protected $search;
+
+	/**
+	 * @var [type]
+	 */
+	protected $section;
 
 	/**
 	 * @var $validator
@@ -98,6 +103,18 @@ abstract class BaseManager implements BaseManagerInterface  {
 	public function delete($id)
 	{
 		return $this->model->find($id)->delete();
+	}
+
+	/**
+	 * [canEdit description]
+	 * @return [type] [description]
+	 */
+	public function canEdit()
+	{
+		if($this->access->cantEdit($this->section)) {
+			return $this->setError('alert.error.cant_edit');
+		}
+		return true;
 	}
 
 	/**
@@ -168,12 +185,38 @@ abstract class BaseManager implements BaseManagerInterface  {
 	}
 
 	/**
+	 * [saveCustomForm description]
+	 * @param  [type] $form [description]
+	 * @param  string $msg  [description]
+	 * @return [type]       [description]
+	 */
+	public function saveCustomForm($name, $form, $msg = 'alert.success.save')
+	{
+		$form_structure = \Pongo::forms($form);
+
+		extract($this->input);		
+		$model = $this->model->find($id)->$name;
+
+		foreach ($form_structure as $field => $value) {
+			if($value['form'] == 'date') {				
+				$model->$field = \Carbon\Carbon::create($birth_year, $birth_month, $birth_day);
+			} elseif($value['form'] == 'datetime') {
+				$model->$field = \Carbon\Carbon::create($birth_year, $birth_month, $birth_day, $birth_hh, $birth_mm);
+			} else {
+				$model->$field = $$field;
+			}
+		}
+
+		$model->save();
+		return $this->setSuccess($msg);
+	}
+
+	/**
 	 * [searchUser description]
 	 * @return [type] [description]
 	 */
 	public function search($key = 'items')
 	{
-		// \Input::flash();
 		$results = $this->search->setParams($this->input)->getResults(XPAGE);
 
 		return array(
@@ -212,6 +255,15 @@ abstract class BaseManager implements BaseManagerInterface  {
 	{
 		$this->input = $input;
 		$this->validator->input = $input;
+		
+		if(array_key_exists('section', $this->input)) {
+			$this->validator->section = $this->input['section'];
+		}
+
+		if(array_key_exists('tovalid', $this->input)) {
+			$this->validator->custom_rules = $this->input['tovalid'];
+		}
+
 		if (is_string($data)) $data = func_get_args();
 		$this->validator->data = $data;
 		return $this;
@@ -226,6 +278,15 @@ abstract class BaseManager implements BaseManagerInterface  {
 	{
 		$this->input = \Input::all();
 		$this->validator->input = $this->input;
+
+		if(array_key_exists('section', $this->input)) {
+			$this->validator->section = $this->input['section'];
+		}
+
+		if(array_key_exists('tovalid', $this->input)) {
+			$this->validator->custom_rules = $this->input['tovalid'];
+		}
+
 		if (is_string($data)) $data = func_get_args();
 		$this->validator->data = $data;
 		return $this;

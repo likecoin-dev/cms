@@ -59,6 +59,16 @@ class Access {
 	}
 
 	/**
+	 * [cantEdit description]
+	 * @param  [type] $section [description]
+	 * @return [type]          [description]
+	 */
+	public function cantEdit($section)
+	{
+		return  ! $this->grantEdit($section);
+	}
+
+	/**
 	 * Check page role_level against user level
 	 * 
 	 * @param  int / string $role_level page role_level
@@ -98,25 +108,6 @@ class Access {
 	}
 
 	/**
-	 * Create role list
-	 * 
-	 * @param  int $role_id
-	 * @return string
-	 */
-	/*public function roleList($role_id, $partial = 'roleitem')
-	{
-		$items = $this->role->getRolesByLevel();
-
-		$item_view = \Render::view('partials.items.' . $partial);
-
-		$item_view['items'] 	= $items;
-
-		$item_view['role_id'] 	= $role_id;
-
-		return $item_view;
-	}*/
-
-	/**
 	 * Get max level role available
 	 * 
 	 * @return integer
@@ -125,26 +116,5 @@ class Access {
 	{
 		return max(\Pongo::system('roles'));
 	}
-
-	/**
-	 * Create user list
-	 * 
-	 * @param  int $role_id
-	 * @return string
-	 */
-	/*public function userList($user_id)
-	{
-		\Render::assetAdd('footer', 'paginator', 'scripts/plugins/paginator.js');
-
-		$items = $this->user->getUsersWithRoles(pag());
-
-		$item_view = \Render::view('partials.items.useritem');
-
-		$item_view['items'] 	= $items;
-		
-		$item_view['user_id'] 	= $user_id;
-
-		return $item_view;
-	}*/
 
 }

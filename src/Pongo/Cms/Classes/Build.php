@@ -237,7 +237,7 @@ class Build {
 	{
 		if(!is_null($validation_rules)) {
 
-			return \Form::hidden("valid[$name]", $validation_rules) . "\n";
+			return \Form::hidden("tovalid[$name]", $validation_rules) . "\n";
 		}
 	}
 
@@ -250,9 +250,9 @@ class Build {
 	{
 		$input = \Input::all();
 
-		if(is_array($input['valid'])) {
+		if(is_array($input['tovalid'])) {
 
-			$v = new GenericValidator($input['valid']);
+			$v = new GenericValidator($input['tovalid']);
 
 			if(! $v->passes()) return json_encode($v->formatErrors());
 		}

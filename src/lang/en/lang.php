@@ -15,6 +15,7 @@ return array(
 
 		'error' => array(
 
+			'cant_edit'				=> 'You can\'t edit this section',
 			'clone_element'			=> 'Unable to clone element',
 			'clone_page'			=> 'Unable to clone page',
 			'create_item'			=> 'Unable to create this item',
@@ -137,24 +138,31 @@ return array(
 
 		),
 
+		'search' => array(
+
+			'contains' 			=> 'contains',
+			'equal_to'			=> 'equal to',
+			'details:lastname'	=> 'Last name',
+			'email'				=> 'E-mail',
+			'is_active'			=> 'Is enabled',
+			'role:name'			=> 'Role name',
+			'start_by'			=> 'starts by',
+			'details:city'		=> 'City',
+			'username'			=> 'Username',
+
+		),
+
 		'select' => array(
 
-			'admin' 	=> 'Admin',
-			'blogs'		=> 'Blog posts',
-			'city'		=> 'City',
-			'contains'	=> 'contains',
-			'editor' 	=> 'Editor',
-			'equal_to'	=> 'equal to',
-			'email'		=> 'E-mail',
+			'admin'		=> 'Admin',
+			'blogs'		=> 'Blog posts',			
+			'editor' 	=> 'Editor',			
 			'guest' 	=> 'Guest',
-			'is_active'	=> 'Is enabled',
-			'lastname'	=> 'Last name',
-			'manager' 	=> 'Manager',
+			'manager'	=> 'Manager',
 			'pages'		=> 'Other pages',
-			'products'	=> 'Products',
-			'start_by'	=> 'starts by',
-			'user' 		=> 'User',
-			'username'	=> 'Username',
+			'products'	=> 'Products',			
+			'user'		=> 'User',
+			
 
 		),
 
@@ -275,25 +283,26 @@ return array(
 				'bio'			=> 'Bio details',
 				'birth_date'	=> 'Birth date',
 				'city'			=> 'City',
-				'gender'		=> 'Gender',
-				'name' 			=> 'Name',
-				'surname' 		=> 'Surname',
+				'firstname' 	=> 'First Name',
+				'gender'		=> 'Gender',				
+				'lastname' 		=> 'Last Name',
 
 			),
 
 			'password' => array(
 
-				'password' => 'New Password',
-				'password_confirmation' => 'Password confirmation',
+				'password' 				=> 'New password',
+				'password_now' 			=> 'Your current password',
+				'password_confirmation' => 'New password confirmation',
 
 			),
 			
 			'settings' => array(
 
-				'editor'		=> 'Default text editor',
-				'email'			=> 'E-mail address',
-				'lang'			=> 'Default language',
-				'name' 			=> 'User name',
+				'editor'	=> 'Default text editor',
+				'email'		=> 'E-mail address',
+				'lang'		=> 'Default language',
+				'username'	=> 'User name',
 
 			),
 
@@ -393,6 +402,25 @@ return array(
 			),
 
 		),
+
+		'user' => array(
+
+			'password' => array(
+
+				'password' 				=> 'Set a new password',
+				'password_now' 			=> 'Confirm your current password',
+				'password_confirmation' => 'Confirm your new password',
+
+			),
+
+			'settings' => array(
+
+				'email'		=> 'Set a unique email address',
+				'username' 	=> 'Set a unique username',
+
+			),
+
+		),
 		
 		'search' => 'Search an item',		
 
@@ -424,7 +452,10 @@ return array(
 
 		'user' => array(
 
-			'header' => 'Users'
+			'details' 	=> 'Details',
+			'header' 	=> 'Users',
+			'password'	=> 'Password',			
+			'user_role'	=> 'User role',
 
 		),
 
@@ -464,23 +495,25 @@ return array(
 
 		'errors' => array(
 
-			'alpha_dash'	=> 'This field may only contain letters, numbers, and dashes',
-			'confirmed'		=> 'Confirmed password doesn\'t match',
-			'email'			=> 'The email format is invalid',
-			'ext_mimes'		=> 'This file extension is not allowed',
-			'file_size'		=> 'The file size exceeds maximum allowed',
-			'integer'		=> 'This value must be an integer',
-			'is_slug'		=> 'Click the button to generate a correct slug',
-			'max_username'	=> 'Username can\'t exceed :max chars',
-			'min'			=> 'This field must have at least :min chars',
-			'min_password'	=> 'Password must be at least :min chars',
-			'not_image'		=> 'This tool is not for images',
-			'required' 		=> 'This field is required',
-			'system_role'	=> 'You can\'t edit a system role',
-			'unique'		=> 'This name is already present',
-			'unique_file' 	=> 'This file name is already present',
-			'unique_name' 	=> 'This name is already present in this language',
-			'unique_slug' 	=> 'This slug is already present in this language',
+			'access'			=> 'You can\'t edit this content',
+			'alpha_dash'		=> 'This field may only contain letters, numbers, and dashes',
+			'confirmed'			=> 'Confirmed password doesn\'t match',
+			'current_password'	=> 'Your current password is invalid',
+			'email'				=> 'The email format is invalid',
+			'ext_mimes'			=> 'This file extension is not allowed',
+			'file_size'			=> 'The file size exceeds maximum allowed',
+			'integer'			=> 'This value must be an integer',
+			'is_slug'			=> 'Click the button to generate a correct slug',
+			'max_username'		=> 'Username can\'t exceed :max chars',
+			'min'				=> 'This field must be at least :min chars long',
+			'min_password'		=> 'Password must be at least :min chars long',
+			'not_image'			=> 'This tool is not for images',
+			'required' 			=> 'This field is required',
+			'system_role'		=> 'You can\'t edit a system role',
+			'unique'			=> 'This name is already present',
+			'unique_file' 		=> 'This file name is already present',
+			'unique_name' 		=> 'This name is already present in this language',
+			'unique_slug' 		=> 'This slug is already present in this language',
 
 		),
 

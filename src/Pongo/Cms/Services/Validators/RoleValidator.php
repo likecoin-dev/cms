@@ -2,8 +2,10 @@
 
 class RoleValidator extends BaseValidator {
 
-	protected $rules = array(
-		'name' => 'required|min:2|unique:roles,name,{id}'
+	protected $rules = array(		
+		'settings' => array(		
+			'name' => 'required|min:2|unique:roles,name,{id}'
+		)
 	);
 
 	protected $messages = array(

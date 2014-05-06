@@ -8,7 +8,7 @@
 			
 			<div class="col-xs-2 side">
 				
-				<h2>{{t('sidebar.role.header')}}</h2>
+				<h2>{{ t('sidebar.role.header') }}</h2>
 
 				@include('cms::sections.roles.partials.sidebar', array('role' => $role))
 
@@ -18,11 +18,7 @@
 				
 				<div class="breadcrumb-wrapper">
 
-					<ol class="breadcrumb">
-						<li>{{strtoupper(LANG)}}</li>
-						<li><a href="dashboard.html">Page</a></li>
-						<li><a href="page.html">Sub Page</a></li>
-					</ol>
+					{{ Render::breadCrumb('dashboard', 'roles') }}
 
 				</div>
 				
@@ -42,5 +38,5 @@
 
 @section('footer-js')
 	@parent
-	{{Render::asset('js/sections/roles/edit.js')}}
+	{{ Render::asset('js/sections/roles/edit.js') }}
 @stop

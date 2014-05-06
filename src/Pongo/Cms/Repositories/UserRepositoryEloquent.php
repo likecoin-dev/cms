@@ -44,10 +44,11 @@ class UserRepositoryEloquent extends BaseRepositoryEloquent implements UserRepos
 					->details;
 	}
 
-	public function getUsersWithRole($per_page)
+	public function getUsersWithRole($per_page, $level)
 	{
 		return $this->model
 					->with('role')
+					->maxLevel($level)
 					->orderBy('username', 'asc')
 					->paginate($per_page);
 	}

@@ -8,13 +8,16 @@
 				<div class="col-sm-12">
 					<h1>Pongo<span>CMS</span> <small>v2</small></h1>
 					{{ Form::open(array('route' => 'api.login')) }}
+						
+						{{ Form::hidden('section', 'login') }}
+
 						<div class="form-group" rel="username">
-							<label for="username">{{ t('label.login.form.username') }}</label>
-							<input type="text" class="form-control" name="username" autocorrect="off" autocapitalize="off" placeholder="{{ t('placeholder.login.username') }}">
+							{{ Form::label('username', t('label.login.form.username')) }}
+							{{ Form::text('username', null, array('class' => 'form-control', 'autocorrect' => 'off', 'autocapitalize' => 'off', 'placeholder' => t('placeholder.login.username'))) }}
 						</div>
 						<div class="form-group" rel="password">
-							<label for="password">{{ t('label.login.form.password') }}</label>
-							<input type="password" class="form-control" name="password" placeholder="{{ t('placeholder.login.password') }}">
+							{{ Form::label('password', t('label.login.form.password')) }}
+							{{ Form::password('password', array('class' => 'form-control', 'placeholder' => t('placeholder.login.password'))) }}
 						</div>
 						<div class="form-group">
 							<div class="row">
@@ -22,11 +25,7 @@
 									<label class="checkbox-inline"><input type="checkbox" name="remember"> {{ t('label.login.form.remember') }}</label>
 								</div>
 								<div class="col-md-6">
-									<select name="cmslang" class="form-control">
-										@foreach ($languages as $key => $lang)
-										<option value="{{ $key }}">{{ $lang['lang'] }}</option>
-										@endforeach
-									</select>
+									{{ Form::select('cmslang', Pongo::languages(), null, array('class' => 'form-control')) }}
 								</div>
 							</div>
 						</div>

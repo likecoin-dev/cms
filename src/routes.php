@@ -130,7 +130,10 @@ Route::group(Config::get('cms::routes.api_group_routes'), function() use ($apiCo
 	// // USER
 	Route::post('user/create', array('uses' => $apiControllers.'UserController@create', 'as' => 'api.user.create'));
 	Route::post('user/delete', array('uses' => $apiControllers.'UserController@delete', 'as' => 'api.user.delete'));
-	Route::post('user/save', array('uses' => $apiControllers.'UserController@save', 'as' => 'api.user.save'));
+	Route::post('user/save/settings', array('uses' => $apiControllers.'UserController@saveSettings', 'as' => 'api.user.save.settings'));
+	Route::post('user/save/password', array('uses' => $apiControllers.'UserController@savePassword', 'as' => 'api.user.save.password'));
+	Route::post('user/save/details', array('uses' => $apiControllers.'UserController@saveDetails', 'as' => 'api.user.save.details'));
+	Route::post('user/save/role', array('uses' => $apiControllers.'UserController@saveRole', 'as' => 'api.user.save.role'));
 	Route::post('user/valid', array('uses' => $apiControllers.'UserController@valid', 'as' => 'api.user.valid'));
 	
 	// 	// SETTINGS

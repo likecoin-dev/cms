@@ -1,4 +1,3 @@
-(function() {
-
-	console.log('pages/dashboard.js loaded!');
-}).call(this);
+$(function() {
+	console.log('sections/dashboard.js loaded!');
+});

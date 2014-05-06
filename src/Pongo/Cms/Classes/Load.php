@@ -2,6 +2,7 @@
 
 use Pongo\Cms\Repositories\FileRepositoryInterface as File;
 use Pongo\Cms\Repositories\PageRepositoryInterface as Page;
+use Pongo\Cms\Repositories\RoleRepositoryInterface as Role;
 
 class Load {
 
@@ -12,10 +13,11 @@ class Load {
 	/**
 	 * Render constructor
 	 */
-	public function __construct(File $file, Page $page)
+	public function __construct(File $file, Page $page, Role $role)
 	{
 		$this->file = $file;
 		$this->page = $page;
+		$this->role = $role;
 	}
 
 	/**
@@ -194,6 +196,22 @@ class Load {
 			}
 		}
 		return $str;				  
+	}
+
+	/**
+	 * Render role list
+	 * 
+	 * @return string           page item view
+	 */
+	public function roleList($user, $partial = 'roleitem')
+	{
+		$items = $this->role->getActiveRolesList();
+		
+		$item_view = \Render::view('partials.items.' . $partial);
+		$item_view['items'] = $items;
+		$item_view['user'] 	= $user;
+
+		return $item_view;
 	}
 
 }

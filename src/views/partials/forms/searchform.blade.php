@@ -4,15 +4,15 @@
 			<div class="col-xs-2">
 				<select name="field" id="field" class="form-control">
 					@foreach($items as $item)
-					<option value="{{$item}}"{{Tool::isSelected(Input::old('field'), $item)}}>{{t('form.select.'.Tool::filterSearchField($item))}}</option>
+					<option value="{{$item}}"{{ Tool::isSelected(Input::old('field'), $item) }}>{{ t('form.search.'.$item) }}</option>
 					@endforeach
 				</select>
 			</div>
 			<div class="col-xs-2 no-margin">
 				<select name="type" id="type" class="form-control">
-					<option value="equal"{{Tool::isSelected(Input::old('type'), 'equal')}}>{{t('form.select.equal_to')}}</option>
-					<option value="contain"{{Tool::isSelected(Input::old('type'), 'contain')}}>{{t('form.select.contains')}}</option>
-					<option value="start"{{Tool::isSelected(Input::old('type'), 'start')}}>{{t('form.select.start_by')}}</option>
+					<option value="equal"{{ Tool::isSelected(Input::old('type'), 'equal') }}>{{ t('form.search.equal_to') }}</option>
+					<option value="contain"{{ Tool::isSelected(Input::old('type'), 'contain') }}>{{ t('form.search.contains') }}</option>
+					<option value="start"{{ Tool::isSelected(Input::old('type'), 'start') }}>{{ t('form.search.start_by') }}</option>
 				</select>
 			</div>
 			<div class="col-xs-6">
@@ -20,7 +20,7 @@
 			</div>
 			<div class="col-xs-2 no-margin-left">
 				<button class="btn btn-primary pongo-form-submit pongo-loading">
-					<i class="fa fa-search"></i> {{t('form.button.search')}}
+					<i class="fa fa-search"></i> {{ t('form.button.search') }}
 				</button>
 			</div>
 		</div>

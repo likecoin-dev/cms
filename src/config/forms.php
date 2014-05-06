@@ -80,16 +80,6 @@ return array(
 
 		),
 
-		'gender' => array(
-
-			'form' 		=> 'multiRadio',
-			'type' 		=> 'string',
-			'len'  		=> 1,
-			'values'	=> 'm|f',
-			'validate' 	=> 'required'
-
-		),
-
 		'city' => array(
 
 			'form' 		=> 'text',
@@ -106,6 +96,16 @@ return array(
 
 		),
 
+		'gender' => array(
+
+			'form' 		=> 'multiRadio',
+			'type' 		=> 'string',
+			'len'  		=> 1,
+			'values'	=> 'm|f',
+			'validate' 	=> 'required'
+
+		),
+		
 		'birth_date' => array(
 
 			'form' 		=> 'date',

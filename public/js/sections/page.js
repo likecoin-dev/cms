@@ -1,4 +1,3 @@
-(function() {
-	Pongo.Form.submitForm();
-	console.log('pages/page.js loaded!');
-}).call(this);
+$(function() {
+	console.log('sections/page.js loaded!');
+});

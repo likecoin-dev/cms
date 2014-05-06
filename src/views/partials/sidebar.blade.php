@@ -13,11 +13,7 @@
 				<i class="fa fa-minus-square" data-action="collapse-all"></i>
 			</div>
 
-			<select id="change-lang" class="form-control">
-				@foreach(Pongo::settings('languages') as $lang_key => $lang)
-					<option value="{{$lang_key}}"{{selected($lang_key, LANG)}}>{{$lang['lang']}}</option>
-				@endforeach
-			</select>
+			{{ Form::select('change-lang', Pongo::languages(), LANG, array('id' => 'change-lang', 'class' => 'form-control')) }}
 
 			<button id="create-page" class="btn btn-primary pongo-loading">
 				<i class="fa fa-plus-circle"></i> {{t('form.button.page')}}
@@ -31,7 +27,7 @@
 			
 			<ol class="dd-list ol-nested left pongo-active">
 
-				{{Load::pageList(0, $lang_key, $page_id)}}
+				{{ Load::pageList(0, $lang_key, $page_id) }}
 
 			</ol>
 

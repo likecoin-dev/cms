@@ -4,6 +4,12 @@
 		<li class="active">
 			<a href="#settings" data-toggle="tab">{{t('sidebar.page.settings')}}</a>
 		</li>
+		<li>
+			<a href="#password" data-toggle="tab">{{t('sidebar.user.password')}}</a>
+		</li>
+		<li>
+			<a href="#details" data-toggle="tab">{{t('sidebar.user.details')}}</a>
+		</li>
 	</ul>
 
 @else

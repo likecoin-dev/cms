@@ -3,10 +3,11 @@
 	{{ Form::open(array('route' => 'api.role.save')) }}
 
 		{{ Form::hidden('id', $role->id) }}
+		{{ Form::hidden('section', 'settings') }}
 		
 		<div class="form-group" rel="name">
 			{{ Form::label('name', t('label.role.settings.name')) }}
-			<input type="text" class="form-control" name="name" id="name" placeholder="{{t('placeholder.role.settings.name')}}" value="{{{$role->name or null}}}">
+			{{ Form::text('name', $role->name, array('class' => 'form-control', 'placeholder' => t('placeholder.role.settings.name'))) }}
 		</div>
 		
 		<div class="form-submit">

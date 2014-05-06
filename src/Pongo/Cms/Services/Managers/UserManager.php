@@ -13,7 +13,9 @@ class UserManager extends BaseManager {
 		$this->access = $access;
 		$this->validator = $validator;
 		$this->model = $user;
-		$this->related = $userdetail;
+		$this->related['details'] = $userdetail;
+
+		$this->section = 'users';
 
 		// Enabling search
 		$this->search = $search;
@@ -42,7 +44,7 @@ class UserManager extends BaseManager {
 
 		$user = $this->model->create($default_user);
 		\Event::fire('user.create', array($user->id));
-		$this->related->createUserDetails($user->id);
+		$this->related['details']->createUserDetails($user->id);
 
 		$response = array(
 			'render'		=> 'user',
@@ -67,7 +69,7 @@ class UserManager extends BaseManager {
 		if($this->delete($user_id)) {
 
 			\Event::fire('user.delete', array($user_id));
-			$this->related->deleteUserDetails($user_id);
+			$this->related['details']->deleteUserDetails($user_id);
 
 			$response = array(
 				'remove' 	=> $user_id,
@@ -86,7 +88,90 @@ class UserManager extends BaseManager {
 	 */
 	public function getUsersList()
 	{	
-		return $this->model->getUsersWithRole(XPAGE);
+		return $this->model->getUsersWithRole(XPAGE, LEVEL);
+	}
+
+	/**
+	 * [saveUserSettings description]
+	 * @return [type] [description]
+	 */
+	public function saveUserSettings()
+	{
+		if($check = $this->canEdit()) {
+
+			if ($this->validator->fails()) {
+				return $this->setError($this->validator->errors());
+			} else {
+				$id = $this->input['id'];
+				$user = $this->model->find($id);
+				$user->username = $this->input['username'];
+				$user->email = $this->input['email'];
+				$user->editor = $this->input['editor'];
+				$user->lang = $this->input['lang'];
+				$user->save();
+
+				if($id == USERID) {
+					\Session::put('USERNAME', $user->username);
+					\Session::put('EMAIL', $user->email);
+					\Session::put('LANG', $user->lang);
+				}
+
+				return $this->setSuccess('alert.success.save');
+			}
+
+		} else {
+			return $check;
+		}
+	}
+
+	public function saveUserPassword()
+	{
+		if($check = $this->canEdit()) {
+
+			if ($this->validator->fails()) {
+				return $this->setError($this->validator->errors());
+			} else {
+				$id = $this->input['id'];
+				$user = $this->model->find($id);
+				$user->password = \Hash::make($this->input['password']);
+				$user->save();
+				return $this->setSuccess('alert.success.save');
+			}
+
+		} else {
+			return $check;
+		}
+	}
+
+	public function saveUserDetails()
+	{
+		if($check = $this->canEdit()) {
+
+			if ($this->validator->fails()) {
+				return $this->setError($this->validator->errors());
+			} else {
+				return $this->saveCustomForm('details', 'user_details');
+			}
+
+		} else {
+			return $check;
+		}
+	}
+
+	/**
+	 * [roleUser description]
+	 * @return [type] [description]
+	 */
+	public function roleUser()
+	{
+		if($this->input) {
+			$role_id = $this->input['item_id'];
+			$user_id = $this->input['user_id'];
+			$user = $this->model->find($user_id);
+			$user->role_id = $role_id;
+			$user->save();
+			return $this->setSuccess('alert.success.role_modified');
+		}
 	}
 
 	/**

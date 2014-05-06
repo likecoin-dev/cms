@@ -8,7 +8,7 @@
 			
 			<div class="col-xs-2 side">
 				
-				<h2>{{t('sidebar.role.header')}}</h2>
+				<h2>{{ t('sidebar.role.header') }}</h2>
 				
 				<div class="side-wrapper">
 					@include('cms::sections.roles.partials.sidebar')	
@@ -20,7 +20,7 @@
 				
 				<div class="breadcrumb-wrapper">
 					
-					{{\Render::breadCrumb('dashboard', 'roles')}}
+					{{ Render::breadCrumb('dashboard', 'roles') }}
 
 				</div>
 				
@@ -57,11 +57,6 @@
 										@endif
 									</li>
 								@endforeach
-
-								<!-- <a href="" class="load-more">
-									<i class="fa fa-refresh fa-spin"></i>
-									Load more...
-								</a> -->
 
 							</ol>
 
@@ -102,5 +97,5 @@
 
 @section('footer-js')
 	@parent
-	{{Render::asset('js/sections/roles/index.js')}}
+	{{ Render::asset('js/sections/roles/index.js') }}
 @stop

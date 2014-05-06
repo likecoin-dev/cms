@@ -101,7 +101,14 @@ class PageManager extends BaseManager {
 		$lang = $this->input['lang'];
 		$label = \Pongo::settings('languages.' . $lang . '.lang');
 		\Session::put('LANG', $lang);
-		return $this->setSuccess('alert.info.page_lang', array('lang' => $label));
+
+		$response = array(
+			'status' 	=> 'success',
+			'msg'		=> t('alert.info.page_lang', array('lang' => $label)),
+			'lang'		=> $label
+		);
+
+		return $this->setSuccess($response);
 	}
 
 	/**

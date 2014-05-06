@@ -34,6 +34,37 @@ class Role extends BaseModel {
 		return $this->hasMany('Pongo\Cms\Models\User');
 	}
 
+	/**
+	 * [scopeOrder description]
+	 * @param  [type] $query [description]
+	 * @return [type]        [description]
+	 */
+	public function scopeOrder($query)
+	{
+		return $query->orderBy('level', 'desc')
+					 ->orderBy('id', 'asc');
+	}
+
+	/**
+	 * [scopeHasLevel description]
+	 * @param  [type] $query [description]
+	 * @return [type]        [description]
+	 */
+	public function scopeHasLevel($query)
+	{
+		return $query->where('level', '>', 0);
+	}
+
+	/**
+	 * [scopeLevelUnderEqual description]
+	 * @param  [type] $query [description]
+	 * @param  [type] $level [description]
+	 * @return [type]        [description]
+	 */
+	public function scopeLevelUnderEqual($query, $level)
+	{
+		return $query->where('level', '<=', $level);
+	}
 
 
 }
