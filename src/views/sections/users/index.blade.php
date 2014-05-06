@@ -20,7 +20,7 @@
 				
 				<div class="breadcrumb-wrapper search">
 					
-					{{ Render::breadCrumb('dashboard', 'users') }}
+					{{ Render::breadCrumb(array('dashboard', 'users')) }}
 					
 					{{ Render::searchForm('user', array('username', 'email', 'details:lastname', 'details:city', 'role:name', 'is_active')) }}
 
@@ -38,18 +38,18 @@
 								@if($users->count())
 
 									@foreach ($users as $user)
-										<li class="dl-item" data-id="{{$user->id}}">
-											<p class="dd-handle">{{$user->username}}</p>
+										<li class="dl-item" data-id="{{ $user->id }}">
+											<p class="dd-handle">{{ $user->username }}</p>
 											@if($user->role->level == Access::roleMaxLevel())
 											<label class="fake"></label>
 											@else
-											<label><input type="checkbox" value="{{$user->id}}" class="pongo-checkbox"{{Tool::isChecked($user->is_active, 1)}}><span></span></label>
+											<label><input type="checkbox" value="{{$user->id}}" class="pongo-checkbox"{{ Tool::isChecked($user->is_active, 1) }}><span></span></label>
 											@endif
 											<div class="btn-edit">
-												<a href="{{route('user.edit', array('user_id' => $user->id))}}" class="btn btn-sm btn-primary">
+												<a href="{{ route('user.edit', array('user_id' => $user->id)) }}" class="btn btn-sm btn-primary">
 													<i class="fa fa-pencil-square-o"></i></a>
 												@if($user->role->level != Access::roleMaxLevel())
-												<a href="#" data-toggle="modal" data-target=".pongo-delete" data-id="{{$user->id}}" class="btn btn-sm btn-danger pongo-confirm">
+												<a href="#" data-toggle="modal" data-target=".pongo-delete" data-id="{{ $user->id }}" class="btn btn-sm btn-danger pongo-confirm">
 													<i class="fa fa-trash-o"></i></a>
 												@endif
 											</div>
@@ -87,13 +87,13 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title">Are you sure?</h4>
+					<h4 class="modal-title">{{ t('modal.title.are_you_sure') }}</h4>
 				</div>
 				<div class="modal-body buttons">
 					{{ Form::open(array('route' => 'api.user.delete')) }}
 					{{ Form::hidden('item_id') }}
-					<button class="btn btn-sm btn-danger pongo-ajax-submit pongo-loading">{{t('form.button.delete')}}</button>
-					<button class="btn btn-sm btn-primary" data-dismiss="modal">{{t('form.button.cancel')}}</button>
+					<button class="btn btn-sm btn-danger pongo-ajax-submit pongo-loading">{{ t('form.button.delete') }}</button>
+					<button class="btn btn-sm btn-primary" data-dismiss="modal">{{ t('form.button.cancel') }}</button>
 					{{ Form::close() }}
 				</div>
 			</div>

@@ -80,6 +80,8 @@ class UserController extends ApiController {
 	{
 		if ($this->manager->withInput()->roleUser()) {
 			return $this->manager->success();
+		} else {
+			return $this->manager->errors();
 		}
 	}
 

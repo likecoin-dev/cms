@@ -20,7 +20,7 @@
 				
 				<div class="breadcrumb-wrapper">
 					
-					{{ Render::breadCrumb('dashboard', 'roles') }}
+					{{ Render::breadCrumb(array('dashboard', 'roles')) }}
 
 				</div>
 				
@@ -37,7 +37,7 @@
 									
 									@if(Access::isSystemRole($role->name))
 									<li class="{{(Access::roleMaxLevel() == $role->level) ? 'dl-not' : 'dl-item move'}}" data-id="{{$role->id}}">
-										<p class="dd-passive">{{$role->name}}</p>
+										<p class="dd-passive">{{ $role->name }}</p>
 										@if(Access::allowedCms($role->level))
 											<span class="label label-success">CMS</span>
 										@else
@@ -45,13 +45,13 @@
 										@endif
 										<label class="fake"></label>
 									@else
-									<li class="dl-item move" data-id="{{$role->id}}">
-										<p class="dd-handle">{{$role->name}}</p>
-										<label><input type="checkbox" value="{{$role->id}}" class="pongo-checkbox"{{Tool::isChecked($role->is_active, 1)}}><span></span></label>
+									<li class="dl-item move" data-id="{{ $role->id }}">
+										<p class="dd-handle">{{ $role->name }}</p>
+										<label><input type="checkbox" value="{{$role->id}}" class="pongo-checkbox"{{ Tool::isChecked($role->is_active, 1) }}><span></span></label>
 										<div class="btn-edit">
-											<a href="{{route('role.edit', array('role_id' => $role->id))}}" class="btn btn-sm btn-primary">
+											<a href="{{ route('role.edit', array('role_id' => $role->id)) }}" class="btn btn-sm btn-primary">
 												<i class="fa fa-pencil-square-o"></i></a>
-											<a href="#" data-toggle="modal" data-target=".pongo-delete" data-id="{{$role->id}}" class="btn btn-sm btn-danger pongo-confirm">
+											<a href="#" data-toggle="modal" data-target=".pongo-delete" data-id="{{ $role->id }}" class="btn btn-sm btn-danger pongo-confirm">
 												<i class="fa fa-trash-o"></i></a>
 										</div>
 										@endif
@@ -81,13 +81,13 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title">Are you sure?</h4>
+					<h4 class="modal-title">{{ t('modal.title.are_you_sure') }}</h4>
 				</div>
 				<div class="modal-body buttons">
 					{{ Form::open(array('route' => 'api.role.delete')) }}
 					{{ Form::hidden('item_id') }}
-					<button class="btn btn-sm btn-danger pongo-ajax-submit pongo-loading">{{t('form.button.delete')}}</button>
-					<button class="btn btn-sm btn-primary" data-dismiss="modal">{{t('form.button.cancel')}}</button>
+					<button class="btn btn-sm btn-danger pongo-ajax-submit pongo-loading">{{ t('form.button.delete') }}</button>
+					<button class="btn btn-sm btn-primary" data-dismiss="modal">{{ t('form.button.cancel') }}</button>
 					{{ Form::close() }}
 				</div>
 			</div>

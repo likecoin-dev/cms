@@ -87,7 +87,7 @@ class UserManager extends BaseManager {
 	 * @return array
 	 */
 	public function getUsersList()
-	{	
+	{
 		return $this->model->getUsersWithRole(XPAGE, LEVEL);
 	}
 
@@ -124,6 +124,10 @@ class UserManager extends BaseManager {
 		}
 	}
 
+	/**
+	 * [saveUserPassword description]
+	 * @return [type] [description]
+	 */
 	public function saveUserPassword()
 	{
 		if($check = $this->canEdit()) {
@@ -143,6 +147,10 @@ class UserManager extends BaseManager {
 		}
 	}
 
+	/**
+	 * [saveUserDetails description]
+	 * @return [type] [description]
+	 */
 	public function saveUserDetails()
 	{
 		if($check = $this->canEdit()) {
@@ -165,12 +173,26 @@ class UserManager extends BaseManager {
 	public function roleUser()
 	{
 		if($this->input) {
+
 			$role_id = $this->input['item_id'];
 			$user_id = $this->input['user_id'];
-			$user = $this->model->find($user_id);
-			$user->role_id = $role_id;
-			$user->save();
-			return $this->setSuccess('alert.success.role_modified');
+			
+			if(\Pongo::settings('admin_account.id') == $user_id) {
+				
+				return $this->setError('alert.error.user_admin_role');
+				
+			} else {
+				
+				$user = $this->model->find($user_id);
+				$user->role_id = $role_id;
+				$user->save();
+
+				if($user_id == USERID) {
+					\Session::put('LEVEL', \Auth::user()->role->level);
+				}
+
+				return $this->setSuccess('alert.success.role_modified');
+			}
 		}
 	}
 

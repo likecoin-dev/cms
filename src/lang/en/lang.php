@@ -39,7 +39,7 @@ return array(
 			'unauthorized'			=> 'Unauthorized access, please login',
 			'upload_completed'		=> 'Unable to upload files',
 			'user_admin'			=> 'Unable to delete the admin user',
-			'user_admin_role'		=> 'Can\'t detach admin user from its role',
+			'user_admin_role'		=> 'You can\'t change the admin role',
 			'user_created'			=> 'Unable to create user',
 			'user_deleted'			=> 'Unable to delete user',
 			
@@ -361,6 +361,7 @@ return array(
 
 		'title' => array(
 
+			'are_you_sure'		=> 'Are you sure?',
 			'clone_element'		=> 'Clone this element?',
 			'clone_page'		=> 'Clone this page?',
 			'delete_page' 		=> 'Delete this page?',
