@@ -23,7 +23,7 @@ Route::group(Config::get('cms::routes.cms_group_routes'), function() use ($pongo
 	// // LOGIN
 	Route::get('/', array('uses' => $pongoControllers.'LoginController@index', 'as' => 'cms.index'));
 	Route::get('login', array('uses' => $pongoControllers.'LoginController@index', 'as' => 'login.index'));
-	Route::get('logout', array('uses' => $pongoControllers.'BaseController@logout', 'as' => 'logout'));
+	Route::get('logout', array('uses' => $pongoControllers.'LogoutController@logout', 'as' => 'logout'));
 	Route::get('lang/{lang}', array('uses' => $pongoControllers.'BaseController@changeLang', 'as' => 'lang'));
 
 	// // DASHBOARD

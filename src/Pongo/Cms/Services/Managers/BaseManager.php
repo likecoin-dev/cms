@@ -23,6 +23,11 @@ abstract class BaseManager implements BaseManagerInterface  {
 	protected $access;
 
 	/**
+	 * @var $events
+	 */
+	protected $events;
+
+	/**
 	 * @var $model
 	 */
 	protected $model;

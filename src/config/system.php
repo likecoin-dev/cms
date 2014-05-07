@@ -81,6 +81,7 @@ return array(
 	'providers' => array(
 
 		'EventServiceProvider',
+		'FilterServiceProvider',
 		'MarkerServiceProvider',
 		'ValidatorServiceProvider',
 

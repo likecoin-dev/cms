@@ -31,6 +31,7 @@ class RoleManager extends BaseManager {
 		);
 
 		$role = $this->model->create($default_role);
+		\Event::fire('role.create', array($role));
 
 		$response = array(
 			'render'		=> 'role',

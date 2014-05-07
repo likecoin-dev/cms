@@ -2,7 +2,8 @@
 
 use Illuminate\Support\ServiceProvider;
 
-use Event;
+use Pongo\Cms\Services\Events\RoleSubscriber;
+use Pongo\Cms\Services\Events\UserSubscriber;
 
 class EventServiceProvider extends ServiceProvider {
 
@@ -13,7 +14,8 @@ class EventServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-
+		$this->app->events->subscribe(new RoleSubscriber);
+		$this->app->events->subscribe(new UserSubscriber);
 	}
 
 	/**
@@ -23,13 +25,7 @@ class EventServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		/*Event::listen('event.testing', function($param) {
-
-			return $param;
-
-		});*/
-
-		Event::listen('event.testing', 'Pongo\Cms\Support\Events\TestingEvent@test');
+		// 
 	}
 
 }

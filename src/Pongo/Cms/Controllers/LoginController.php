@@ -17,8 +17,7 @@ class LoginController extends BaseController {
 	 */
 	public function index()
 	{
-		$languages = \Pongo::settings('languages');
-		return \Render::view('sections.login.login', array('languages' => $languages));
+		return \Render::view('sections.login.login');
 	}
 
 }

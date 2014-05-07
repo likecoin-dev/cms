@@ -35,16 +35,4 @@ class BaseController extends Controller {
 		return \Redirect::back();
 	}
 
-	/**
-	 * Log the user out
-	 * 
-	 * @return void
-	 */
-	public function logout()
-	{
-		\Auth::logout();
-		\Alert::success(t('alert.info.logout'))->flash();
-		return \Redirect::route('login.index');
-	}
-
 }
