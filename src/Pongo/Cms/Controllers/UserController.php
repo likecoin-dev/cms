@@ -43,9 +43,12 @@ class UserController extends BaseController {
 	public function search()
 	{
 		if($this->manager->withInputOnly()) {
+
 			$users = $this->manager->search('users');
 			return \Render::view('sections.users.index', $users);
+
 		} else {
+			
 			return \Redirect::route('users');
 		}
 	}

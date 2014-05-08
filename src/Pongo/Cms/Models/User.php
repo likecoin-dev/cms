@@ -116,4 +116,25 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 		return 'remember_token';
 	}
 
+	/**
+	 * [boot description]
+	 * @return [type] [description]
+	 */
+	public static function boot()
+	{
+		parent::boot();
+
+		static::deleting(function($user) {
+
+			// Admin account
+			if ($user->id == \Pongo::settings('admin_account.id')) return false;
+			
+			// Account own pages
+			if (count($user->pages)) return false;
+			
+			// Delete itself
+			if ($user->id == USERID) return false;
+		});
+	}
+
 }

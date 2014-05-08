@@ -1,14 +1,16 @@
 <?php namespace Pongo\Cms\Services\Managers;
 
 use Pongo\Cms\Classes\Access;
+use Illuminate\Events\Dispatcher as Events;
 use Pongo\Cms\Services\Validators\RoleValidator as Validator;
 use Pongo\Cms\Repositories\RoleRepositoryInterface as Role;
 
 class RoleManager extends BaseManager {	
 
-	public function __construct(Access $access, Validator $validator, Role $role)
+	public function __construct(Access $access, Events $events, Validator $validator, Role $role)
 	{
 		$this->access = $access;
+		$this->events = $events;
 		$this->validator = $validator;
 		$this->model = $role;
 
@@ -31,7 +33,7 @@ class RoleManager extends BaseManager {
 		);
 
 		$role = $this->model->create($default_role);
-		\Event::fire('role.create', array($role));
+		$this->events->fire('role.create', array($role));
 
 		$response = array(
 			'render'		=> 'role',
@@ -53,10 +55,11 @@ class RoleManager extends BaseManager {
 	public function deleteRole()
 	{
 		$role_id = $this->input['item_id'];
+
 		if($this->delete($role_id)) {
 
-			\Event::fire('role.delete', array($role_id));
-
+			$this->events->fire('role.delete', array($role_id));
+			
 			$response = array(
 				'remove' 	=> $role_id,
 				'status' 	=> 'success',
@@ -64,8 +67,11 @@ class RoleManager extends BaseManager {
 			);
 
 			return $this->setSuccess($response);
+
+		} else {
+
+			return $this->setError('alert.error.role_has_users');
 		}
-		return false;
 	}
 
 	/**
@@ -89,20 +95,21 @@ class RoleManager extends BaseManager {
 			$roles = get_json('items');
 
 			foreach ($roles as $key => $role_arr) {
+
 				$role = $this->model->find($role_arr['id']);
-				// Process non sys roles only
-				if( ! \Access::isSystemRole($role->name)) {					
+
+				if( ! \Access::isSystemRole($role->name)) {
+
 					if(array_key_exists($key-1, $roles)) {
+
 						$prev_role = $this->model->find($roles[$key-1]['id']);
 						$role->level = $prev_role->level - 1;
 						if($role->level <= 0) $role->level = 0;
 						$role->save();
 
-						if($role->name == ROLENAME) {
-							\Session::put('LEVEL', $role->level);
-						}
+						$this->events->fire('role.move', array($role));
 					}
-				}		
+				}
 			}
 
 			return $this->setSuccess('alert.success.order_saved');
@@ -118,21 +125,23 @@ class RoleManager extends BaseManager {
 		if($check = $this->canEdit()) {
 
 			if ($this->validator->fails()) {
+
 				return $this->setError($this->validator->errors());
+
 			} else {
+
 				$id = $this->input['id'];
 				$role = $this->model->find($id);
 				$role->name = $this->input['name'];
 				$role->save();
 
-				if($id == ROLEID) {
-					\Session::put('ROLENAME', $role->name);
-				}
+				$this->events->fire('role.save', array($role));
 
 				return true;
 			}
 
 		} else {
+
 			return $check;
 		}
 	}
@@ -144,11 +153,13 @@ class RoleManager extends BaseManager {
 	public function validRole()
 	{
 		if($this->input) {
+			
 			$role_id = $this->input['item_id'];
 			$value = $this->input['action'];
 			$role = $this->model->find($role_id);
 			$role->is_active = $value;
 			$role->save();
+
 			return $this->setSuccess('alert.success.role_modified');
 		}
 	}

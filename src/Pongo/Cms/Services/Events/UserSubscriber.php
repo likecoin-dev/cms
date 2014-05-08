@@ -1,21 +1,47 @@
 <?php namespace Pongo\Cms\Services\Events;
 
-use Session;
+use Alert, Auth, Session;
 
-class UserSubscriber {
+class UserSubscriber extends BaseSubscriber {
 
-	private $eventPath = 'Pongo\Cms\Services\Events\\';
+	/**
+	 * [onChangeRole description]
+	 * @param  [type] $user [description]
+	 * @return [type]       [description]
+	 */
+	public function onChangeRole($user)
+	{
+		if($user->id == USERID) {
+			Session::put('LEVEL', Auth::user()->role->level);
+		}
+	}
 
+	/**
+	 * [onCreate description]
+	 * @param  [type] $user [description]
+	 * @return [type]       [description]
+	 */
 	public function onCreate($user)
 	{
 		// D('User has been created!');
 	}
 
-	public function onDelete($user)
+	/**
+	 * [onDelete description]
+	 * @param  [type] $user [description]
+	 * @return [type]       [description]
+	 */
+	public function onDelete($related, $user_id)
 	{
-		// D('User has been deleted!'); 
+		$related->deleteUserDetails($user_id);
 	}
 
+	/**
+	 * [onLogin description]
+	 * @param  [type] $user    [description]
+	 * @param  [type] $cmslang [description]
+	 * @return [type]          [description]
+	 */
 	public function onLogin($user, $cmslang)
 	{
 		// Set constants in session
@@ -30,16 +56,42 @@ class UserSubscriber {
 		Session::put('CMSLANG', ($cmslang) ?: $user->lang);
 	}
 
-	public function onLogout($user)
+	/**
+	 * [onLogout description]
+	 * @return [type] [description]
+	 */
+	public function onLogout()
 	{
-		// D('User has been logged out!', true); 
+		Auth::logout();
+		Alert::success(t('alert.info.logout'))->flash();
 	}
 
+	/**
+	 * [onChangeRole description]
+	 * @param  [type] $user [description]
+	 * @return [type]       [description]
+	 */
+	public function onSaveSettings($user)
+	{
+		if($user->id == USERID) {
+			Session::put('USERNAME', $user->username);
+			Session::put('EMAIL', $user->email);
+			Session::put('LANG', $user->lang);
+		}
+	}
+
+	/**
+	 * [subscribe description]
+	 * @param  [type] $events [description]
+	 * @return [type]         [description]
+	 */
 	public function subscribe($events)
 	{
 		$events->listen('user.create', $this->eventPath . 'UserSubscriber@onCreate');
 		$events->listen('user.delete', $this->eventPath . 'UserSubscriber@onDelete');
 		$events->listen('user.login',  $this->eventPath . 'UserSubscriber@onLogin');
 		$events->listen('user.logout', $this->eventPath . 'UserSubscriber@onLogout');
+		$events->listen('user.changerole', $this->eventPath . 'UserSubscriber@onChangeRole');
+		$events->listen('user.save.settings', $this->eventPath . 'UserSubscriber@onSaveSettings');
 	}
 }

@@ -2,15 +2,17 @@
 
 use Pongo\Cms\Classes\Access;
 use Pongo\Cms\Services\Search\Search;
+use Illuminate\Events\Dispatcher as Events;
 use Pongo\Cms\Services\Validators\UserValidator as Validator;
 use Pongo\Cms\Repositories\UserRepositoryInterface as User;
 use Pongo\Cms\Repositories\UserDetailRepositoryInterface as UserDetail;
 
 class UserManager extends BaseManager {
 
-	public function __construct(Access $access, Search $search, Validator $validator, User $user, UserDetail $userdetail)
+	public function __construct(Access $access, Search $search, Events $events, Validator $validator, User $user, UserDetail $userdetail)
 	{
 		$this->access = $access;
+		$this->events = $events;
 		$this->validator = $validator;
 		$this->model = $user;
 		$this->related['details'] = $userdetail;
@@ -43,7 +45,7 @@ class UserManager extends BaseManager {
 		);
 
 		$user = $this->model->create($default_user);
-		\Event::fire('user.create', array($user->id));
+		$this->events->fire('user.create', array($user));
 		$this->related['details']->createUserDetails($user->id);
 
 		$response = array(
@@ -66,10 +68,10 @@ class UserManager extends BaseManager {
 	public function deleteUser()
 	{
 		$user_id = $this->input['item_id'];
+
 		if($this->delete($user_id)) {
 
-			\Event::fire('user.delete', array($user_id));
-			$this->related['details']->deleteUserDetails($user_id);
+			$this->events->fire('user.delete', array($this->related['details'], $user_id));
 
 			$response = array(
 				'remove' 	=> $user_id,
@@ -78,8 +80,12 @@ class UserManager extends BaseManager {
 			);
 
 			return $this->setSuccess($response);
+
+		} else {
+
+			return $this->setError('alert.error.user_deleted');
 		}
-		return false;
+		
 	}
 
 	/**
@@ -100,8 +106,11 @@ class UserManager extends BaseManager {
 		if($check = $this->canEdit()) {
 
 			if ($this->validator->fails()) {
+
 				return $this->setError($this->validator->errors());
+
 			} else {
+
 				$id = $this->input['id'];
 				$user = $this->model->find($id);
 				$user->username = $this->input['username'];
@@ -110,16 +119,12 @@ class UserManager extends BaseManager {
 				$user->lang = $this->input['lang'];
 				$user->save();
 
-				if($id == USERID) {
-					\Session::put('USERNAME', $user->username);
-					\Session::put('EMAIL', $user->email);
-					\Session::put('LANG', $user->lang);
-				}
-
+				$this->events->fire('user.save.settings', array($user));
 				return $this->setSuccess('alert.success.save');
 			}
 
 		} else {
+
 			return $check;
 		}
 	}
@@ -133,16 +138,21 @@ class UserManager extends BaseManager {
 		if($check = $this->canEdit()) {
 
 			if ($this->validator->fails()) {
+
 				return $this->setError($this->validator->errors());
+
 			} else {
+				
 				$id = $this->input['id'];
 				$user = $this->model->find($id);
 				$user->password = \Hash::make($this->input['password']);
 				$user->save();
+				
 				return $this->setSuccess('alert.success.save');
 			}
 
 		} else {
+
 			return $check;
 		}
 	}
@@ -156,12 +166,16 @@ class UserManager extends BaseManager {
 		if($check = $this->canEdit()) {
 
 			if ($this->validator->fails()) {
+
 				return $this->setError($this->validator->errors());
+
 			} else {
+
 				return $this->saveCustomForm('details', 'user_details');
 			}
 
 		} else {
+
 			return $check;
 		}
 	}
@@ -187,9 +201,7 @@ class UserManager extends BaseManager {
 				$user->role_id = $role_id;
 				$user->save();
 
-				if($user_id == USERID) {
-					\Session::put('LEVEL', \Auth::user()->role->level);
-				}
+				$this->events->fire('user.changerole', array($user));
 
 				return $this->setSuccess('alert.success.role_modified');
 			}
@@ -203,11 +215,13 @@ class UserManager extends BaseManager {
 	public function validUser()
 	{
 		if($this->input) {
+			
 			$user_id = $this->input['item_id'];
 			$value = $this->input['action'];
 			$user = $this->model->find($user_id);
 			$user->is_active = $value;
 			$user->save();
+			
 			return $this->setSuccess('alert.success.user_modified');
 		}
 	}

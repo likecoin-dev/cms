@@ -33,6 +33,7 @@ return array(
 			'page_order'			=> 'Unable to save page order',
 			'role_created'			=> 'Unable to create role',
 			'role_deleted'			=> 'Unable to delete role',
+			'role_has_users'		=> 'Some users still belong to role',
 			'role_system'			=> 'Can\'t delete a system role',
 			'save'					=> 'Unable to save',
 			'session_exp'			=> 'Session expired, please login',

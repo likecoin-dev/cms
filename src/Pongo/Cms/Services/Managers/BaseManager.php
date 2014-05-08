@@ -177,19 +177,6 @@ abstract class BaseManager implements BaseManagerInterface  {
 	}
 
 	/**
-	 * Format errors array
-	 * 
-	 * @return array
-	 */
-	protected function formatResponse($status, $message, $subst = array())
-	{
-		return array(
-			'status' 	=> $status,
-			'msg'		=> t($message, $subst)
-		);
-	}
-
-	/**
 	 * [saveCustomForm description]
 	 * @param  [type] $form [description]
 	 * @param  string $msg  [description]
@@ -248,6 +235,19 @@ abstract class BaseManager implements BaseManagerInterface  {
 	{
 		$this->success = is_array($messages) ? $messages : $this->formatResponse('success', $messages, $subst);
 		return true;
+	}
+
+	/**
+	 * Format errors array
+	 * 
+	 * @return array
+	 */
+	protected function formatResponse($status, $message, $subst = array())
+	{
+		return array(
+			'status' 	=> $status,
+			'msg'		=> t($message, $subst)
+		);
 	}
 
 	/**

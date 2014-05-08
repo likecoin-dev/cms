@@ -22,8 +22,10 @@ class LoginManager extends BaseManager {
 	 */
 	public function login()
 	{
-		if ($this->validator->fails()) {			
+		if ($this->validator->fails()) {
+
 			return $this->setError($this->validator->errors());
+			
 		} else {
 			
 			$remember = \Input::has('remember');
@@ -34,17 +36,24 @@ class LoginManager extends BaseManager {
 				'is_active' => 1
 			);
 			
-			if ( \Auth::attempt($credentials, $remember) ) {				
+			if ( \Auth::attempt($credentials, $remember) ) {
+
 				$user = \Auth::user();
+				
 				if($this->access->allowedCms($user->role->level)) {
+
 					$this->events->fire('user.login', array($user, $this->input['cmslang']));
-					\Alert::info(t('alert.info.welcome', array('user' => $user->username)))->flash();
+					// \Alert::info(t('alert.info.welcome', array('user' => $user->username)))->flash();
 					return true;
+
 				} else {					
+					
 					\Auth::logout();
 					return $this->setError('alert.error.unauthorized');
 				}
+
 			} else {
+
 				return $this->setError('alert.error.login');
 			}	
 		}

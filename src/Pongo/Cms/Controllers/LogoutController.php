@@ -1,13 +1,18 @@
 <?php namespace Pongo\Cms\Controllers;
 
+use Illuminate\Events\Dispatcher as Events;
+
 class LogoutController extends BaseController {
+
+	protected $events;
 
 	/**
 	 * Class constructor
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(Events $events)
 	{
+		$this->events = $events;
 		$this->beforeFilter('pongo.auth');
 	}
 
@@ -18,8 +23,7 @@ class LogoutController extends BaseController {
 	 */
 	public function logout()
 	{
-		\Auth::logout();
-		\Alert::success(t('alert.info.logout'))->flash();
+		$this->events->fire('user.logout');
 		return \Redirect::route('login.index');
 	}
 

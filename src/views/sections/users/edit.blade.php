@@ -20,7 +20,7 @@
 
 					{{ Render::optionsToggle('fa-users') }}
 
-					{{ Render::breadCrumb(array('dashboard', 'users'), $user->username) }}
+					{{ Render::breadCrumb(array('dashboard', 'users'), $user['username']) }}
 
 				</div>
 				
