@@ -1,5 +1,7 @@
 <?php namespace Pongo\Cms\Models;
 
+use Pongo\Cms\Models\Observers\RoleObserver;
+
 class Role extends BaseModel {
 	
 	/**
@@ -73,11 +75,7 @@ class Role extends BaseModel {
 	public static function boot()
 	{
 		parent::boot();
-
-		static::deleting(function($role) {
-			// Role has users
-			if (count($role->users)) return false;
-		});
+		self::observe(new RoleObserver);
 	}
 
 }

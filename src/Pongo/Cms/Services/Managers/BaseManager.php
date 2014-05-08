@@ -12,6 +12,8 @@ abstract class BaseManager implements BaseManagerInterface  {
 	 */
 	public $success = array();
 
+	public static $tmp_error;
+
 	/**
 	 * @var $input
 	 */
@@ -224,6 +226,11 @@ abstract class BaseManager implements BaseManagerInterface  {
 	protected function setError($messages, $subst = array())
 	{
 		$this->errors = is_array($messages) ? $messages : $this->formatResponse('error', $messages, $subst);
+
+		if(self::$tmp_error) {
+			$this->errors = $this->formatResponse('error', self::$tmp_error, $subst);
+		}
+
 		return false;
 	}
 

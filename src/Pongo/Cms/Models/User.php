@@ -3,6 +3,8 @@
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
+use Pongo\Cms\Models\Observers\UserObserver;
+
 class User extends BaseModel implements UserInterface, RemindableInterface {
 
 	/**
@@ -123,18 +125,7 @@ class User extends BaseModel implements UserInterface, RemindableInterface {
 	public static function boot()
 	{
 		parent::boot();
-
-		static::deleting(function($user) {
-
-			// Admin account
-			if ($user->id == \Pongo::settings('admin_account.id')) return false;
-			
-			// Account own pages
-			if (count($user->pages)) return false;
-			
-			// Delete itself
-			if ($user->id == USERID) return false;
-		});
+		self::observe(new UserObserver);
 	}
 
 }

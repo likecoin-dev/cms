@@ -15,6 +15,8 @@ return array(
 
 		'error' => array(
 
+			'cant_delete_admin'		=> 'The Admin user canot be deleted',
+			'cant_delete_current'	=> 'You cannot delete your current user',
 			'cant_edit'				=> 'You can\'t edit this section',
 			'clone_element'			=> 'Unable to clone element',
 			'clone_page'			=> 'Unable to clone page',
@@ -43,6 +45,7 @@ return array(
 			'user_admin_role'		=> 'You can\'t change the admin role',
 			'user_created'			=> 'Unable to create user',
 			'user_deleted'			=> 'Unable to delete user',
+			'user_own_pages'		=> 'The user still owns some pages',
 			
 		),
 

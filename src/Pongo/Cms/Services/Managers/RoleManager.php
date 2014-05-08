@@ -70,7 +70,7 @@ class RoleManager extends BaseManager {
 
 		} else {
 
-			return $this->setError('alert.error.role_has_users');
+			return $this->setError('alert.error.role_deleted');
 		}
 	}
 
