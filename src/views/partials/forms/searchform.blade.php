@@ -4,15 +4,15 @@
 			<div class="col-xs-2">
 				<select name="field" id="field" class="form-control">
 					@foreach($items as $item)
-					<option value="{{$item}}"{{ Tool::isSelected(Input::old('field'), $item) }}>{{ t('form.search.'.$item) }}</option>
+					<option value="{{$item}}"{{ selected(Input::old('field'), $item) }}>{{ t('form.search.'.$item) }}</option>
 					@endforeach
 				</select>
 			</div>
 			<div class="col-xs-2 no-margin">
 				<select name="type" id="type" class="form-control">
-					<option value="equal"{{ Tool::isSelected(Input::old('type'), 'equal') }}>{{ t('form.search.equal_to') }}</option>
-					<option value="contain"{{ Tool::isSelected(Input::old('type'), 'contain') }}>{{ t('form.search.contains') }}</option>
-					<option value="start"{{ Tool::isSelected(Input::old('type'), 'start') }}>{{ t('form.search.start_by') }}</option>
+					<option value="equal"{{ selected(Input::old('type'), 'equal') }}>{{ t('form.search.equal_to') }}</option>
+					<option value="contain"{{ selected(Input::old('type'), 'contain') }}>{{ t('form.search.contains') }}</option>
+					<option value="start"{{ selected(Input::old('type'), 'start') }}>{{ t('form.search.start_by') }}</option>
 				</select>
 			</div>
 			<div class="col-xs-6">

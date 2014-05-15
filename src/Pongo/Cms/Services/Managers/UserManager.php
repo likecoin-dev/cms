@@ -201,7 +201,7 @@ class UserManager extends BaseManager {
 				$user->role_id = $role_id;
 				$user->save();
 
-				$this->events->fire('user.changerole', array($user));
+				$this->events->fire('user.changerole', array($user, $user->role));
 
 				return $this->setSuccess('alert.success.role_modified');
 			}

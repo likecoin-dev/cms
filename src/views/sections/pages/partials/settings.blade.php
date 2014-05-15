@@ -1,45 +1,90 @@
 <div class="tab-pane active" id="settings">
 						
-	{{ Form::open(array('route' => 'api.page.save')) }}
-		{{ Form::hidden('submit', 'settings') }}
+	{{ Form::open(array('route' => 'api.page.save.settings')) }}
+
+		{{ Form::hidden('id', $page->id) }}
+		{{ Form::hidden('lang', $page->lang) }}
+		{{ Form::hidden('section', 'settings') }}
+
 		<div class="form-group" rel="name">
+			
 			{{ Form::label('name', t('label.page.settings.name')) }}
-			<input type="text" class="form-control" name="name" id="name" placeholder="{{t('placeholder.page.settings.name')}}" value="{{{$name or null}}}">
+			
+			{{ Form::text('name', $page->name, array('class' => 'form-control', 'placeholder' => t('placeholder.page.settings.name'), 'data-bind' => 'value: itemName, valueUpdate: "afterkeydown"')) }}
+
 		</div>
+
 		<div class="form-group" rel="slug">
+
 			{{ Form::label('slug', t('label.page.settings.slug')) }}
+			
 			<div class="input-group">
+
 				<span class="input-group-addon">/</span>
-				<input type="text" class="form-control" name="slug" id="slug" placeholder="{{t('placeholder.page.settings.slug')}}" value="{{{$slug or null}}}">
+				
+				{{ Form::text('slug', Tool::slugSlice($page->slug, 1), array('class' => 'form-control', 'placeholder' => t('placeholder.page.settings.slug'),  'data-bind' => 'value: pageSlug')) }}
+				
+				{{ Form::hidden('slug_previous', Tool::slugSlice($page->slug, 1))}}
+				
 				<span class="input-group-btn">
-					<button class="btn btn-default" type="button">{{t('label.page.settings.create_slug')}}</button>
+
+					<button class="btn btn-default" type="button" data-bind="click: createSlugThis">{{ t('label.page.settings.create_slug_this') }}</button>
+					
+					<button class="btn btn-default" type="button" data-bind="click: createSlugName">{{ t('label.page.settings.create_slug_name') }}</button>
+
 				</span>
+
 			</div>
-			<span class="preview">http://www.mysite.com/sub-page</span>
+
+			<span class="preview">{{ URL::to('/') }}<span>{{ Tool::slugBack($page->slug, 1) }}</span>/<span id="slug-last" data-bind="html: pageSlug"></span></span>
+
 		</div>
+
 		<div class="form-group" rel="role_level">
+			
 			{{ Form::label('role_level', t('label.page.settings.edit_by')) }}
-			<select class="form-control" name="role_level" id="role_level">
-				<option value="">Admin</option>
-			</select>
+			
+			{{ Form::select('edit_level', Load::roleListArray('editors', true, true), $page->edit_level, array('class' => 'form-control', 'id' => 'view_level')) }}
+
 		</div>
+
 		<div class="form-group" rel="access_level">
+			
 			{{ Form::label('access_level', t('label.page.settings.view_by')) }}
-			<select class="form-control" name="access_level" id="access_level">
-				<option value="">Guest</option>
-			</select>
+			
+			<div class="row">
+				
+				<div class="col-xs-2">
+					{{ Form::select('view_access', Pongo::viewAccess(), $page->view_access, array('class' => 'form-control', 'id' => 'view_access')) }}
+				</div>
+
+				<div class="col-xs-10">
+					
+					{{ Form::select('view_level', Load::roleListArray('all', true), $page->view_level, array('class' => 'form-control', 'id' => 'view_level')) }}
+
+				</div>
+
+			</div>
+
 		</div>
+
 		<div class="form-group">
+
 			<label for="is_home" class="flag home">
-				<input type="checkbox" id="is_home" name="is_home" value="1">
+
+				{{ Form::checkbox('is_home', 1, $page->is_home, array('id' => 'is_home')) }}
+
 				<span>{{t('label.page.settings.set_hp')}}</span>
+
 			</label>
+
 		</div>
+		
 		<div class="form-submit">
-			<button class="btn btn-success pongo-save">{{t('form.button.save')}}</button>
-			<button class="btn btn-primary pongo-clone">{{t('form.button.clone')}}</button>
-			<button class="btn btn-danger pongo-delete">{{t('form.button.delete')}}</button>
+			<button class="btn btn-success pongo-ajax-submit pongo-loading">{{t('form.button.save')}}</button>
+			<button class="btn btn-primary pongo-clone pongo-loading">{{t('form.button.clone')}}</button>
 		</div>
+
 	{{ Form::close() }}
 
 </div>

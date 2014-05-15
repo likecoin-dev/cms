@@ -74,26 +74,21 @@ abstract class BaseValidator implements ValidatorInterface {
 	{
 		// Check if custom rules exist
 		if( ! empty($this->custom_rules)) {
-
 			$rules = empty($this->data) ?
 				$this->createCustomRules() :
 				$this->formatRules($this->createCustomRules());
-
 			$messages = $this->createCustomMessages($rules);
-
-		} else {
-			
+		} else {			
 			$rules = empty($this->data) ?
 				$this->rules[$this->section] :
-				$this->formatRules($this->rules[$this->section]);
-			
+				$this->formatRules($this->rules[$this->section]);			
 			$messages = $this->formatMessages();
 		}
-
 		// Set new rules and messages
 		$this->rules = $rules;
 		$this->messages = $messages;
 
+		// Make validation
 		$validator = $this->validator->make(
 			$this->input,
 			$this->rules,
@@ -145,9 +140,10 @@ abstract class BaseValidator implements ValidatorInterface {
 		foreach ($rules as $field => $rule) {
 			foreach ($this->data as $var) {
 				if(array_key_exists($var, $this->input)) {
-					$rules[$field] = str_replace('{'.$var.'}', $this->input[$var], $rule);
+					$rule = str_replace('{'.$var.'}', $this->input[$var], $rule);
 				}
 			}
+			$rules[$field] = $rule;
 		}
 		return $rules;
 	}

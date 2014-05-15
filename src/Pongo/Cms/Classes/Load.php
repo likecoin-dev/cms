@@ -10,6 +10,8 @@ class Load {
 	
 	protected $page;
 
+	protected $role;
+
 	/**
 	 * Render constructor
 	 */
@@ -18,41 +20,6 @@ class Load {
 		$this->file = $file;
 		$this->page = $page;
 		$this->role = $role;
-	}
-
-	/**
-	 * Render element form
-	 * 
-	 * @param  int $page_id     active page id
-	 * @return string           page item view
-	 */
-	public function elementForm($page_id)
-	{
-		$items = $this->page->getPageElements($page_id);
-
-		$item_view = \Render::view('partials.items.elementform');
-		$item_view['items'] 	= $items;
-		$item_view['page_id'] 	= $page_id;
-		
-		return $item_view;
-	}
-
-	/**
-	 * Create element list by page_id
-	 * 
-	 * @param  int $page_id    page id
-	 * @param  int $element_id    element id
-	 * @return string      element item view
-	 */
-	public function elementList($page_id, $element_id = 0)
-	{
-		$items = $this->page->getPageElements($page_id);
-
-		$item_view = \Render::view('partials.items.elementitem');
-		$item_view['items'] 		= $items;
-		$item_view['element_id'] 	= $element_id;
-
-		return $item_view;
 	}
 
 	/**
@@ -205,13 +172,42 @@ class Load {
 	 */
 	public function roleList($user, $partial = 'roleitem')
 	{
-		$items = $this->role->getActiveRolesList();
+		$items = $this->role->getActiveUsersRolesList();
 		
 		$item_view = \Render::view('partials.items.' . $partial);
 		$item_view['items'] = $items;
 		$item_view['user'] 	= $user;
 
 		return $item_view;
+	}
+
+	/**
+	 * [roleListArray description]
+	 * @param  string  $filter  [description]
+	 * @param  boolean $reverse [description]
+	 * @return [type]           [description]
+	 */
+	public function roleListArray($filter = 'all', $reverse = false, $above = false)
+	{
+		switch ($filter) {
+			case 'editors':
+				$roles = $this->role->getActiveEditorRolesList();
+				break;
+			case 'users':
+				$roles = $this->role->getActiveUsersRolesList();
+				break;
+			default:
+				$roles = $this->role->getActiveRolesList();
+				break;
+		}
+
+		$role_list = array();
+		foreach ($roles as $role) {
+			$role_list[$role->level] = ucfirst($role->name);
+			if ($above) $role_list[$role->level] .= ' ' . t('form.select.or_above');
+		}
+
+		return $reverse ? array_reverse($role_list, true) : $role_list;
 	}
 
 }

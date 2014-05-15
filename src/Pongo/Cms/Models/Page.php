@@ -1,5 +1,7 @@
 <?php namespace Pongo\Cms\Models;
 
+use Pongo\Cms\Models\Observers\PageObserver;
+
 class Page extends BaseModel {
 	
 	/**
@@ -32,7 +34,7 @@ class Page extends BaseModel {
 	public function blocks()
 	{
 		return $this->belongsToMany('Pongo\Cms\Models\Block')
-					->withPivot('order_id')
+					->withPivot('order_id', 'is_active')
 					->orderBy('order_id', 'asc');
 	}
 
@@ -59,6 +61,15 @@ class Page extends BaseModel {
 	}
 
 	/**
+	 * Page has subpages
+	 * @return [type] [description]
+	 */
+	public function subpages()
+	{
+		return $this->hasMany('Pongo\Cms\Models\Page', 'parent_id');
+	}
+
+	/**
 	 * Author relationship
 	 * Each page has one author
 	 * 
@@ -67,6 +78,16 @@ class Page extends BaseModel {
 	public function author()
 	{
 		return $this->hasOne('Pongo\Cms\Models\User', 'author_id');
+	}
+
+	/**
+	 * [boot description]
+	 * @return [type] [description]
+	 */
+	public static function boot()
+	{
+		parent::boot();
+		self::observe(new PageObserver);
 	}
 
 }

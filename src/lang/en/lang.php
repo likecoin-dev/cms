@@ -15,9 +15,7 @@ return array(
 
 		'error' => array(
 
-			'cant_delete_admin'		=> 'The Admin user canot be deleted',
-			'cant_delete_current'	=> 'You cannot delete your current user',
-			'cant_edit'				=> 'You can\'t edit this section',
+			'cant_edit'				=> 'You cannot edit this section',
 			'clone_element'			=> 'Unable to clone element',
 			'clone_page'			=> 'Unable to clone page',
 			'create_item'			=> 'Unable to create this item',
@@ -26,35 +24,41 @@ return array(
 			'element_order'			=> 'Unable to save order',
 			'input_validator'		=> 'Please, check the form',
 			'login' 				=> 'Access denied, please retry',
-			'not_granted'			=> 'You can\'t access this section',
+			'not_granted'			=> 'You cannot access this section',
 			'page_cant_delete'		=> 'Unable to delete this page',
 			'page_created'			=> 'Unable to create page',
-			'page_has_elements'		=> 'This page still contains elements',
+			'page_has_blocks'		=> 'This page still contains blocks',
 			'page_has_subpages'		=> 'This page still contains subpages',
+			'page_is_active'		=> 'This page is still active',
+			'page_is_current'		=> 'You cannot delete the page you are editing',
+			'page_is_homepage'		=> 'You cannot delete the Home Page',
+			'page_not_level'		=> 'You cannot delete this page',
 			'page_lang'				=> 'Unable to change language',
 			'page_order'			=> 'Unable to save page order',
 			'role_created'			=> 'Unable to create role',
 			'role_deleted'			=> 'Unable to delete role',
 			'role_has_users'		=> 'Some users still belong to role',
-			'role_system'			=> 'Can\'t delete a system role',
+			'role_system'			=> 'You cannot delete a system role',
 			'save'					=> 'Unable to save',
 			'session_exp'			=> 'Session expired, please login',
 			'unauthorized'			=> 'Unauthorized access, please login',
-			'upload_completed'		=> 'Unable to upload files',
-			'user_admin'			=> 'Unable to delete the admin user',
-			'user_admin_role'		=> 'You can\'t change the admin role',
+			'upload_completed'		=> 'Unable to upload files',			
+			'user_admin'			=> 'The Admin user cannot be deleted',
+			'user_admin_role'		=> 'You cannot change the admin role',
 			'user_created'			=> 'Unable to create user',
-			'user_deleted'			=> 'Unable to delete user',
+			'user_current'			=> 'You cannot delete your current user',			
+			'user_deleted'			=> 'You cannot delete this user',
 			'user_own_pages'		=> 'The user still owns some pages',
 			
 		),
 
 		'success' => array(
 
-			'element_cloned'	=> 'Element successfully cloned',
-			'element_created'	=> 'New element created',
-			'element_deleted'	=> 'The element has been deleted',
-			'element_order'		=> 'New element order saved',
+			'block_cloned'		=> 'Block successfully cloned',
+			'block_created'		=> 'New block created',
+			'block_deleted'		=> 'The block has been deleted',
+			'block_loaded'		=> 'Blocks successfully loaded',
+			'block_order'		=> 'New blocks order saved',
 			'file_created'		=> 'File entry successfully saved',
 			'item_remove'		=> 'This item has been removed',
 			'order_saved'		=> 'New order saved',
@@ -67,6 +71,7 @@ return array(
 			'role_deleted'		=> 'Role successfully deleted',
 			'role_modified'		=> 'The role has been modified',
 			'save'				=> 'Successfully saved',
+			'settings_saved'	=> 'Settings successfully saved',
 			'upload_completed'	=> 'Files successfully uploaded',
 			'upload_comp_err'	=> 'Files uploaded with some errors',
 			'user_created'		=> 'User successfully created',
@@ -109,12 +114,12 @@ return array(
 		'button' => array(
 
 			'back'			=> 'Back to list',
+			'block' 		=> 'Block',
 			'cancel'		=> 'Cancel',
 			'choose'		=> 'Select files',
 			'clone'			=> 'Clone',
 			'create'		=> 'Create',			
-			'delete'		=> 'Delete',
-			'element' 		=> 'Element',
+			'delete'		=> 'Delete',			
 			'load'			=> 'Load',
 			'loadmore'		=> 'Load more...',
 			'login'			=> 'Login',
@@ -159,12 +164,15 @@ return array(
 		'select' => array(
 
 			'admin'		=> 'Admin',
-			'blogs'		=> 'Blog posts',			
-			'editor' 	=> 'Editor',			
+			'at_least'	=> 'At least by',
+			'blogs'		=> 'Blog posts',
+			'editor' 	=> 'Editor',
 			'guest' 	=> 'Guest',
 			'manager'	=> 'Manager',
+			'only_by'	=> 'Only by',
+			'or_above'	=> 'or above',
 			'pages'		=> 'Other pages',
-			'products'	=> 'Products',			
+			'products'	=> 'Products',
 			'user'		=> 'User',
 			
 
@@ -185,20 +193,21 @@ return array(
 
 			'settings' => array(
 
-				'check_all_ele' => 'All page elements',
-				'choose_lang'	=> 'In which language to clone this page?',
-				'clone'			=> '[CLONATO]',
-				'create_slug' 	=> 'Slug',
-				'edit_by' 		=> 'This page can be edited by',
-				'force_delete'	=> 'Delete page and detach all elements',
-				'may_contain'	=> 'What this page will contain?',
-				'media_all'		=> 'All page files',
-				'name' 			=> 'Page name',
-				'page_include'	=> 'Include also',
-				'set_hp' 		=> 'Set as Home Page',
-				'slug' 			=> 'Page slug',
-				'slug_preview'	=> 'Slug preview',
-				'view_by'		=> 'This page can be viewed by',
+				'check_all_ele' 	=> 'All page elements',
+				'choose_lang'		=> 'In which language to clone this page?',
+				'clone'				=> '[CLONATO]',
+				'create_slug_name' 	=> 'Slug Name',
+				'create_slug_this' 	=> 'Slug This',
+				'edit_by' 			=> 'This page can be edited by',
+				'force_delete'		=> 'Delete page and detach all elements',
+				'may_contain'		=> 'What this page will contain?',
+				'media_all'			=> 'All page files',
+				'name' 				=> 'Page name',
+				'page_include'		=> 'Include also',
+				'set_hp' 			=> 'Set as Home Page',
+				'slug' 				=> 'Page slug',
+				'slug_preview'		=> 'Slug preview',
+				'view_by'			=> 'This page can be viewed',
 
 			),
 
@@ -208,14 +217,15 @@ return array(
 				'header'		=> 'Page header',
 				'layout'		=> 'Page layout',
 				'footer'		=> 'Page footer',
+				'overall'		=> 'Overall layout',
 
 			),
 
 			'seo'	=> array(
 
-				'title'	=> 'Titolo della pagina',
-				'keyw'	=> 'Keywords della pagina',
-				'descr'	=> 'Descrizione della pagina',
+				'title'	=> 'Page title',
+				'keyw'	=> 'Page keywords',
+				'descr'	=> 'Page description',
 
 			),
 
@@ -268,6 +278,16 @@ return array(
 				'name' 			=> 'Role name',
 
 			),
+
+		),
+
+		'settings' => array(
+
+			'cache_enabled' => 'Cache system is enabled',
+			'cache_time' 	=> 'Cache time (in minutes)',
+			'per_page'		=> 'Items per page (in pagination)',
+			'site_live' 	=> 'Your site is live!',
+			'theme'			=> 'Your front-end site theme',
 
 		),
 
@@ -351,12 +371,16 @@ return array(
 		'downloads'		=> 'Downloads',
 		'files'			=> 'Files',
 		'galleries'		=> 'Galleries',
+		'images'		=> 'Images',
+		'locale'		=> 'Locale',
 		'menu'			=> 'Menu',
 		'pages'			=> 'Pages',
 		'roles'			=> 'Roles',
+		'settings'		=> 'Settings',
 		'shop'			=> 'Shop',
 		'tools'			=> 'Tools',
 		'translations'	=> 'Translations',
+		'user_role'		=> 'Logged in as',
 		'users'			=> 'Users',
 
 	),
@@ -388,6 +412,14 @@ return array(
 		),
 
 		'page' => array(
+
+			'seo' => array(
+
+				'descr'	=> 'Write a good description',
+				'keyw'	=> 'Choose valuable keywords',
+				'title' => 'Set a title for your page',
+
+			),
 
 			'settings' => array(
 
@@ -433,13 +465,20 @@ return array(
 
 	'sidebar' => array(
 
+		'dashboard' => array(
+
+			'settings' => 'Global site settings'
+
+		),
+
 		'page' => array(
 
-			'assets' 	=> 'Assets',
-			'header' 	=> 'Page',
-			'layout' 	=> 'Layout',
-			'seo' 		=> 'Seo',
-			'settings' 	=> 'Settings',
+			'blocks' 		=> 'Blocks',
+			'assets' 		=> 'Assets',
+			'header' 		=> 'Page',
+			'layout' 		=> 'Layout',
+			'seo' 			=> 'Seo',
+			'settings' 		=> 'Settings',
 
 		),
 
@@ -509,6 +548,7 @@ return array(
 			'file_size'			=> 'The file size exceeds maximum allowed',
 			'integer'			=> 'This value must be an integer',
 			'is_slug'			=> 'Click the button to generate a correct slug',
+			'max'				=> 'This field has a limit of :min chars',
 			'max_username'		=> 'Username can\'t exceed :max chars',
 			'min'				=> 'This field must be at least :min chars long',
 			'min_password'		=> 'Password must be at least :min chars long',
@@ -517,7 +557,6 @@ return array(
 			'system_role'		=> 'You can\'t edit a system role',
 			'unique'			=> 'This name is already present',
 			'unique_file' 		=> 'This file name is already present',
-			'unique_name' 		=> 'This name is already present in this language',
 			'unique_slug' 		=> 'This slug is already present in this language',
 
 		),

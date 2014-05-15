@@ -7,7 +7,7 @@
 			{{$role->name}}
 
 			<label>
-				<input type="checkbox" value="{{$role->id}}" class="user_role" data-level="{{$role->level}}"{{Tool::isChecked($role->id, $role_id)}}>
+				<input type="checkbox" value="{{$role->id}}" class="user_role" data-level="{{$role->level}}"{{ checked($role->id, $role_id) }}>
 				<span></span>
 			</label>
 

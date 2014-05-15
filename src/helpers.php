@@ -141,6 +141,24 @@ if ( ! function_exists('public_path'))
 }
 
 /**
+ * PATHS
+ */
+
+if ( ! function_exists('config_path'))
+{
+	/**
+	 * Get the path to the cms/config folder.
+	 *
+	 * @param   string  $path
+	 * @return  string
+	 */
+	function config_path($file = '')
+	{
+		return __DIR__.'/config/'.$file;
+	}
+}
+
+/**
  * TOOLS
  */
 
@@ -198,6 +216,21 @@ if ( ! function_exists('checked'))
 	}
 }
 
+if ( ! function_exists('selected'))
+{
+	/**
+	 * Print out selected=selected if true
+	 * 
+	 * @param  string $var 
+	 * @param  string $fix 
+	 * @return bool
+	 */
+	function selected($var, $fix)
+	{
+		return Tool::isSelected($var, $fix);
+	}
+}
+
 if ( ! function_exists('get_json'))
 {
 	/**
@@ -239,19 +272,6 @@ if ( ! function_exists('link_to_cms'))
 	function link_to_cms($link, $title, $attributes = array(), $secure = null)
 	{
 		return link_to('cms/' . $link, $title, $attributes, $secure);
-	}
-}
-
-if ( ! function_exists('pag'))
-{
-	/**
-	 * Get pagination limit
-	 * 
-	 * @return integer
-	 */
-	function pag()
-	{
-		return Pongo::settings('pag');
 	}
 }
 

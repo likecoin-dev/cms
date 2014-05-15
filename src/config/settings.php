@@ -2,27 +2,18 @@
 
 return array(
 
-	/**
-	 * PongoCMS :: Active theme name
-	 *
-	 * Saved into THEME constant in start.php
-	 */
-	
-	'theme' => 'default',
+	'themes' => array(
+
+		'default' => 'Default PongoCMS theme',
+		'forrest' => 'Forrest theme',
+
+	),
 
 	/**
 	 * PongoCMS :: Default language
 	 */
 	
 	'language' => 'en',
-
-	/**
-	 * PongoCMS :: Cache engine
-	 *
-	 * Read by CacheInterface isEnabled()
-	 */
-	
-	'cache_enabled' => true,
 
 	/**
 	 * PongoCMS :: Available languages and directionality (ltr | rtl)
@@ -49,11 +40,6 @@ return array(
 		),
 
 	),
-
-	/**
-	 * PongoCMS :: pagination items per page
-	 */
-	'per_page' => 20,
 
 	/**
 	 * PongoCMS :: available editors
@@ -125,5 +111,23 @@ return array(
 		'password'	=> 'user'
 
 	),
+
+	/**
+	 * PongoCMS Global settings
+	 * managed by CMS interface.
+	 *
+	 * DO NOT TOUCH AND CHANGE MANUALLY!!!
+	 */
+	
+	// THEME constant in site/start.php
+	'theme'=>'default',
+	// Global site availablility
+	'site_live'=>true,
+	// Chache enabled
+	'cache_enabled'=>true,
+	// Default cache time
+	'cache_time'=>30,
+	// XPAGE constant in cms/start.php
+	'per_page'=>20,
 
 );

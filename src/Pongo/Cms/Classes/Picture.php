@@ -6,28 +6,30 @@ use Pongo\Cms\Classes\Theme as Theme;
 class Picture {
 
 	/**
-	 * Image compression quality
-	 * 
-	 * @var int
-	 */
-	private $image_quality;
-
-	/**
 	 * Theme's thumb settings
 	 * 
 	 * @var array
 	 */
-	private $thumb = array();
+	public static $thumb = array();
+
+	/**
+	 * Image compression quality
+	 * 
+	 * @var int
+	 */
+	public static $image_quality = \Pongo::settings('image_quality');
 
 	/**
 	 * Upload path
 	 * 
 	 * @var string
 	 */
-	private $upload_path;
+	public static $upload_path = public_path(\Pongo::settings('upload_path').'img');
 
-	protected $pongo;
-
+	/**
+	 * [$theme description]
+	 * @var [type]
+	 */
 	protected $theme;
 
 	/**
@@ -35,13 +37,9 @@ class Picture {
 	 * 
 	 * @param File $file
 	 */
-	public function __construct(Pongo $pongo, Theme $theme)
+	public function __construct(Theme $theme)
 	{
-		$this->image_quality = $pongo->settings('image_quality');
-
-		$this->upload_path = public_path($pongo->settings('upload_path').'img');
-
-		$this->thumb = $theme->config('thumb');
+		$this->theme = $theme;
 	}
 
 	/**

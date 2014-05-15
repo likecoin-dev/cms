@@ -25,6 +25,28 @@ class BaseModel extends Eloquent {
 	}
 
 	/**
+	 * [scopeHome description]
+	 * @param  [type] $query   [description]
+	 * @param  [type] $is_home [description]
+	 * @return [type]          [description]
+	 */
+	public function scopeHome($query, $is_home)
+	{
+		$query->where('is_home', $is_home);
+	}
+
+	/**
+	 * [scopeMinLevel description]
+	 * @param  [type] $query [description]
+	 * @param  [type] $level [description]
+	 * @return [type]        [description]
+	 */
+	public function scopeLang($query, $lang)
+	{
+		$query->where('lang', $lang);
+	}
+
+	/**
 	 * [scopeMinLevel description]
 	 * @param  [type] $query [description]
 	 * @param  [type] $level [description]

@@ -4,9 +4,9 @@ use Pongo\Cms\Services\Managers\BaseManager as Manager;
 
 class BaseObserver {
 
-	protected function setTmpError($error)
+	protected function setFlashError($error)
 	{
-		Manager::$tmp_error = $error;
+		Manager::$flashError = $error;
 	}
 
 }

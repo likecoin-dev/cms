@@ -52,11 +52,11 @@ Route::group(Config::get('cms::routes.cms_group_routes'), function() use ($pongo
 
 	// // ROLE
 	Route::get('roles', array('uses' => $pongoControllers.'RoleController@index', 'as' => 'roles'));
-	Route::get('role/edit/{role_id?}', array('uses' => $pongoControllers.'RoleController@edit', 'as' => 'role.edit'));
+	Route::get('role/edit/{role_id}', array('uses' => $pongoControllers.'RoleController@edit', 'as' => 'role.edit'));
 
 	// // USER
 	Route::get('users', array('uses' => $pongoControllers.'UserController@index', 'as' => 'users'));
-	Route::get('user/edit/{user_id?}', array('uses' => $pongoControllers.'UserController@edit', 'as' => 'user.edit'));
+	Route::get('user/edit/{user_id}', array('uses' => $pongoControllers.'UserController@edit', 'as' => 'user.edit'));
 	Route::any('user/search', array('uses' => $pongoControllers.'UserController@search', 'as' => 'user.search'));
 	// Route::get('user/settings/{user_id?}', array('uses' => $pongoControllers.'UserController@settingsUser', 'as' => 'user.settings'));
 	// Route::get('user/password/{user_id?}', array('uses' => $pongoControllers.'UserController@passwordUser', 'as' => 'user.password'));
@@ -72,16 +72,31 @@ Route::group(Config::get('cms::routes.api_group_routes'), function() use ($apiCo
 	// LOGIN	
 	Route::post('login', array('uses' => $apiControllers.'LoginController@login', 'as' => 'api.login'));
 
+	// GLOBAL SETTINGS
+	Route::any('settings/save', array('uses' => $apiControllers.'SettingsController@save', 'as' => 'api.settings.save'));
+
 	// SAVE
 	// Route::any('save', array('uses' => $apiControllers.'SaveController@save', 'as' => 'api.save'));
 	// Route::any('error', array('uses' => $apiControllers.'SaveController@error', 'as' => 'api.error'));
 	// Route::any('expire', array('uses' => $apiControllers.'SaveController@expire', 'as' => 'api.expire'));
 
-	// // PAGE
+	// BLOCK
+	Route::post('block/create', array('uses' => $apiControllers.'BlockController@create', 'as' => 'api.block.create'));
+	Route::post('block/delete', array('uses' => $apiControllers.'BlockController@delete', 'as' => 'api.block.delete'));
+	Route::post('block/valid', array('uses' => $apiControllers.'BlockController@valid', 'as' => 'api.block.valid'));
+
+	// PAGE
+	Route::post('page/change/layout', array('uses' => $apiControllers.'PageController@changeLayout', 'as' => 'api.page.change.layout'));
 	Route::post('page/create', array('uses' => $apiControllers.'PageController@create', 'as' => 'api.page.create'));
+	Route::post('page/delete', array('uses' => $apiControllers.'PageController@delete', 'as' => 'api.page.delete'));
 	Route::post('page/lang', array('uses' => $apiControllers.'PageController@lang', 'as' => 'api.page.lang'));
+	Route::post('page/load/blocks', array('uses' => $apiControllers.'PageController@loadBlocks', 'as' => 'api.page.load.blocks'));
 	Route::post('page/move', array('uses' => $apiControllers.'PageController@move', 'as' => 'api.page.move'));
-	Route::post('page/save', array('uses' => $apiControllers.'PageController@save', 'as' => 'api.page.save'));
+	Route::post('page/move/blocks', array('uses' => $apiControllers.'PageController@moveBlocks', 'as' => 'api.page.move.blocks'));
+	Route::post('page/save/settings', array('uses' => $apiControllers.'PageController@saveSettings', 'as' => 'api.page.save.settings'));
+	Route::post('page/save/seo', array('uses' => $apiControllers.'PageController@saveSeo', 'as' => 'api.page.save.seo'));
+	Route::post('page/save/layout', array('uses' => $apiControllers.'PageController@saveLayout', 'as' => 'api.page.save.layout'));
+	Route::post('page/save/assets', array('uses' => $apiControllers.'PageController@saveAssets', 'as' => 'api.page.save.assets'));
 	Route::post('page/valid', array('uses' => $apiControllers.'PageController@valid', 'as' => 'api.page.valid'));
 
 	// 	// SETTINGS

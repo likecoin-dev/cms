@@ -9,5 +9,7 @@ interface RoleRepositoryInterface {
 	public function getRolesByLevel($level);
 	public function getRolesList();
 	public function getActiveRolesList();
-	public function getRolesListPaginate($per_page);	
+	public function getActiveEditorRolesList();
+	public function getActiveUsersRolesList();
+	public function getRolesListPaginate($per_page);
 }

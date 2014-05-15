@@ -1,12 +1,6 @@
 <?php namespace Pongo\Cms\Repositories;
 
 abstract class BaseRepositoryEloquent implements BaseRepositoryInterface {
-	
-	/**
-	 * [$eagers description]
-	 * @var array
-	 */
-	public $eagers;
 
 	/**
 	 * @var Model

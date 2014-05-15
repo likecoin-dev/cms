@@ -4,9 +4,15 @@
 	
 	<div class="section" id="dashboard">
 					
-		{{Render::sectionDashboard()}}
+		{{ Render::sectionDashboard() }}
 
 	</div>
+
+@stop
+
+@section('sidebar-right')
+
+	@include('cms::sections.dashboard.partials.settings')
 
 @stop
 

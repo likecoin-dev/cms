@@ -13,5 +13,4 @@ interface BaseManagerInterface {
 	public function success();
 	public function with(array $input, $data);
 	public function withInput($data);
-	public function withEager($relations);	
 }

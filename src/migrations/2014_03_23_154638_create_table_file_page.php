@@ -15,8 +15,8 @@ class CreateTableFilePage extends Migration {
 		Schema::create('file_page', function(Blueprint $table)
 		{
 			$table->increments('id')->unsigned();
-			$table->integer('file_id');
-			$table->integer('page_id');
+			$table->integer('file_id')->unsigned()->index();
+			$table->integer('page_id')->unsigned()->index();
 		});
 	}
 

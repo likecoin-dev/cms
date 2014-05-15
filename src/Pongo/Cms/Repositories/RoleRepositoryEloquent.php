@@ -54,6 +54,32 @@ class RoleRepositoryEloquent extends BaseRepositoryEloquent implements RoleRepos
 	{
 		return $this->model
 					->active()
+					->order()
+					->get();
+	}
+
+	/**
+	 * [getActiveRolesList description]
+	 * @return [type] [description]
+	 */
+	public function getActiveEditorRolesList()
+	{
+		return $this->model
+					->active()
+					->editor()
+					->hasLevel()
+					->order()
+					->get();
+	}
+
+	/**
+	 * [getActiveRolesList description]
+	 * @return [type] [description]
+	 */
+	public function getActiveUsersRolesList()
+	{
+		return $this->model
+					->active()
 					->hasLevel()
 					->order()
 					->get();

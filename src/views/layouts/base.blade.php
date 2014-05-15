@@ -4,11 +4,17 @@
 	
 	{{Pongo::showAlert()}}
 
-	@yield('modal')
+	@section('modal')
+		
+		@include('cms::partials.modals.pagedelete')
+
+	@show
 
 	<div class="wrapper">
 
 		@include('cms::partials.navbar')
+
+		<div class="overlay fade in"></div>
 
 		<div class="container">
 

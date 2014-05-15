@@ -7,12 +7,15 @@ class UserSubscriber extends BaseSubscriber {
 	/**
 	 * [onChangeRole description]
 	 * @param  [type] $user [description]
+	 * @param  [type] $role [description]
 	 * @return [type]       [description]
 	 */
-	public function onChangeRole($user)
+	public function onChangeRole($user, $role)
 	{
 		if($user->id == USERID) {
-			Session::put('LEVEL', Auth::user()->role->level);
+			Session::put('LEVEL', $role->level);
+			Session::put('ROLEID', $role->id);
+			Session::put('ROLENAME', $role->name);
 		}
 	}
 

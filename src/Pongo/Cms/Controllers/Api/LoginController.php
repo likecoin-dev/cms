@@ -23,7 +23,7 @@ class LoginController extends ApiController {
 	{
 		if ($this->manager->withInput()->login()) {
 
-			return $this->manager->redirectTo('dashboard', 'alert.info.redirecting');
+			return $this->manager->redirectTo('dashboard');
 
 		} else {
 			

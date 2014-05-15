@@ -15,8 +15,8 @@ class CreateTablePagePage extends Migration {
 		Schema::create('page_page', function(Blueprint $table)
 		{
 			$table->increments('id')->unsigned();
-			$table->integer('page_id');
-			$table->integer('rel_id');
+			$table->integer('page_id')->unsigned()->index();
+			$table->integer('rel_id')->unsigned()->index();
 		});
 	}
 

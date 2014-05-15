@@ -37,6 +37,16 @@ class Role extends BaseModel {
 	}
 
 	/**
+	 * [scopeEditor description]
+	 * @param  [type] $query [description]
+	 * @return [type]        [description]
+	 */
+	public function scopeEditor($query)
+	{
+		return $query->where('level', '>=', \Access::levelEditor());
+	}
+
+	/**
 	 * [scopeOrder description]
 	 * @param  [type] $query [description]
 	 * @return [type]        [description]

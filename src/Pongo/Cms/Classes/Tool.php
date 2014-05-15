@@ -53,6 +53,27 @@ class Tool {
 	}
 
 	/**
+	 * Get text between $start and $stop
+	 * @param  [type] $content [description]
+	 * @param  [type] $start   [description]
+	 * @param  [type] $stop    [description]
+	 * @return bool            [description]
+	 */
+	public function getBetween($content, $start, $stop)
+	{
+		$r = explode($start, $content);
+		
+		if( isset($r[1]) ) {
+
+			$r = explode($stop, $r[1]);
+
+			return $r[0];
+		}
+
+		return false;
+	}
+
+	/**
 	 * [getJson description]
 	 * @param  [type]  $key   [description]
 	 * @param  boolean $array [description]
@@ -150,6 +171,16 @@ class Tool {
 	}
 
 	/**
+	 * Set a flaf 1 or 0
+	 * @param [type] $input [description]
+	 * @param [type] $field [description]
+	 */
+	public function setFlag($input, $field)
+	{
+		return array_key_exists($field, $input) ? 1 : 0;
+	}
+
+	/**
 	 * Reduce slug chunks
 	 * 
 	 * @param  string  $url  
@@ -195,6 +226,21 @@ class Tool {
 	}
 
 	/**
+	 * Replace a slug chunk in PageManager
+	 * @param  [type] $page_slug    [description]
+	 * @param  [type] $current_slug [description]
+	 * @param  [type] $slug         [description]
+	 * @return [type]               [description]
+	 */
+	public function slugSubst($page_slug, $slug)
+	{
+		$segments = explode('/', $page_slug);
+		array_pop($segments);
+		$segments[] = $slug;
+		return implode('/', $segments);
+	}
+
+	/**
 	 * Validate a date by its format
 	 * 
 	 * @param  date $date
@@ -203,8 +249,7 @@ class Tool {
 	 */
 	public function validateDate($date, $format = 'Y-m-d H:i:s')
 	{
-		$d = \Carbon\Carbon::createFromFormat($format, $date);
-		
+		$d = \Carbon\Carbon::createFromFormat($format, $date);		
 		return !empty($d) && $d->format($format) == $date;
 	}
 

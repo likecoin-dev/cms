@@ -1,22 +1,43 @@
 <div class="tab-pane" id="seo">
 	
-	<form action="">
+	{{ Form::open(array('route' => 'api.page.save.seo')) }}
+
+		{{ Form::hidden('id', $page->id) }}
+		{{ Form::hidden('lang', $page->lang) }}
+		{{ Form::hidden('section', 'seo') }}
+
 		<div class="form-group" rel="title">
-			<label for="title">Page title</label>
-			<span class="">100</span>
-			<input type="text" class="form-control" name="title" id="title" value="" placeholder="Set a title for your page...">
+
+			{{ Form::label('title', t('label.page.seo.title')) }}
+
+			<span class="counter" data-bind="text: titleLen"></span>
+
+			{{ Form::text('title', $page->title, array('class' => 'form-control', 'placeholder' => t('placeholder.page.seo.title'), 'data-bind' => 'value: pageTitle, valueUpdate: "afterkeydown"')) }}
+
 		</div>
+		
 		<div class="form-group" rel="keyw">
-			<label for="keyw">Page keywords</label>
-			<input type="text" class="form-control" name="keyw" id="keyw" value="" placeholder="Choose valuable keywords...">
+
+			{{ Form::label('keyw', t('label.page.seo.keyw')) }}
+			
+			{{ Form::text('keyw', $page->keyw, array('class' => 'form-control', 'placeholder' => t('placeholder.page.seo.keyw'))) }}
+
 		</div>
-		<div class="form-group" rel="keyw">
-			<label for="keyw">Page description</label>
-			<textarea name="" id="" cols="30" rows="10" class="form-control" placeholder="Write a good description..."></textarea>
+
+		<div class="form-group" rel="descr">
+			
+			{{ Form::label('descr', t('label.page.seo.descr')) }}
+
+			<span class="counter" data-bind="text: descrLen"></span>
+			
+			{{ Form::textarea('descr', $page->descr, array('class' => 'form-control', 'placeholder' => t('placeholder.page.seo.descr'), 'cols' => 30, 'rows' => 10, 'data-bind' => 'value: pageDescr, valueUpdate: "afterkeydown"')) }}
+
 		</div>
+
 		<div class="form-submit">
-			<button class="btn btn-success">Save</button>
+			<button class="btn btn-success pongo-ajax-submit pongo-loading">{{t('form.button.save')}}</button>
 		</div>
-	</form>
+	
+	{{ Form::close() }}
 
 </div>

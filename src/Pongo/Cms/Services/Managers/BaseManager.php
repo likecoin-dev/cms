@@ -3,6 +3,12 @@
 abstract class BaseManager implements BaseManagerInterface  {
 
 	/**
+	 * Set flash error in Observers
+	 * @var string
+	 */
+	public static $flashError;
+	
+	/**
 	 * @var $errors
 	 */
 	public $errors = array();
@@ -11,8 +17,6 @@ abstract class BaseManager implements BaseManagerInterface  {
 	 * @var $success
 	 */
 	public $success = array();
-
-	public static $tmp_error;
 
 	/**
 	 * @var $input
@@ -227,8 +231,8 @@ abstract class BaseManager implements BaseManagerInterface  {
 	{
 		$this->errors = is_array($messages) ? $messages : $this->formatResponse('error', $messages, $subst);
 
-		if(self::$tmp_error) {
-			$this->errors = $this->formatResponse('error', self::$tmp_error, $subst);
+		if(self::$flashError) {
+			$this->errors = $this->formatResponse('error', self::$flashError, $subst);
 		}
 
 		return false;
@@ -291,28 +295,18 @@ abstract class BaseManager implements BaseManagerInterface  {
 		$this->input = \Input::all();
 		$this->validator->input = $this->input;
 
+		// Get form section
 		if(array_key_exists('section', $this->input)) {
 			$this->validator->section = $this->input['section'];
 		}
 
+		// Custom form rules
 		if(array_key_exists('tovalid', $this->input)) {
 			$this->validator->custom_rules = $this->input['tovalid'];
 		}
 
 		if (is_string($data)) $data = func_get_args();
 		$this->validator->data = $data;
-		return $this;
-	}
-
-	/**
-	 * [withEager description]
-	 * @param  [type] $relations [description]
-	 * @return [type]            [description]
-	 */
-	public function withEager($relations)
-	{
-		if (is_string($relations)) $relations = func_get_args();
-		$this->model->eagers = $relations;
 		return $this;
 	}
 	

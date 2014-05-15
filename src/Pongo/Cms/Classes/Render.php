@@ -150,39 +150,85 @@ class Render {
 	}
 	
 	/**
+	 * Create Bottstrap class array to take in layout
+	 * @return [type] [description]
+	 */
+	private function getBootstrapClasses()
+	{
+		$base_classes = array('col-xs-', 'col-sm-', 'col-md-', 'col-lg-');
+		$class = array('row');
+		foreach ($base_classes as $base_class) {
+			for ($i = 1; $i <= 12; $i++) { 
+				$class[] = $base_class.$i;
+			}
+		}
+		return $class;
+	}
+
+	/**
 	 * Render a cleaned and formatted layout preview
 	 * 
-	 * @param  string $header
 	 * @param  string $layout
-	 * @param  string $footer
 	 * @return string
 	 */
-	public function layoutPreview($header, $layout, $footer)
+	public function layoutPreview($layout)
 	{
 		$layout_view = \Theme::view('layouts.' . $layout);
 		$layout_zones = \Theme::layout($layout);
-		
+
+		// Loop layout zones and set name and partials.layout.zone for each
 		foreach ($layout_zones as $zone => $name) {
+			$zone_content[$zone] = $this->view('partials.layout.zone');
+			$zone_content[$zone]['name'] = st('settings.layout.' . $layout . '.' . $zone, $name);
+			$zone_content[$zone]['value'] = $zone;
+			
 			$layout_view[$zone] = st('settings.layout.' . $layout . '.' . $zone, $name);
 		}
 
+		// Strip all attributes from layouts but div
 		$layout_view = strip_tags($layout_view, '<div>');
 		$attrib_to_remove = array('class', 'id', 'rel');
+		$classes_to_take = $this->getBootstrapClasses();
 
+		// Remove unwanted attributes and create array of present classes
 		foreach ($attrib_to_remove as $attrib) {			
 			$attrib_values = \Tool::getAllAttributes($attrib, $layout_view);
 			if(!empty($attrib_values)) {
 				foreach ($attrib_values as $value) {
-					if(substr($value, 0, 4) != 'col-')
+					if( $attrib != 'class' ) {
+						// Remove attributes but classes
 						$layout_view = str_replace(' '.$attrib.'="'.$value.'"', '', $layout_view);
+					} else {
+						// Put css values in array
+						$css_values[] = $value;
+					}					
 				}
 			}
 		}
 
-		$view = $this->view('partials.previews.layout');
-		$view['header'] = st('settings.header.' . $header, \Theme::config('header.' . $header));
+		// Normalize classes in one string and array them
+		$css_string = implode(' ', $css_values);
+		$css_array = explode(' ', $css_string);
+
+		// Loop classes and remove not Bootstrap classes
+		foreach ($css_array as $css_class) {
+			if( ! in_array($css_class, $classes_to_take)) {
+				$layout_view = trim(str_replace($css_class, '', $layout_view));
+			}
+		}
+
+		// Replace title with partials.layout.zone
+		foreach ($layout_zones as $zone => $name) {
+			$layout_view = str_replace(
+				st('settings.layout.' . $layout . '.' . $zone, $name),
+				$zone_content[$zone]->render(),
+				$layout_view
+			);
+		}
+
+		$view = $this->view('partials.layout.overall');
 		$view['layout'] = $layout_view;
-		$view['footer'] = st('settings.footer.' . $footer, \Theme::config('footer.' . $footer));
+
 		return $view;
 	}
 

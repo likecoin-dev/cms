@@ -3,14 +3,6 @@
 class Pongo {
 
 	/**
-	 * Pongo constructor
-	 */
-	public function __construct()
-	{
-
-	}	
-
-	/**
 	 * Get actual url segments
 	 * -> full, first, last, prev
 	 * 
@@ -138,6 +130,18 @@ class Pongo {
 		foreach (\Alert::all($format) as $alert) {
 			return $alert;
 		}
+	}
+
+	/**
+	 * [viewAccess description]
+	 * @return [type] [description]
+	 */
+	public function viewAccess()
+	{
+		$view_access = array();
+		$view_access[] = t('form.select.at_least');
+		$view_access[] = t('form.select.only_by');
+		return $view_access;
 	}
 
 	/**

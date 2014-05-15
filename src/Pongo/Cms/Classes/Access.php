@@ -41,7 +41,7 @@ class Access {
 			}
 		}
 
-		return $reverse ? array_reverse($admin_roles) : $admin_roles;
+		return $reverse ? array_reverse($admin_roles, true) : $admin_roles;
 	}
 	
 	/**
@@ -53,8 +53,7 @@ class Access {
 	public function allowedCms($level = null)
 	{
 		if(is_null($level)) $level = LEVEL;
-		$min_access = \Pongo::system('min_access');
-		$min_level = \Pongo::system('roles.' . $min_access);
+		$min_level = $this->levelEditor();
 		return ($level >= $min_level) ? true : false;
 	}
 
@@ -85,6 +84,16 @@ class Access {
 			return (LEVEL >= $accessLevel) ? true : false;
 		}
 		return false;
+	}
+
+	/**
+	 * [levelEditor description]
+	 * @return [type] [description]
+	 */
+	public function levelEditor()
+	{
+		$min_access = \Pongo::system('min_access');
+		return \Pongo::system('roles.'.$min_access);
 	}
 
 	/**

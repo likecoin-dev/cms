@@ -167,7 +167,6 @@ return array(
 			'alias'	=> 'Pongo\Cms\Support\Facades\Picture',
 			'depes' => array(
 				
-				array('class' => 'Pongo\Cms\Classes\Pongo'),
 				array('class' => 'Pongo\Cms\Classes\Theme'),
 
 			),
@@ -250,13 +249,13 @@ return array(
 	
 	'repositories' => array(
 
-		/*'element' => array(
+		'block' => array(
 
 			'method'		=> 'singleton',
-			'interface' 	=> 'Pongo\Cms\Support\Repositories\ElementRepositoryInterface',
-			'repository' 	=> 'Pongo\Cms\Support\Repositories\ElementRepositoryEloquent',
+			'interface' 	=> 'Pongo\Cms\Repositories\BlockRepositoryInterface',
+			'class' 		=> 'Pongo\Cms\Repositories\BlockRepositoryEloquent',
 
-		),*/
+		),
 		
 		'file' => array(
 
@@ -279,6 +278,14 @@ return array(
 			'method'		=> 'singleton',
 			'interface' 	=> 'Pongo\Cms\Repositories\RoleRepositoryInterface',
 			'class' 		=> 'Pongo\Cms\Repositories\RoleRepositoryEloquent',
+
+		),
+
+		'tag' => array(
+
+			'method'		=> 'singleton',
+			'interface' 	=> 'Pongo\Cms\Repositories\TagRepositoryInterface',
+			'class' 		=> 'Pongo\Cms\Repositories\TagRepositoryEloquent',
 
 		),
 
@@ -364,65 +371,96 @@ return array(
 			),
 		),
 
-		/*'blog' => array(
+		'settings' => array(
 
-			'route' 		=> 'blog.edit',
-			'min_access' 	=> 'editor'
+			'class' 		=> 'options-toggle',
+			'min_access' 	=> 'manager',
+			'dashb_icon'	=> 'fa-cogs',
+
+		),
+
+		'blog' => array(
+
+			// 'route' 		=> 'blog.edit',
+			'class' 		=> 'options-toggle',
+			'min_access' 	=> 'editor',
+			'dashb_icon'	=> 'fa-calendar',
+
+		),
+
+		'images' => array(
+
+			// 'route'			=> 'file.upload',
+			'class' 		=> 'options-toggle',
+			'min_access' 	=> 'editor',
+			'dashb_icon'	=> 'fa-picture-o',
 
 		),
 
 		'files' => array(
 
-			'route'			=> 'file.upload',
-			'min_access' 	=> 'editor'
+			// 'route'			=> 'file.upload',
+			'class' 		=> 'options-toggle',
+			'min_access' 	=> 'editor',
+			'dashb_icon'	=> 'fa-archive',
 
-		),*/
+		),
 
 		/*'shop' => array(
 
 			'route' 		=> 'shop',
 			'min_access' 	=> 'editor'
 
-		),
+		),*/
 
 		'tools' => array(
 
 			'banners' => array(
 
-				'route' 		=> 'banners',
-				'min_access' 	=> 'editor'
+				// 'route' 		=> 'banners',
+				'class' 		=> 'options-toggle',
+				'min_access' 	=> 'editor',
+				'dashb_icon'	=> 'fa-external-link',
 
 			),
 
 			'downloads' => array(
 
-				'route' 		=> 'downloads',
-				'min_access' 	=> 'editor'
+				// 'route' 		=> 'downloads',
+				'class' 		=> 'options-toggle',
+				'min_access' 	=> 'editor',
+				'dashb_icon'	=> 'fa-download',
 
 			),
 
 			'galleries' => array(
 
-				'route' 		=> 'galleries',
-				'min_access' 	=> 'editor'
+				// 'route' 		=> 'galleries',
+				'class' 		=> 'options-toggle',
+				'min_access' 	=> 'editor',
+				'dashb_icon'	=> 'fa-th',
 
 			),		
 
 			'menu' => array(
 
-				'route' 		=> 'menu',
-				'min_access' 	=> 'editor'
+				// 'route' 		=> 'menu',
+				'class' 		=> 'options-toggle',
+				'min_access' 	=> 'editor',
+				'dashb_icon'	=> 'fa-list',
 
 			),
 
-			'translations' => array(
+			'locale' => array(
 
-				'route' 		=> 'translation',
-				'min_access' 	=> 'editor'
+				// 'route' 		=> 'translation',
+				'class' 		=> 'options-toggle',
+				'min_access' 	=> 'editor',
+				'dashb_icon'	=> 'fa-book',
 
 			),
 
-		)*/
+		)
 
 	),
 

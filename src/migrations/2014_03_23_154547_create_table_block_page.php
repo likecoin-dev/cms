@@ -15,9 +15,10 @@ class CreateTableBlockPage extends Migration {
 		Schema::create('block_page', function(Blueprint $table)
 		{
 			$table->increments('id')->unsigned();
-			$table->integer('block_id');
-			$table->integer('page_id');
+			$table->integer('block_id')->unsigned()->index();
+			$table->integer('page_id')->unsigned()->index();
 			$table->integer('order_id')->defaults(Config::get('cms::system.default_order'));
+			$table->boolean('is_active');
 		});
 	}
 

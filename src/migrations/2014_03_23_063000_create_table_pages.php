@@ -15,7 +15,7 @@ class CreateTablePages extends Migration {
 		Schema::create('pages', function(Blueprint $table)
 		{
 			$table->increments('id')->unsigned();
-			$table->integer('author_id')->unsigned();
+			$table->integer('author_id')->unsigned()->index();
 			$table->integer('parent_id')->defaults(0);
 			$table->string('lang', 5);
 			$table->string('name', 255);
@@ -27,8 +27,9 @@ class CreateTablePages extends Migration {
 			$table->string('header', 100);
 			$table->string('layout', 100);
 			$table->string('footer', 100);
-			$table->integer('access_level');
-			$table->integer('role_level');
+			$table->integer('edit_level');
+			$table->integer('view_access');
+			$table->integer('view_level');
 			$table->integer('order_id')->defaults(Config::get('cms::system.default_order'));
 			$table->boolean('is_home');
 			$table->boolean('is_active');
