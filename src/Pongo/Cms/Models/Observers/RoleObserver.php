@@ -2,7 +2,8 @@
 
 class RoleObserver extends BaseObserver {
 
-	public function deleting($role) {
+	public function deleting($role)
+	{
 		// Role still has users
 		if (count($role->users)) {
 			$this->setFlashError('alert.error.role_has_users');

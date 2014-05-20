@@ -20,4 +20,11 @@ interface ValidatorInterface {
 	 */
 	public function errors($msg);
 
+	/**
+	 * [uploadValidate description]
+	 * @param  [type] $section [description]
+	 * @return [type]          [description]
+	 */
+	public function uploadValidate($section);
+
 }

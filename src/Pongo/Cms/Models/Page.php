@@ -46,18 +46,19 @@ class Page extends BaseModel {
 	 */
 	public function files()
 	{
-		return $this->belongsToMany('Pongo\Cms\Models\File');
+		return $this->belongsToMany('Pongo\Cms\Models\File')
+					->withPivot('is_active')
+					->orderBy('id', 'desc');
 	}
 
 	/**
-	 * Other page relationship
-	 * Each page has many and belongs to many related pages
-	 * 
-	 * @return mixed
+	 * [tags description]
+	 * @return [type] [description]
 	 */
-	public function rels()
+	public function tags()
 	{
-		return $this->belongsToMany('Pongo\Cms\Models\Page', 'page_page', 'page_id', 'rel_id');
+		return $this->morphToMany('Pongo\Cms\Models\Tag', 'taggable')
+					->lang(LANG);
 	}
 
 	/**
@@ -78,6 +79,28 @@ class Page extends BaseModel {
 	public function author()
 	{
 		return $this->hasOne('Pongo\Cms\Models\User', 'author_id');
+	}
+
+	/**
+	 * Get files() relation paginated
+	 * @return [type] [description]
+	 */
+	public function getFilesPaginatedAttribute()
+	{
+		return $this->files()
+					->where('files.is_active', 1)
+					->paginate(XPAGE);
+	}
+
+	/**
+	 * Accessor to get tag array
+	 * @return [type] [description]
+	 */
+	public function getTagArrayAttribute()
+	{
+		return $this->tags()
+					->get(array('name'))
+					->toArray();
 	}
 
 	/**

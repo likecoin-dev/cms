@@ -18,6 +18,7 @@ class BlockController extends ApiController {
 	public function create()
 	{
 		if ($this->manager->withInput()->createEmptyBlock()) {
+
 			return $this->manager->success();
 		}
 	}
@@ -29,8 +30,11 @@ class BlockController extends ApiController {
 	public function delete()
 	{
 		if ($this->manager->withInput()->deleteBlock()) {
+			
 			return $this->manager->success();
+
 		} else {
+
 			return $this->manager->errors();
 		}
 	}
@@ -42,8 +46,11 @@ class BlockController extends ApiController {
 	public function saveSettings()
 	{
 		if ($this->manager->withInput('id', 'lang')->saveBlockSettings()) {
+
 			return $this->manager->success();
+
 		} else {
+
 			return $this->manager->errors();
 		}
 	}
@@ -55,8 +62,11 @@ class BlockController extends ApiController {
 	public function saveContent()
 	{
 		if ($this->manager->withInput()->saveBlockContent()) {
+
 			return $this->manager->success();
+
 		} else {
+
 			return $this->manager->errors();
 		}
 	}
@@ -68,6 +78,7 @@ class BlockController extends ApiController {
 	public function valid()
 	{
 		if ($this->manager->withInput()->validBlock()) {
+			
 			return $this->manager->success();
 		}
 	}

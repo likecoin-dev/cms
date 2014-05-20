@@ -30,7 +30,15 @@
 
 			<span class="counter" data-bind="text: descrLen"></span>
 			
-			{{ Form::textarea('descr', $page->descr, array('class' => 'form-control', 'placeholder' => t('placeholder.page.seo.descr'), 'cols' => 30, 'rows' => 10, 'data-bind' => 'value: pageDescr, valueUpdate: "afterkeydown"')) }}
+			{{ Form::textarea('descr', $page->descr, array('class' => 'form-control', 'placeholder' => t('placeholder.page.seo.descr'), 'cols' => 30, 'rows' => 3, 'data-bind' => 'value: pageDescr, valueUpdate: "afterkeydown"')) }}
+
+		</div>
+
+		<div class="form-group" rel="tag">
+
+			{{ Form::label('tag', t('label.page.seo.tag')) }}
+			
+			{{ Form::text('tag', Tool::getTags($page->tag_array), array('class' => 'form-control pongo-selectize', 'placeholder' => t('placeholder.page.seo.tag'))) }}
 
 		</div>
 

@@ -9,7 +9,7 @@ class SettingsValidator extends BaseValidator {
 	);
 
 	protected $messages = array(
-		'required' 	=> 'validation.errors.required'
+		'required' => 'validation.errors.required',
 	);
 
 }

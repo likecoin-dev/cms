@@ -19,22 +19,7 @@
 
 					{{ Form::label('username', t('label.login.form.username')) }}
 
-					<div class="input-group">
-
-						{{ Form::text('username', null, array('class' => 'form-control', 'autocorrect' => 'off', 'autocapitalize' => 'off', 'placeholder' => t('placeholder.login.username'))) }}
-
-						<span class="input-group-btn">
-					
-							<span class="flag remember">
-								<label for="remember">
-									{{ Form::checkbox('remember', 1, false, array('id' => 'remember')) }}
-									<strong></strong>
-								</label>
-							</span>
-
-						</span>
-
-					</div>
+					{{ Form::text('username', null, array('class' => 'form-control', 'autocorrect' => 'off', 'autocapitalize' => 'off', 'placeholder' => t('placeholder.login.username'))) }}
 
 				</div>
 
@@ -47,14 +32,20 @@
 				</div>
 
 				<div class="form-group">
-					
-					<div class="input-group">
-						
-						<span class="input-group-btn">
 
-							
+					<div class="row">
 
-						</span>
+						<div class="col-md-6">
+
+							<label class="checkbox-inline"><input type="checkbox" name="remember"> {{ t('label.login.form.remember') }}</label>
+
+						</div>
+
+						<div class="col-md-6">
+
+							{{ Form::select('cmslang', Pongo::languages(), null, array('class' => 'form-control')) }}
+
+						</div>
 
 					</div>
 

@@ -2,7 +2,8 @@
 
 class TagObserver extends BaseObserver {
 
-	public function deleting($tag) {	
+	public function deleting($tag)
+	{	
 
 		// 
 		

@@ -2,7 +2,8 @@
 
 class PageObserver extends BaseObserver {
 
-	public function deleting($page) {
+	public function deleting($page)
+	{
 
 		// Page has still some blocks
 		/*if (count($page->blocks)) {

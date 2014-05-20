@@ -14,9 +14,9 @@ class BaseController extends Controller {
 	 * 
 	 * @return void
 	 */
-	public function bootstrap()
+	public function init()
 	{
-		$contents = \Render::view('partials.bootstrap');
+		$contents = \Render::view('partials.initjs');
 		$response = \Response::make($contents, 200);
 		$response->header('Content-Type', 'application/javascript');
 		return $response;

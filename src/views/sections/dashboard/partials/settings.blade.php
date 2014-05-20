@@ -18,9 +18,9 @@
 
 					{{ Form::checkbox('site_live', 1, Pongo::settings('site_live'), array('class' => 'pongo-checkbox', 'id' => 'site_live')) }}
 					
-					<span></span>
+					<strong></strong>
 
-					{{ t('label.settings.site_live') }}
+					<span>{{ t('label.settings.site_live') }}</span>
 
 				</label>
 
@@ -40,9 +40,9 @@
 
 					{{ Form::checkbox('cache_enabled', 1, Pongo::settings('cache_enabled'), array('class' => 'pongo-checkbox', 'id' => 'cache_enabled')) }}
 
-					<span></span>
+					<strong></strong>
 
-					{{ t('label.settings.cache_enabled') }}
+					<span>{{ t('label.settings.cache_enabled') }}<span>
 
 				</label>
 
@@ -52,7 +52,7 @@
 
 				{{ Form::label('cache_time', t('label.settings.cache_time')) }}
 			
-				{{ Form::select('cache_time', array(10 => 10, 20 => 20, 30 => 30, 40 => 40, 50 => 50, 60 => 60), Pongo::settings('cache_time'), array('class' => 'form-control', 'id' => 'cache_time')) }}
+				{{ Form::select('cache_time', Pongo::system('cache_time'), Pongo::settings('cache_time'), array('class' => 'form-control', 'id' => 'cache_time')) }}
 
 			</div>
 
@@ -60,7 +60,7 @@
 
 				{{ Form::label('per_page', t('label.settings.per_page')) }}
 			
-				{{ Form::select('per_page', array(10 => 10, 20 => 20, 30 => 30, 40 => 40, 50 => 50, 100 => 100), Pongo::settings('per_page'), array('class' => 'form-control', 'id' => 'per_page')) }}
+				{{ Form::select('per_page', Pongo::system('per_page'), Pongo::settings('per_page'), array('class' => 'form-control', 'id' => 'per_page')) }}
 
 			</div>
 

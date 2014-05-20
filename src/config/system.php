@@ -66,10 +66,53 @@ return array(
 	),
 
 	/**
+	 * Settings :: cache_time options
+	 */
+
+	'cache_time' => array(
+		10 => '10 min',
+		20 => '20 min',
+		30 => '30 min',
+		40 => '40 min',
+		50 => '50 min',
+		60 => '60 min',
+		120 => '120 min'
+	),
+
+	/**
+	 * Settings :: per_page options
+	 */
+
+	'per_page' => array(
+		10 => '10 items',
+		20 => '20 items',
+		30 => '30 items',
+		40 => '40 items',
+		50 => '50 items',
+		100 => '100 items'
+	),
+
+	/**
 	 * PongoCMS :: Notification alert template
 	 */
 	
 	'alert_tpl' => '<div class="alert-msg :key">:message</div>',
+
+	/**
+	 * PongoCMS :: Default thumb for interface
+	 */
+	
+	'thumb' => array(
+
+		'cms' => array(
+
+			'width'		=> 130,
+			'height' 	=> 90,
+			'suffix' 	=> '_cms',
+
+		),
+
+	),
 
 	/**
 	 * Custom Service Providers
@@ -167,7 +210,8 @@ return array(
 			'alias'	=> 'Pongo\Cms\Support\Facades\Picture',
 			'depes' => array(
 				
-				array('class' => 'Pongo\Cms\Classes\Theme'),
+				array('class' => 'Pongo\Cms\Classes\Pongo'),
+				array('class' => 'Pongo\Cms\Classes\Media'),
 
 			),
 
@@ -374,7 +418,7 @@ return array(
 		'settings' => array(
 
 			'class' 		=> 'options-toggle',
-			'min_access' 	=> 'manager',
+			'min_access' 	=> 'admin',
 			'dashb_icon'	=> 'fa-cogs',
 
 		),

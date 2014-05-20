@@ -28,9 +28,9 @@
 					
 					@include('cms::sections.pages.partials.layout', array('page' => $page))
 					
+					@include('cms::sections.pages.partials.files', array('page' => $page))
+
 					@include('cms::sections.pages.partials.seo', array('page' => $page))
-					
-					@include('cms::sections.pages.partials.assets', array('page' => $page))
 
 				</div>
 
@@ -52,6 +52,7 @@
 	@parent
 	
 	@include('cms::partials.modals.pongodelete', array('page_id' => $page->id, 'route' => 'api.block.delete'))
+	@include('cms::partials.modals.pongodelete', array('page_id' => $page->id, 'target' => 'file', 'route' => 'api.file.delete'))
 
 @stop
 

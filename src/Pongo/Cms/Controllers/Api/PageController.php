@@ -18,6 +18,7 @@ class PageController extends ApiController {
 	public function changeLayout()
 	{
 		$layout = \Input::get('layout');
+		
 		return \Render::layoutPreview($layout);
 	}
 
@@ -28,6 +29,7 @@ class PageController extends ApiController {
 	public function create()
 	{
 		if ($this->manager->withInput()->createEmptyPage()) {
+			
 			return $this->manager->success();
 		}
 	}
@@ -39,8 +41,11 @@ class PageController extends ApiController {
 	public function delete()
 	{
 		if ($this->manager->withInput()->deletePage()) {
+			
 			return $this->manager->success();
+
 		} else {
+
 			return $this->manager->errors();
 		}
 	}
@@ -53,6 +58,7 @@ class PageController extends ApiController {
 	public function lang()
 	{
 		if ($this->manager->withInput()->switchLanguage()) {
+
 			return $this->manager->success();
 		}
 	}
@@ -74,6 +80,7 @@ class PageController extends ApiController {
 	public function move()
 	{
 		if ($this->manager->withInput()->movePage()) {
+
 			return $this->manager->success();
 		}
 	}
@@ -86,6 +93,7 @@ class PageController extends ApiController {
 	public function moveBlocks()
 	{
 		if ($this->manager->withInput()->moveBlock()) {
+
 			return $this->manager->success();
 		}
 	}
@@ -97,8 +105,11 @@ class PageController extends ApiController {
 	public function saveSettings()
 	{
 		if ($this->manager->withInput('id', 'lang')->savePageSettings()) {
+			
 			return $this->manager->success();
+
 		} else {
+
 			return $this->manager->errors();
 		}
 	}
@@ -110,8 +121,11 @@ class PageController extends ApiController {
 	public function saveLayout()
 	{
 		if ($this->manager->withInput()->savePageLayout()) {
+
 			return $this->manager->success();
+
 		} else {
+
 			return $this->manager->errors();
 		}
 	}
@@ -123,8 +137,11 @@ class PageController extends ApiController {
 	public function saveSeo()
 	{
 		if ($this->manager->withInput()->savePageSeo()) {
+
 			return $this->manager->success();
+
 		} else {
+
 			return $this->manager->errors();
 		}
 	}
@@ -136,6 +153,7 @@ class PageController extends ApiController {
 	public function valid()
 	{
 		if ($this->manager->withInput()->validPage()) {
+
 			return $this->manager->success();
 		}
 	}

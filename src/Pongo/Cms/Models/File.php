@@ -1,5 +1,7 @@
 <?php namespace Pongo\Cms\Models;
 
+use Pongo\Cms\Models\Observers\FileObserver;
+
 class File extends BaseModel {
 	
 	/**
@@ -32,6 +34,16 @@ class File extends BaseModel {
 	public function pages()
 	{
 		return $this->belongsToMany('Pongo\Cms\Models\Page');
+	}
+
+	/**
+	 * [boot description]
+	 * @return [type] [description]
+	 */
+	public static function boot()
+	{
+		parent::boot();
+		self::observe(new FileObserver);
 	}
 
 }

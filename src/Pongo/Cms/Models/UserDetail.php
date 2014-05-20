@@ -1,5 +1,7 @@
 <?php namespace Pongo\Cms\Models;
 
+use Pongo\Cms\Models\Observers\UserDetailObserver;
+
 class UserDetail extends BaseModel {
 
 	/**
@@ -65,6 +67,16 @@ class UserDetail extends BaseModel {
 
 		return $d ? \Carbon\Carbon::createFromFormat('Y-m-d', $this->attributes['birth_date'])->year
 				  : \Carbon\Carbon::now()->year;
+	}
+
+	/**
+	 * [boot description]
+	 * @return [type] [description]
+	 */
+	public static function boot()
+	{
+		parent::boot();
+		self::observe(new UserDetailObserver);
 	}
 
 }

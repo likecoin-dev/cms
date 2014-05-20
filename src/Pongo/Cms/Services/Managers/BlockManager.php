@@ -24,13 +24,17 @@ class BlockManager extends BaseManager {
 	 */
 	public function createEmptyBlock()
 	{
-		if($this->input) {
+		if($this->input)
+		{
 			$lang = $this->input['lang'];
 			$zone = $this->input['zone'];
 			$page_id = $this->input['page_id'];
+			
 			$timedate = Carbon::now()->format('H:i:s - Ymd');
+			
 			$name = t('template.created', array('timedate' => $timedate), $lang);
 			$msg = t('alert.success.block_created');			
+			
 			$attrib = snake_case($timedate);
 
 			$default_block = array(
@@ -67,21 +71,24 @@ class BlockManager extends BaseManager {
 	 */
 	public function deleteBlock()
 	{
-		$block_id = $this->input['item_id'];
-		$page_id = $this->input['current_page'];
+		if($this->input)
+		{
+			$block_id = $this->input['item_id'];
+			$page_id = $this->input['current_page'];
 
-		$block = $this->model->find($block_id);
-		$block->pages()->detach($page_id);
+			$block = $this->model->find($block_id);
+			$block->pages()->detach($page_id);
 
-		$this->events->fire('block.delete', array($block, $page_id));
-		
-		$response = array(
-			'remove' 	=> $block_id,
-			'status' 	=> 'success',
-			'msg'		=> t('alert.success.block_deleted')
-		);
+			$this->events->fire('block.delete', array($block, $page_id));
+			
+			$response = array(
+				'remove' 	=> $block_id,
+				'status' 	=> 'success',
+				'msg'		=> t('alert.success.block_deleted')
+			);
 
-		return $this->setSuccess($response);
+			return $this->setSuccess($response);
+		}
 	}
 
 	/**
@@ -90,14 +97,15 @@ class BlockManager extends BaseManager {
 	 */
 	public function saveBlockSettings()
 	{
-		if($check = $this->canEdit()) {
-
-			if ($this->validator->fails()) {
-
+		if($check = $this->canEdit())
+		{
+			if ($this->validator->fails())
+			{
 				return $this->setError($this->validator->errors());
 
-			} else {
-
+			}
+			else
+			{
 				$id = $this->input['id'];
 				$home = \Tool::setFlag($this->input, 'is_home');
 
@@ -126,8 +134,9 @@ class BlockManager extends BaseManager {
 				return $this->setSuccess($response);
 			}
 
-		} else {
-
+		}
+		else
+		{
 			return $check;
 		}
 	}
@@ -138,14 +147,14 @@ class BlockManager extends BaseManager {
 	 */
 	public function saveBlockContent()
 	{
-		if($check = $this->canEdit()) {
-
-			if ($this->validator->fails()) {
-
+		if($check = $this->canEdit())
+		{
+			if ($this->validator->fails())
+			{
 				return $this->setError($this->validator->errors());
-
-			} else {
-
+			}
+			else
+			{
 				$id = $this->input['id'];
 				$page = $this->model->find($id);
 				$page->title = $this->input['title'];
@@ -158,8 +167,9 @@ class BlockManager extends BaseManager {
 				return $this->setSuccess('alert.success.save');
 			}
 
-		} else {
-
+		}
+		else
+		{
 			return $check;
 		}
 	}
@@ -170,20 +180,25 @@ class BlockManager extends BaseManager {
 	 */
 	public function validBlock()
 	{
-		$block_id = $this->input['item_id'];
-		$page_id = $this->input['page_id'];
-		$value = $this->input['action'];
+		if($this->input)
+		{
+			$block_id = $this->input['item_id'];
+			$page_id = $this->input['page_id'];
+			$value = $this->input['action'];
 
-		$block = $this->model->find($block_id);
-		
-		foreach ($block->pages as $page) {
-			if($page->pivot->page_id == $page_id) {
-				$page->pivot->is_active = $value;
-				$page->pivot->save();
+			$block = $this->model->find($block_id);
+			
+			foreach ($block->pages as $page)
+			{
+				if($page->pivot->page_id == $page_id)
+				{
+					$page->pivot->is_active = $value;
+					$page->pivot->save();
+				}
 			}
+			
+			return $this->setSuccess('alert.success.page_modified');
 		}
-		
-		return $this->setSuccess('alert.success.page_modified');
 	}
 
 }

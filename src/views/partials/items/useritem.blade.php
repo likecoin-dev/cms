@@ -14,7 +14,7 @@
 
 			<label>
 				<input type="checkbox" value="{{ $user->id }}" {{ checked($user->is_active, 1) }} class="is_active">
-				<span></span>
+				<strong></strong>
 			</label>
 
 		</div>

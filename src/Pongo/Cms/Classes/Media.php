@@ -115,7 +115,8 @@ class Media {
 	 * @param  integer  $precision [description]
 	 * @return string
 	 */
-	public function formatFileSize($bytes, $precision = 2) { 
+	public function formatFileSize($bytes, $precision = 2)
+	{ 
 		$units = array('Bytes', 'Kb', 'Mb', 'Gb', 'Tb'); 
 
 		$bytes = max($bytes, 0);
@@ -141,6 +142,18 @@ class Media {
 	}
 
 	/**
+	 * Get file name from path
+	 * @param  [type] $path [description]
+	 * @return [type]       [description]
+	 */
+	public function getFileName($path)
+	{
+		$path_arr = explode('/', $path);
+		
+		return end($path_arr);
+	}
+
+	/**
 	 * Get real path of a file
 	 * 
 	 * @param  string $file_name
@@ -149,6 +162,20 @@ class Media {
 	public function getFilePath($file_name)
 	{
 		return public_path(\Pongo::settings('upload_path') . $this->getFolderName($file_name) . $file_name);
+	}
+
+	/**
+	 * [getImgPath description]
+	 * @param  [type] $file_name [description]
+	 * @return [type]            [description]
+	 */
+	public function getImgPath($file_name, $thumb = false)
+	{
+		$filename = ( ! $thumb or $this->isFile($file_name)) ?
+					$file_name :
+					$this->formatFileThumb($file_name, $thumb);
+
+		return asset(\Pongo::settings('upload_path') . $this->getFolderName($file_name) . $filename);
 	}
 
 	/**
@@ -194,6 +221,20 @@ class Media {
 	}
 
 	/**
+	 * [getMimes description]
+	 * @param  boolean $space [description]
+	 * @return [type]         [description]
+	 */
+	public function getMimes($space = false)
+	{
+		$mimes = array_keys(\Pongo::settings('mimes'));
+
+		$glue = ($space) ? ', ' : ',';
+
+		return implode($glue, $mimes);
+	}
+
+	/**
 	 * Check if file is not an Image
 	 * 
 	 * @param  string  $file_name
@@ -219,5 +260,53 @@ class Media {
 		return (in_array($ext, $images)) ? true : false;
 	}
 
+	public function loadThumb($path, $thumb = 'cms', $alt = '')
+	{	
+		$file_name = $this->getFileName($path);
+
+		if($this->isImage($file_name))
+		{
+			$thumb_name = $this->formatFileThumb($file_name, $thumb);
+
+			$thumb_path = str_replace($file_name, $thumb_name, $path);
+
+			$w = \Pongo::system($thumb.'.width');
+			$h = \Pongo::system($thumb.'.height');
+
+			$output = \HTML::image($thumb_path, $alt, array('class' => 'cms-thumb', 'width' => $w, 'height' => $h));
+		}
+		else
+		{
+			$ext = $this->fileExtension($file_name);
+
+			$ico = \Pongo::settings('mimes.'.$ext);
+
+			$output = '<span class="cms-thumb"><i class="'.$ico.'"></i></span>';
+		}
+
+		return $output;
+	}
+
+	/**
+	 * Generate an img tag to thumb
+	 * 
+	 * @param  string $path
+	 * @param  string $thumb
+	 * @param  string $alt
+	 * @return string
+	 */
+	public function showThumb($path, $thumb = 'cms')
+	{
+		$file_name = $this->getFileName($path);
+
+		$output = $this->loadThumb($path, $thumb);
+
+		$view = \Render::view('partials.items.filethumb');
+		$view['is_image'] = $this->isImage($file_name);
+		$view['output'] = $output;
+		$view['url'] = $path;
+
+		return $view;
+	}
 
 }

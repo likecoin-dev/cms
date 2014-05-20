@@ -25,7 +25,7 @@
 	@show
 
 	{{Render::scripts('header')}}
-	{{Render::bootJs('cms/bootstrap.js')}}
+	{{Render::bootJs('cms/init.js')}}
 
 </head>
 <body>

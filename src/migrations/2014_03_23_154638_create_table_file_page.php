@@ -17,6 +17,7 @@ class CreateTableFilePage extends Migration {
 			$table->increments('id')->unsigned();
 			$table->integer('file_id')->unsigned()->index();
 			$table->integer('page_id')->unsigned()->index();
+			$table->boolean('is_active');
 		});
 	}
 

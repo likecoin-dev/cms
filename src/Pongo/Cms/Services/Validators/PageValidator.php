@@ -5,7 +5,7 @@ class PageValidator extends BaseValidator {
 	protected $rules = array(
 		'settings' => array(
 			'name' 		=> 'required|min:2|unique:pages,name,{id},id,lang,{lang}',
-			'slug'		=> 'required|min:2|unique_slug:{id},{lang}',
+			'slug'		=> 'required|min:2|is_slug|unique_slug:{id},{lang}',
 		),
 
 		'layout' => array(
@@ -23,6 +23,7 @@ class PageValidator extends BaseValidator {
 	);
 
 	protected $messages = array(
+		'is_slug'			=> 'validation.errors.is_slug',
 		'max' 				=> 'validation.errors.max',
 		'min' 				=> 'validation.errors.min',
 		'required' 			=> 'validation.errors.required',

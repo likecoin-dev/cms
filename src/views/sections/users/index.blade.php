@@ -18,7 +18,7 @@
 
 			</div>
 
-			<div class="col-xs-10 main">
+			<div class="col-xs-10 main list">
 				
 				<div class="breadcrumb-wrapper search">
 					
@@ -34,7 +34,7 @@
 
 						{{ Form::open(array('route' => 'api.user.valid')) }}
 
-						<div class="dl tab-wrapper pongo-checking pongo-confirming pongo-paginating">
+						<div class="dl pongo-checking pongo-confirming pongo-paginating">
 
 							<ol class="dl-list ol-list pongo-active">
 								
@@ -54,7 +54,7 @@
 											
 											<label>
 												<input type="checkbox" value="{{$user->id}}" class="pongo-checkbox"{{ checked($user->is_active, 1) }}>
-												<span></span>
+												<strong></strong>
 											</label>
 											
 											@endif

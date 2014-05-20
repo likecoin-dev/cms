@@ -1,6 +1,7 @@
 <?php
 
 use Pongo\Cms\Models\File;
+use Illuminate\Support\Facades\File as FileSystem;
 
 class FilesTableSeeder extends Seeder {
 
@@ -11,14 +12,17 @@ class FilesTableSeeder extends Seeder {
 		// Reset table
 		DB::table('files')->truncate();
 
+		// Delete /public/upload
+		FileSystem::deleteDirectory(public_path('upload'));
+
 		// Faker data
 		$faker = Faker\Factory::create();
 
-		for($i=1; $i<=50; $i++) {
+		/*for($i=1; $i<=50; $i++) {
 
 			$image = array(
-				'name' => $faker->imageUrl($width = 640, $height = 480),
-				'original'	=> $faker->imageUrl($width = 640, $height = 480),
+				'name' => $faker->word,
+				'original'	=> 'original',
 				'ext' => 'jpg',
 				'size' => 125000,
 				'w' => 640,
@@ -51,7 +55,7 @@ class FilesTableSeeder extends Seeder {
 
 			File::create($file);
 
-		}
+		}*/
 
 		DB::statement('SET FOREIGN_KEY_CHECKS = 1'); // enable foreign key constraints
 	}

@@ -43,6 +43,25 @@ class Tool {
 	}
 
 	/**
+	 * [maxFileName description]
+	 * @param  [type] $name [description]
+	 * @param  [type] $ext  [description]
+	 * @param  [type] $max  [description]
+	 * @return [type]       [description]
+	 */
+	public function maxFileName($name, $ext, $max = 15)
+	{
+		if(strlen($name) > $max + 2)
+		{
+			$name = str_replace('.'.$ext, '', $name);
+
+			return substr($name, 0, $max - (strlen($ext) + 1)) . '..' . substr($name, -2) . '.' . $ext;
+		}
+
+		return $name;
+	}
+
+	/**
 	 * [filterSearchField description]
 	 * @param  [type] $field [description]
 	 * @return [type]        [description]
@@ -82,6 +101,18 @@ class Tool {
 	public function getJson($key, $array = true)
 	{
 		return json_decode(\Input::get($key), $array);
+	}
+
+	public function getTags($tag_array)
+	{
+		$tags = '';
+
+		foreach ($tag_array as $value)
+		{
+			$tags .= $value['name'] . ','; 
+		}
+
+		return substr($tags, 0, strlen($tags) - 1);
 	}
 
 	/**

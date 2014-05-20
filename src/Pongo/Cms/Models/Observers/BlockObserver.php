@@ -2,7 +2,8 @@
 
 class BlockObserver extends BaseObserver {
 
-	public function deleting($block) {		
+	public function deleting($block)
+	{		
 
 	}
 

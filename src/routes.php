@@ -18,7 +18,7 @@ Route::group(Config::get('cms::routes.cms_group_routes'), function() use ($pongo
 	Route::get('testing', array('uses' => $pongoControllers.'TestController@testing', 'as' => 'test'));
 
 	// JS BOOTSTRAP
-	Route::get('bootstrap.js', array('uses' => $pongoControllers.'BaseController@bootstrap', 'as' => 'js.bootstrap'));
+	Route::get('init.js', array('uses' => $pongoControllers.'BaseController@init', 'as' => 'js.init'));
 
 	// // LOGIN
 	Route::get('/', array('uses' => $pongoControllers.'LoginController@index', 'as' => 'cms.index'));
@@ -48,7 +48,7 @@ Route::group(Config::get('cms::routes.cms_group_routes'), function() use ($pongo
 
 	// // FILE
 	// Route::get('file/upload', array('uses' => $pongoControllers.'FileController@uploadFile', 'as' => 'file.upload'));
-	// Route::get('file/edit/{file_id}', array('uses' => $pongoControllers.'FileController@editFile', 'as' => 'file.edit'));
+	Route::get('file/edit/{file_id}', array('uses' => $pongoControllers.'FileController@edit', 'as' => 'file.edit'));
 
 	// // ROLE
 	Route::get('roles', array('uses' => $pongoControllers.'RoleController@index', 'as' => 'roles'));
@@ -113,7 +113,9 @@ Route::group(Config::get('cms::routes.api_group_routes'), function() use ($apiCo
 	// 	Route::any('page/seo/save', array('uses' => $apiControllers.'PageController@pageSeoSave', 'as' => 'api.page.seo.save'));
 
 	// 	// FILES
-	// 	Route::any('page/files/upload', array('uses' => $apiControllers.'UploadController@pageFilesUpload', 'as' => 'api.page.files.upload'));
+	Route::post('file/delete', array('uses' => $apiControllers.'FileController@delete', 'as' => 'api.file.delete'));
+	Route::post('file/upload', array('uses' => $apiControllers.'FileController@upload', 'as' => 'api.file.upload'));
+	Route::post('file/valid', array('uses' => $apiControllers.'FileController@valid', 'as' => 'api.file.valid'));	
 	// 	Route::any('page/files/create', array('uses' => $apiControllers.'UploadController@pageFilesCreate', 'as' => 'api.page.files.create'));
 	// 	Route::any('page/files/delete/{file_id}', array('uses' => $apiControllers.'UploadController@pageFilesDelete', 'as' => 'api.page.files.delete'));
 

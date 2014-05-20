@@ -18,7 +18,7 @@
 
 			</div>
 
-			<div class="col-xs-10 main">
+			<div class="col-xs-10 main list">
 				
 				<div class="breadcrumb-wrapper">
 					
@@ -32,7 +32,7 @@
 						
 						{{ Form::open(array('route' => 'api.role.valid')) }}
 
-						<div class="dl tab-wrapper pongo-moving pongo-checking pongo-confirming">
+						<div class="dl nestable pongo-moving pongo-checking pongo-confirming">
 
 							<ol class="dl-list ol-list pongo-active">
 
@@ -63,7 +63,7 @@
 										<p class="dd-handle">{{ $role->name }}</p>
 										
 										<label>
-											<input type="checkbox" value="{{$role->id}}" class="pongo-checkbox"{{ checked($role->is_active, 1) }}><span></span>
+											<input type="checkbox" value="{{$role->id}}" class="pongo-checkbox"{{ checked($role->is_active, 1) }}><strong></strong>
 										</label>
 										
 										<div class="btn-edit">

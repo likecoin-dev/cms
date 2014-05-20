@@ -2,39 +2,39 @@
 
 use Pongo\Cms\Services\Managers\BaseManager as Manager;
 
-class UserObserver extends BaseObserver {
+class UserDetailObserver extends BaseObserver {
 
-	public function deleting($user)
+	public function deleting($details)
 	{
 		// Admin account
-		if ($user->id == \Pongo::settings('admin_account.id')) {
+		if ($details->user->id == \Pongo::settings('admin_account.id')) {
 			$this->setFlashError('alert.error.user_admin');
 			return false;
 		} 
 		
 		// Account own pages
-		if (count($user->pages)) {
+		if (count($details->user->pages)) {
 			$this->setFlashError('alert.error.user_own_pages');
 			return false;
 		} 
 		
 		// Delete itself
-		if ($user->id == USERID) {
+		if ($details->user->id == USERID) {
 			$this->setFlashError('alert.error.user_current');
 			return false;
 		}
 
 		// Level is not enough
-		if ($user->role->level > LEVEL) {
+		if ($details->user->role->level > LEVEL) {
 			$this->setFlashError('alert.error.user_deleted');
 			return false;
 		}
 	}
 
-	public function saving($user)
+	public function saving($details)
 	{
 		// Level is not enough
-		if (isset($user->role) and $user->role->level > LEVEL) {
+		if ($details->user->role->level > LEVEL) {
 			$this->setFlashError('alert.error.user_updated');
 			return false;
 		}

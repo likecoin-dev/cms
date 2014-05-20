@@ -60,13 +60,25 @@ return array(
 	 * PongoCMS :: Max n of items to upload (php.ini limit) 
 	 */
 	
-	'max_upload_items' => 20,
+	'max_upload_items' => 10,
 
 	/**
 	 * PongoCMS :: Mime types allowed for upload
 	 */
 	
-	'mimes' => 'jpg, jpeg, gif, png, mp3, mp4, pdf, zip',
+	// 'mimes' => 'jpg, jpeg, gif, png, mp3, mp4, pdf, zip',
+	'mimes' => array(
+
+		'jpg' 	=> 'img',
+		'jpeg'	=> 'img',
+		'gif'	=> 'img',
+		'png'	=> 'img',
+		'mp3'	=> 'fa fa-file-audio-o fa-2',
+		'mp4'	=> 'fa fa-file-video-o fa-2',
+		'pdf'	=> 'fa fa-file-pdf-o fa-2',
+		'zip'	=> 'fa fa-file-archive-o fa-2'
+
+	),
 
 	/**
 	 * PongoCMS :: Image compression quality
@@ -126,8 +138,8 @@ return array(
 	// Chache enabled
 	'cache_enabled'=>true,
 	// Default cache time
-	'cache_time'=>30,
+	'cache_time'=>60,
 	// XPAGE constant in cms/start.php
-	'per_page'=>20,
+	'per_page'=>10,
 
 );

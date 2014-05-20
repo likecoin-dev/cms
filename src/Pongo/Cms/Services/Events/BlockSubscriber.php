@@ -4,14 +4,24 @@ use Session;
 
 class BlockSubscriber extends BaseSubscriber {
 
-
+	/**
+	 * [onCreate description]
+	 * @param  [type] $block   [description]
+	 * @param  [type] $page_id [description]
+	 * @return [type]          [description]
+	 */
 	public function onCreate($block, $page_id)
 	{
 		// Add record to pivot table 'block_page'
 		$block->pages()->attach($page_id, array('order_id' => \Pongo::system('default_order'), 'is_active' => 0));		
 	}
 
-
+	/**
+	 * [onDelete description]
+	 * @param  [type] $block   [description]
+	 * @param  [type] $page_id [description]
+	 * @return [type]          [description]
+	 */
 	public function onDelete($block, $page_id)
 	{
 		// Delete block if not attached to other zones
@@ -20,19 +30,31 @@ class BlockSubscriber extends BaseSubscriber {
 		}
 	}
 
-
+	/**
+	 * [onMove description]
+	 * @param  [type] $blocks [description]
+	 * @return [type]         [description]
+	 */
 	public function onMove($blocks)
 	{
 
 	}
 
-
+	/**
+	 * [onSaveSettings description]
+	 * @param  [type] $block [description]
+	 * @return [type]        [description]
+	 */
 	public function onSaveSettings($block)
 	{
 		// 
 	}
 
-
+	/**
+	 * [onSaveContent description]
+	 * @param  [type] $block [description]
+	 * @return [type]        [description]
+	 */
 	public function onSaveContent($block)
 	{
 		// 

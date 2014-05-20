@@ -18,6 +18,7 @@ class RoleController extends ApiController {
 	public function create()
 	{
 		if ($this->manager->createEmptyRole()) {
+
 			return $this->manager->success();
 		}
 	}
@@ -29,8 +30,10 @@ class RoleController extends ApiController {
 	public function delete()
 	{
 		if ($this->manager->withInput()->deleteRole()) {
+
 			return $this->manager->success();
 		} else {
+
 			return $this->manager->errors();
 		}
 	}
@@ -43,6 +46,7 @@ class RoleController extends ApiController {
 	public function move()
 	{
 		if ($this->manager->withInput()->moveRole()) {
+
 			return $this->manager->success();
 		}
 	}
@@ -54,8 +58,10 @@ class RoleController extends ApiController {
 	public function save()
 	{
 		if ($this->manager->withInput('id')->saveRole()) {
+
 			return $this->manager->redirectTo('roles');
 		} else {
+
 			return $this->manager->errors();
 		}
 	}
@@ -67,6 +73,7 @@ class RoleController extends ApiController {
 	public function valid()
 	{
 		if ($this->manager->withInput()->validRole()) {
+			
 			return $this->manager->success();
 		}
 	}

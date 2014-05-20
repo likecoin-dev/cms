@@ -1,4 +1,4 @@
-<div class="modal fade pongo-delete" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade {{ $target or 'pongo' }}-delete" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-center modal-sm">
 		<div class="modal-content">
 			<div class="modal-header">

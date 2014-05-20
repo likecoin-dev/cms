@@ -83,7 +83,7 @@ if ( ! function_exists('t'))
 
 		$str = "cms::lang.{$id}";
 
-		return app('translator')->trans($str, $parameters, $domain, $locale);
+		return trim(app('translator')->trans($str, $parameters, $domain, $locale));
 	}
 }
 

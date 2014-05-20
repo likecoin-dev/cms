@@ -48,6 +48,7 @@ return array(
 			'user_created'			=> 'Unable to create user',
 			'user_current'			=> 'You cannot delete your current user',			
 			'user_deleted'			=> 'You cannot delete this user',
+			'user_updated'			=> 'You cannot update this user',
 			'user_own_pages'		=> 'The user still owns some pages',
 			
 		),
@@ -60,6 +61,7 @@ return array(
 			'block_loaded'		=> 'Blocks successfully loaded',
 			'block_order'		=> 'New blocks order saved',
 			'file_created'		=> 'File entry successfully saved',
+			'file_deleted'		=> 'The file has been deleted',
 			'item_remove'		=> 'This item has been removed',
 			'order_saved'		=> 'New order saved',
 			'page_cloned'		=> 'Page successfully cloned',
@@ -115,11 +117,11 @@ return array(
 
 			'back'			=> 'Back to list',
 			'block' 		=> 'Block',
-			'cancel'		=> 'Cancel',
+			'cancel'		=> 'Cancella',
 			'choose'		=> 'Select files',
 			'clone'			=> 'Clone',
-			'create'		=> 'Create',			
-			'delete'		=> 'Delete',			
+			'create'		=> 'Create',
+			'delete'		=> 'Delete',
 			'load'			=> 'Load',
 			'loadmore'		=> 'Load more...',
 			'login'			=> 'Login',
@@ -223,15 +225,17 @@ return array(
 
 			'seo'	=> array(
 
-				'title'	=> 'Page title',
-				'keyw'	=> 'Page keywords',
 				'descr'	=> 'Page description',
+				'keyw'	=> 'Page keywords',
+				'tag'	=> 'Page tags',
+				'title'	=> 'Page title',
 
 			),
 
 			'files'	=> array(
 
 				'custom_upload'	=> 'Create an empty file entry',
+				'file_create'	=> 'Upload files and make them available for this page',
 				'file_name'		=> 'File name',
 				'file_size'		=> 'File size',
 				'force_delete'	=> 'Delete this file if not linked to any other page',
@@ -239,6 +243,7 @@ return array(
 				'max_item'		=> 'Maximum number of items at a time',
 				'max_upload' 	=> 'Maximum upload size',
 				'mimes' 		=> 'Allowed file formats',
+				'page_files'	=> 'Page files',
 
 			),
 
@@ -366,7 +371,7 @@ return array(
 		'access'		=> 'Access',
 		'banners'		=> 'Banners',
 		'blog'			=> 'Blog',
-		'cmslang'		=> 'Interface in',
+		'cmslang'		=> 'CMS language',
 		'dashboard'		=> 'Dashboard',
 		'downloads'		=> 'Downloads',
 		'files'			=> 'Files',
@@ -380,7 +385,7 @@ return array(
 		'shop'			=> 'Shop',
 		'tools'			=> 'Tools',
 		'translations'	=> 'Translations',
-		'user_role'		=> 'Logged in as',
+		'user_role'		=> 'Logged in as role',
 		'users'			=> 'Users',
 
 	),
@@ -417,6 +422,7 @@ return array(
 
 				'descr'	=> 'Write a good description',
 				'keyw'	=> 'Choose valuable keywords',
+				'tag'	=> 'Choose valuable tags to link pages together',
 				'title' => 'Set a title for your page',
 
 			),
@@ -474,10 +480,10 @@ return array(
 		'page' => array(
 
 			'blocks' 		=> 'Blocks',
-			'assets' 		=> 'Assets',
+			'files' 		=> 'Files',
 			'header' 		=> 'Page',
 			'layout' 		=> 'Layout',
-			'seo' 			=> 'Seo',
+			'seo_tag' 		=> 'Seo &amp; Tags',
 			'settings' 		=> 'Settings',
 
 		),
@@ -539,7 +545,7 @@ return array(
 
 		'errors' => array(
 
-			'access'			=> 'You can\'t edit this content',
+			'admin_role'		=> 'You must be Admin to edit this',
 			'alpha_dash'		=> 'This field may only contain letters, numbers, and dashes',
 			'confirmed'			=> 'Confirmed password doesn\'t match',
 			'current_password'	=> 'Your current password is invalid',

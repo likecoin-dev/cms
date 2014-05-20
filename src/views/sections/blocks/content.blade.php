@@ -40,6 +40,7 @@
 		</div>
 
 		<div class="form-buttons">
+			
 			{{link_to_route('api.element.content.save', t('form.button.save'), null, array('class' => 'btn btn-success btn-block api'))}}
 
 		</div>

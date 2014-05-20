@@ -1,7 +1,8 @@
 <?php namespace Pongo\Cms\Classes;
 
 use Pongo\Cms\Classes\Pongo as Pongo;
-use Pongo\Cms\Classes\Theme as Theme;
+use Pongo\Cms\Classes\Media as Media;
+use Intervention\Image\Image;
 
 class Picture {
 
@@ -10,45 +11,55 @@ class Picture {
 	 * 
 	 * @var array
 	 */
-	public static $thumb = array();
+	public $thumb = array();
 
 	/**
 	 * Image compression quality
 	 * 
 	 * @var int
 	 */
-	public static $image_quality = \Pongo::settings('image_quality');
+	public $image_quality;
+
+	/**
+	 * [$thumb_name description]
+	 * @var [type]
+	 */
+	public $thumb_name;
+
+	/**
+	 * [$thumb_path description]
+	 * @var [type]
+	 */
+	public $thumb_path;
 
 	/**
 	 * Upload path
 	 * 
 	 * @var string
 	 */
-	public static $upload_path = public_path(\Pongo::settings('upload_path').'img');
-
-	/**
-	 * [$theme description]
-	 * @var [type]
-	 */
-	protected $theme;
+	public $upload_path;
 
 	/**
 	 * Class constructor
 	 * 
 	 * @param File $file
 	 */
-	public function __construct(Theme $theme)
+	public function __construct(Pongo $pongo, Media $media)
 	{
-		$this->theme = $theme;
+		$this->media = $media;
+
+		$this->thumb = $pongo->system('thumb');
+		$this->image_quality = $pongo->settings('image_quality');
+		$this->upload_path = $pongo->settings('upload_path') . 'img';
 	}
 
 	/**
-	 * Create a new thumb
+	 * Create a new thumb image
 	 * 
-	 * @param  object $image
-	 * @param  string $thumb_name
-	 * @param  string $thumb
-	 * @return void
+	 * @param  [type] $image     [description]
+	 * @param  [type] $file_name [description]
+	 * @param  string $thumb     [description]
+	 * @return [type]            [description]
 	 */
 	public function createThumb($image, $file_name, $thumb = 'cms')
 	{
@@ -56,13 +67,14 @@ class Picture {
 
 		$h = $this->thumb[$thumb]['height'];
 
-		$image->cropMaximumInPixel(0, 0, "MM");
+		// resize to best fitting
+		$image->grab($w, $h);		
 
-		$image->resizeInPixel($w, $h);
+		$this->thumb_name = $this->media->formatFileThumb($file_name);
 
-		$thumb_name = \Media::formatFileThumb($file_name);
+		$this->save($image, $this->thumb_name);
 
-		$this->save($image, $thumb_name);
+		return $this->media->getImgPath($file_name, $thumb);
 	}
 
 	/**
@@ -73,7 +85,7 @@ class Picture {
 	 */
 	public function get($file_path)
 	{
-		// return $this->ImageWorkshop->initFromPath($file_path);
+		return Image::make($file_path);
 	}
 
 	/**
@@ -85,38 +97,10 @@ class Picture {
 	 */
 	public function save($image, $thumb_name)
 	{
-		$image->save($this->upload_path, $thumb_name, true, null, $this->image_quality);
+		$this->thumb_path = public_path($this->upload_path.'/'.$thumb_name);
+		$image->save($this->thumb_path, $this->image_quality);
 	}
 
-	/**
-	 * Generate an img tag to thumb
-	 * 
-	 * @param  string $img_path
-	 * @param  string $thumb
-	 * @param  string $alt
-	 * @return string
-	 */
-	public function showThumb($img_path, $thumb = 'cms', $alt = '')
-	{
-		$path_arr = explode('/', $img_path);
-		
-		$file_name = end($path_arr);
-
-		if(\Media::isImage($file_name)) {
-
-			$thumb_name = \Media::formatFileThumb($file_name, $thumb);
-
-			$thumb_path = str_replace($file_name, $thumb_name, $img_path);
-
-			return \HTML::image($thumb_path, $alt, array('class' => 'cms-thumb', 'width' => $this->thumb[$thumb]['width'], 'height' => $this->thumb[$thumb]['height']));
-
-		} else {
-
-			$ext = \Media::fileExtension($file_name);
-
-			return '<span class="cms-thumb">'.$ext.'</span>';
-
-		}
-	}
+	
 
 }

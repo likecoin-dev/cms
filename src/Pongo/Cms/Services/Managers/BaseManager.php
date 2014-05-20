@@ -123,8 +123,10 @@ abstract class BaseManager implements BaseManagerInterface  {
 	public function canEdit()
 	{
 		if($this->access->cantEdit($this->section)) {
+
 			return $this->setError('alert.error.cant_edit');
 		}
+
 		return true;
 	}
 
@@ -231,6 +233,7 @@ abstract class BaseManager implements BaseManagerInterface  {
 	{
 		$this->errors = is_array($messages) ? $messages : $this->formatResponse('error', $messages, $subst);
 
+		// If observer return false, set the flash error as error
 		if(self::$flashError) {
 			$this->errors = $this->formatResponse('error', self::$flashError, $subst);
 		}
@@ -245,6 +248,12 @@ abstract class BaseManager implements BaseManagerInterface  {
 	protected function setSuccess($messages, $subst = array())
 	{
 		$this->success = is_array($messages) ? $messages : $this->formatResponse('success', $messages, $subst);
+
+		// If observer return false, set the flash error as error intead of success
+		if(self::$flashError) {
+			$this->success = $this->formatResponse('error', self::$flashError, $subst);
+		}
+
 		return true;
 	}
 
@@ -307,6 +316,18 @@ abstract class BaseManager implements BaseManagerInterface  {
 
 		if (is_string($data)) $data = func_get_args();
 		$this->validator->data = $data;
+		return $this;
+	}
+
+	/**
+	 * [withFileInput description]
+	 * @return [type] [description]
+	 */
+	public function withFileInput($section = 'files')
+	{
+		$this->input = \Input::all();
+		$this->validator->section = $section;
+
 		return $this;
 	}
 	

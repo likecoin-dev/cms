@@ -36,8 +36,6 @@ class UsersTableSeeder extends Seeder {
 
 		for($i=1; $i<=50; $i++) {
 
-			// $random = Str::random();
-
 			$user_settings = 	array(
 									'role_id'	=> 4,
 									'username'	=> $faker->username,

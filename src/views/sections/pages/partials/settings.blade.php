@@ -10,7 +10,22 @@
 			
 			{{ Form::label('name', t('label.page.settings.name')) }}
 			
-			{{ Form::text('name', $page->name, array('class' => 'form-control', 'placeholder' => t('placeholder.page.settings.name'), 'data-bind' => 'value: itemName, valueUpdate: "afterkeydown"')) }}
+			<div class="input-group">
+				
+				<span class="input-group-btn">
+
+					<span class="flag home">
+						<label for="is_home">
+							{{ Form::checkbox('is_home', 1, $page->is_home, array('id' => 'is_home')) }}
+							<strong></strong>
+						</label>
+					</span>
+
+				</span>
+
+				{{ Form::text('name', $page->name, array('class' => 'form-control', 'placeholder' => t('placeholder.page.settings.name'), 'data-bind' => 'value: itemName, valueUpdate: "afterkeydown"')) }}
+
+			</div>
 
 		</div>
 
@@ -65,18 +80,6 @@
 				</div>
 
 			</div>
-
-		</div>
-
-		<div class="form-group">
-
-			<label for="is_home" class="flag home">
-
-				{{ Form::checkbox('is_home', 1, $page->is_home, array('id' => 'is_home')) }}
-
-				<span>{{t('label.page.settings.set_hp')}}</span>
-
-			</label>
 
 		</div>
 		

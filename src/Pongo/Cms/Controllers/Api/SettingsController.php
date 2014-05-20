@@ -17,9 +17,12 @@ class SettingsController extends ApiController {
 	 */
 	public function save()
 	{
-		if ($this->manager->withInput()->saveSettings()) {
+		if ($this->manager->withInput()->saveSiteSettings()) {
+
 			return $this->manager->success();
+
 		} else {
+
 			return $this->manager->errors();
 		}
 	}

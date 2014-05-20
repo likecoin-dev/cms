@@ -42,10 +42,9 @@ class UserSubscriber extends BaseSubscriber {
 	/**
 	 * [onLogin description]
 	 * @param  [type] $user    [description]
-	 * @param  [type] $cmslang [description]
 	 * @return [type]          [description]
 	 */
-	public function onLogin($user, $cmslang)
+	public function onLogin($user)
 	{
 		// Set constants in session
 		Session::put('USERID', $user->id);
@@ -56,7 +55,9 @@ class UserSubscriber extends BaseSubscriber {
 		Session::put('LEVEL', $user->role->level);
 		Session::put('LANG', $user->lang);
 		Session::put('EDITOR', $user->editor);
-		Session::put('CMSLANG', ($cmslang) ?: $user->lang);
+		Session::put('CMSLANG', $user->lang);
+
+		Alert::info(t('alert.info.welcome', array('user' => $user->username)))->flash();
 	}
 
 	/**
@@ -66,7 +67,7 @@ class UserSubscriber extends BaseSubscriber {
 	public function onLogout()
 	{
 		Auth::logout();
-		Alert::success(t('alert.info.logout'))->flash();
+		Alert::info(t('alert.info.logout'))->flash();
 	}
 
 	/**

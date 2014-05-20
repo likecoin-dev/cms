@@ -42,8 +42,7 @@ class LoginManager extends BaseManager {
 				
 				if($this->access->allowedCms($user->role->level)) {
 
-					$this->events->fire('user.login', array($user, $this->input['cmslang']));
-					// \Alert::info(t('alert.info.welcome', array('user' => $user->username)))->flash();
+					$this->events->fire('user.login', array($user));
 					return true;
 
 				} else {					

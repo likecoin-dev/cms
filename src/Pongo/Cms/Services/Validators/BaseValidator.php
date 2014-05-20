@@ -78,10 +78,10 @@ abstract class BaseValidator implements ValidatorInterface {
 				$this->createCustomRules() :
 				$this->formatRules($this->createCustomRules());
 			$messages = $this->createCustomMessages($rules);
-		} else {			
+		} else {
 			$rules = empty($this->data) ?
 				$this->rules[$this->section] :
-				$this->formatRules($this->rules[$this->section]);			
+				$this->formatRules($this->rules[$this->section]);
 			$messages = $this->formatMessages();
 		}
 		// Set new rules and messages
@@ -196,6 +196,48 @@ abstract class BaseValidator implements ValidatorInterface {
 			'msg'		=> t($msg),
 			'errors'	=> $error_msg
 		);
+	}
+
+	/**
+	 * Format upload errors array
+	 * 
+	 * @return array
+	 */
+	public function uploadErrors()
+	{
+		$errors = $this->errors;
+		foreach ($this->rules[$this->section] as $name => $rule) {
+			if($errors->has($name)) {
+				$error_msg[$name] = t($errors->first($name));
+			}
+		}
+
+		return array(
+			'status' 	=> 'error',
+			'icon'		=> 'fa fa-times error',
+			'errors'	=> $error_msg
+		);
+	}
+
+	/**
+	 * [uploadValidate description]
+	 * @param  string $section [description]
+	 * @return [type]          [description]
+	 */
+	public function uploadValidate($section = 'files')
+	{
+		// Make validation
+		$validator = $this->validator->make(
+			$this->input,
+			$this->rules[$section],
+			$this->messages
+		);
+
+		if($validator->fails())	{
+			$this->errors = $validator->messages();
+			return false;
+		}
+		return true;
 	}
 	
 }

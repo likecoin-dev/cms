@@ -13,7 +13,7 @@
 
 			<label>
 				<input type="checkbox" value="{{$item->id}}" {{Tool::isChecked($item->id, $page_rels)}} class="page_rel">
-				<span></span>
+				<strong></strong>
 			</label>
 
 		</div>
