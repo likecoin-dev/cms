@@ -2,7 +2,7 @@
 
 return array(
 
-	'version' => '2.0.0',
+	'version' => '2.1.29',
 
 	/**
 	 * PongoCMS :: Locales
@@ -131,7 +131,7 @@ return array(
 		// Dependency providers
 
 		'Prologue\Alerts\AlertsServiceProvider',
-		'Intervention\Image\ImageServiceProvider',
+		// 'Intervention\Image\ImageServiceProvider',
 		'Intervention\Helper\DateServiceProvider',
 		'Intervention\Helper\StringServiceProvider',
 		'Laracasts\Utilities\UtilitiesServiceProvider',
@@ -204,19 +204,6 @@ return array(
 
 		),
 
-		'Picture' => array(
-
-			'class'	=> 'Pongo\Cms\Classes\Picture',
-			'alias'	=> 'Pongo\Cms\Support\Facades\Picture',
-			'depes' => array(
-				
-				array('class' => 'Pongo\Cms\Classes\Pongo'),
-				array('class' => 'Pongo\Cms\Classes\Media'),
-
-			),
-
-		),
-
 		'Pongo' => array(
 
 			'class'	=> 'Pongo\Cms\Classes\Pongo',
@@ -255,14 +242,6 @@ return array(
 
 			'class' => 'Prologue\Alerts\Alert',
 			'alias' => 'Prologue\Alerts\Facades\Alert',
-			'depes' => '',
-
-		),
-
-		'Image' => array(
-
-			'class' => 'Intervention\Image\Image',
-			'alias' => 'Intervention\Image\Facades\Image',
 			'depes' => '',
 
 		),
@@ -362,6 +341,14 @@ return array(
 			'method'		=> 'singleton',
 			'interface' 	=> 'Pongo\Cms\Services\Cache\CacheInterface',
 			'class' 		=> 'Pongo\Cms\Services\Cache\LaravelCache',
+
+		),
+
+		'pictureService' => array(
+
+			'method'		=> 'singleton',
+			'interface' 	=> 'Pongo\Cms\Services\Picture\PictureInterface',
+			'class' 		=> 'Pongo\Cms\Services\Picture\InterventionImage',
 
 		),
 

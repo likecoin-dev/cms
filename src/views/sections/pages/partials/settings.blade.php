@@ -85,7 +85,7 @@
 		
 		<div class="form-submit">
 			<button class="btn btn-success pongo-ajax-submit pongo-loading">{{t('form.button.save')}}</button>
-			<button class="btn btn-primary pongo-clone pongo-loading">{{t('form.button.clone')}}</button>
+			<a href="#" data-toggle="modal" data-target=".page-copy" class="btn btn-primary pongo-copy pongo-loading">{{t('form.button.copy')}}</a>
 		</div>
 
 	{{ Form::close() }}

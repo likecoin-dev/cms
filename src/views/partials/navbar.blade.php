@@ -8,7 +8,9 @@
 	
 	<div class="navbar-header">
 
-		<a class="navbar-brand" href="{{route('dashboard')}}">Pongo<span>CMS</span> <small>v2</small></a>
+		<a class="navbar-brand" href="{{route('dashboard')}}">
+			Pongo<span>CMS</span> <small>v2</small>
+		</a>
 
 	</div>
 	

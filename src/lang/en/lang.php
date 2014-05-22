@@ -16,8 +16,8 @@ return array(
 		'error' => array(
 
 			'cant_edit'				=> 'You cannot edit this section',
-			'clone_element'			=> 'Unable to clone element',
-			'clone_page'			=> 'Unable to clone page',
+			'copy_element'			=> 'Unable to copy element',
+			'copy_page'				=> 'Unable to copy page',
 			'create_item'			=> 'Unable to create this item',
 			'delete_item'			=> 'Unable to delete this item',
 			'element_created'		=> 'Unable to create element',
@@ -55,7 +55,7 @@ return array(
 
 		'success' => array(
 
-			'block_cloned'		=> 'Block successfully cloned',
+			'block_copyd'		=> 'Block successfully copyd',
 			'block_created'		=> 'New block created',
 			'block_deleted'		=> 'The block has been deleted',
 			'block_loaded'		=> 'Blocks successfully loaded',
@@ -64,7 +64,7 @@ return array(
 			'file_deleted'		=> 'The file has been deleted',
 			'item_remove'		=> 'This item has been removed',
 			'order_saved'		=> 'New order saved',
-			'page_cloned'		=> 'Page successfully cloned',
+			'page_copyd'		=> 'Page successfully copyd',
 			'page_created'		=> 'New page created',
 			'page_deleted'		=> 'The page has been deleted',
 			'page_modified'		=> 'The page has been modified',
@@ -117,9 +117,9 @@ return array(
 
 			'back'			=> 'Back to list',
 			'block' 		=> 'Block',
-			'cancel'		=> 'Cancella',
+			'cancel'		=> 'Cancel',
 			'choose'		=> 'Select files',
-			'clone'			=> 'Clone',
+			'copy'			=> 'copy',
 			'create'		=> 'Create',
 			'delete'		=> 'Delete',
 			'load'			=> 'Load',
@@ -184,6 +184,16 @@ return array(
 
 	'label' => array(
 
+		'block' => array(
+
+			'modal' => array(
+
+				'make_independent' => 'Make independent'
+
+			),
+
+		),
+
 		'noresult' => array(
 
 			'empty' 	=> 'This list is empty',
@@ -195,15 +205,14 @@ return array(
 
 			'settings' => array(
 
-				'check_all_ele' 	=> 'All page elements',
-				'choose_lang'		=> 'In which language to clone this page?',
-				'clone'				=> '[CLONATO]',
+				'check_all_blocks' 	=> 'All page blocks',
+				'check_media_all'	=> 'All page files',
+				'copy_of'			=> 'Copy of',
 				'create_slug_name' 	=> 'Slug Name',
 				'create_slug_this' 	=> 'Slug This',
 				'edit_by' 			=> 'This page can be edited by',
 				'force_delete'		=> 'Delete page and detach all elements',
 				'may_contain'		=> 'What this page will contain?',
-				'media_all'			=> 'All page files',
 				'name' 				=> 'Page name',
 				'page_include'		=> 'Include also',
 				'set_hp' 			=> 'Set as Home Page',
@@ -256,7 +265,7 @@ return array(
 				'attrib'			=> 'Element ID attribute',
 				'create_attrib' 	=> 'id',
 				'name' 				=> 'Element name',
-				'page_target'		=> 'Attach the cloned element to page',
+				'page_target'		=> 'Attach the copyd element to page',
 				'self_element' 		=> 'Un-link',
 				'zone' 				=> 'Where to insert this element?',
 
@@ -392,11 +401,18 @@ return array(
 
 	'modal' => array(
 
+		'label' => array(
+
+			'which_language' => 'In which language do you want to copy this page?',
+
+		),
+
 		'title' => array(
 
 			'are_you_sure'		=> 'Are you sure?',
-			'clone_element'		=> 'Clone this element?',
-			'clone_page'		=> 'Clone this page?',
+			'blocks_to_copy'	=> 'Select blocks you wish to copy',
+			'copy_element'		=> 'copy this element?',
+			'copy_page'			=> 'Copy this page with its blocks to a new location',
 			'delete_page' 		=> 'Delete this page?',
 			'delete_role' 		=> 'Delete this role?',
 			'delete_user' 		=> 'Delete this user?',
@@ -422,7 +438,7 @@ return array(
 
 				'descr'	=> 'Write a good description',
 				'keyw'	=> 'Choose valuable keywords',
-				'tag'	=> 'Choose valuable tags to link pages together',
+				'tag'	=> 'Choose same tags to link pages together',
 				'title' => 'Set a title for your page',
 
 			),

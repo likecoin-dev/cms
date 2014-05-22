@@ -5,6 +5,17 @@ use Session;
 class PageSubscriber extends BaseSubscriber {
 
 	/**
+	 * [onCopy description]
+	 * @param  [type] $page [description]
+	 * @return [type]       [description]
+	 */
+	public function onCopy($old, $page)
+	{
+		// Set LANG as $page->lang
+		Session::put('LANG', $page->lang);
+	}
+
+	/**
 	 * [onCreate description]
 	 * @param  [type] $page [description]
 	 * @return [type]       [description]
@@ -35,6 +46,9 @@ class PageSubscriber extends BaseSubscriber {
 		
 		// Detach files from page
 		$page->files()->detach();
+
+		// Detach tags from page
+		$page->tags()->detach();
 	}
 
 	/**
@@ -76,11 +90,43 @@ class PageSubscriber extends BaseSubscriber {
 	/**
 	 * [onSaveSeo description]
 	 * @param  [type] $page [description]
+	 * @param  [type] $tags [description]
 	 * @return [type]       [description]
 	 */
-	public function onSaveSeo($page)
+	public function onSaveSeo($page, $tags)
 	{
-		// If title of home page, set as title of empty titles in same lang
+		if(is_array($tags))
+		{
+			$old_tags = array();			
+			$new_tags = array();
+			
+			// Get old and new values
+			foreach ($tags as $value)
+			{
+				if(is_numeric($value))
+				{
+					$old_tags[] = $value;
+				}
+				else
+				{
+					$new_tags[] = $value;
+				}
+			}
+
+			// Sync old values
+			$page->tags()->sync($old_tags);
+
+			// Get Tag model
+			$tag = \App::make('Pongo\Cms\Models\Tag');
+
+			// Loop new tags, insert them in 'tags' and attach them to page
+			foreach ($new_tags as $new_tag)
+			{
+				$tag_created = $tag->create(array('lang' => LANG, 'name' => $new_tag));
+
+				$page->tags()->save($tag_created);
+			}
+		}
 	}
 
 	/**
@@ -118,6 +164,7 @@ class PageSubscriber extends BaseSubscriber {
 	 */
 	public function subscribe($events)
 	{
+		$events->listen('page.copied', $this->eventPath . 'PageSubscriber@onCopy');
 		$events->listen('page.create', $this->eventPath . 'PageSubscriber@onCreate');
 		$events->listen('page.delete', $this->eventPath . 'PageSubscriber@onDelete');
 		$events->listen('page.move',   $this->eventPath . 'PageSubscriber@onMove');

@@ -56,12 +56,8 @@ Route::group(Config::get('cms::routes.cms_group_routes'), function() use ($pongo
 
 	// // USER
 	Route::get('users', array('uses' => $pongoControllers.'UserController@index', 'as' => 'users'));
-	Route::get('user/edit/{user_id}', array('uses' => $pongoControllers.'UserController@edit', 'as' => 'user.edit'));
+	Route::get('user/edit/{user_id}', array('uses' => $pongoControllers.'UserController@edit', 'as' => 'user.edit'));	
 	Route::any('user/search', array('uses' => $pongoControllers.'UserController@search', 'as' => 'user.search'));
-	// Route::get('user/settings/{user_id?}', array('uses' => $pongoControllers.'UserController@settingsUser', 'as' => 'user.settings'));
-	// Route::get('user/password/{user_id?}', array('uses' => $pongoControllers.'UserController@passwordUser', 'as' => 'user.password'));
-	// Route::get('user/details/{user_id?}', array('uses' => $pongoControllers.'UserController@detailsUser', 'as' => 'user.details'));
-
 });
 
 // API calls
@@ -87,6 +83,7 @@ Route::group(Config::get('cms::routes.api_group_routes'), function() use ($apiCo
 
 	// PAGE
 	Route::post('page/change/layout', array('uses' => $apiControllers.'PageController@changeLayout', 'as' => 'api.page.change.layout'));
+	Route::post('page/copy', array('uses' => $apiControllers.'PageController@copy', 'as' => 'api.page.copy'));
 	Route::post('page/create', array('uses' => $apiControllers.'PageController@create', 'as' => 'api.page.create'));
 	Route::post('page/delete', array('uses' => $apiControllers.'PageController@delete', 'as' => 'api.page.delete'));
 	Route::post('page/lang', array('uses' => $apiControllers.'PageController@lang', 'as' => 'api.page.lang'));
@@ -143,6 +140,9 @@ Route::group(Config::get('cms::routes.api_group_routes'), function() use ($apiCo
 	// 	// SETTINGS
 	// 	Route::any('role/settings/save', array('uses' => $apiControllers.'RoleController@roleSettingsSave', 'as' => 'api.role.settings.save'));
 	// 	Route::any('role/settings/delete', array('uses' => $apiControllers.'RoleController@roleSettingsDelete', 'as' => 'api.role.settings.delete'));
+
+	// TAGS
+	Route::post('tags', array('uses' => $apiControllers.'TagController@index', 'as' => 'tags'));
 
 	// // USER
 	Route::post('user/create', array('uses' => $apiControllers.'UserController@create', 'as' => 'api.user.create'));

@@ -23,6 +23,23 @@ class Load {
 	}
 
 	/**
+	 * Render block form in clone modal
+	 * 
+	 * @param  int $page_id     active page id
+	 * @return string           page item view
+	 */
+	public function blockForm($page_id)
+	{
+		$items = $this->page->find($page_id);
+
+		$item_view = \Render::view('partials.items.blockform');
+		$item_view['items'] 	= $items->blocks;
+		$item_view['page_id'] 	= $page_id;
+		
+		return $item_view;
+	}
+
+	/**
 	 * Create file list by page_id
 	 * 
 	 * @param  int     $page_id    page id

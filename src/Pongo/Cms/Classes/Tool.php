@@ -103,18 +103,6 @@ class Tool {
 		return json_decode(\Input::get($key), $array);
 	}
 
-	public function getTags($tag_array)
-	{
-		$tags = '';
-
-		foreach ($tag_array as $value)
-		{
-			$tags .= $value['name'] . ','; 
-		}
-
-		return substr($tags, 0, strlen($tags) - 1);
-	}
-
 	/**
 	 * Print out class=active if true
 	 * 

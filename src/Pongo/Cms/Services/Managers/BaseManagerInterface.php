@@ -9,9 +9,11 @@ interface BaseManagerInterface {
 	public function errors();
 	public function withInputOnly();
 	public function hasInput();
+	public function redirect();
 	public function redirectTo($route);
 	public function success();
 	public function with(array $input, $data);
 	public function withInput($data);
 	public function withFileInput($section);
+	public function withSimpleInput();
 }

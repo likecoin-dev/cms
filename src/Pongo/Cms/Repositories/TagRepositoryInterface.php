@@ -5,5 +5,7 @@ interface TagRepositoryInterface {
 	/**
 	 * Custom methods for Tag
 	 */
+	
+	public function getTagsList($search, $lang);
 
 }

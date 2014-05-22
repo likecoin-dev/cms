@@ -73,13 +73,16 @@ class FileSubscriber extends BaseSubscriber {
 		$http_path = '/' . $path . $folder_name . $format_name;
 		
 		if(\Media::isImage($format_name)) {
-			$image 		= \Picture::get($file_path);
-			$image_w 	= $image->width;
-			$image_h 	= $image->height;
+
+			$picture = \App::make('Pongo\Cms\Services\Picture\PictureInterface');
+
+			$image 		= $picture->make($file_path);
+			$image_w 	= $image->width();
+			$image_h 	= $image->height();
 			$is_image 	= 1;
 
 			// Create thumb?
-			\Picture::createThumb($image, $format_name, 'cms');
+			$picture->thumb($image, $format_name, 'cms');
 
 		} else {
 			$image_w 	= 0;

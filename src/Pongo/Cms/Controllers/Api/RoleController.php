@@ -32,6 +32,7 @@ class RoleController extends ApiController {
 		if ($this->manager->withInput()->deleteRole()) {
 
 			return $this->manager->success();
+			
 		} else {
 
 			return $this->manager->errors();
@@ -60,6 +61,7 @@ class RoleController extends ApiController {
 		if ($this->manager->withInput('id')->saveRole()) {
 
 			return $this->manager->redirectTo('roles');
+
 		} else {
 
 			return $this->manager->errors();

@@ -23,6 +23,18 @@ class PageController extends ApiController {
 	}
 
 	/**
+	 * Clone a page
+	 * @return [type] [description]
+	 */
+	public function copy()
+	{
+		if ($this->manager->withSimpleInput()->copyPage()) {
+
+			return $this->manager->redirect();
+		}
+	}
+
+	/**
 	 * Create a new empty page
 	 * @return [type] [description]
 	 */

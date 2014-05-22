@@ -39,6 +39,12 @@ abstract class BaseManager implements BaseManagerInterface  {
 	protected $model;
 
 	/**
+	 * [$redirect description]
+	 * @var array
+	 */
+	protected $redirect = array();
+
+	/**
 	 * @var $related
 	 */
 	protected $related = array();
@@ -158,18 +164,27 @@ abstract class BaseManager implements BaseManagerInterface  {
 	}
 
 	/**
+	 * [redirect description]
+	 * @return [type] [description]
+	 */
+	public function redirect()
+	{
+		return \Response::json($this->redirect);
+	}
+
+	/**
 	 * [redirectTo description]
 	 * @param  [type] $route [description]
 	 * @param  [type] $msg   [description]
 	 * @return [type]        [description]
 	 */
-	public function redirectTo($route, $msg = false)
+	public function redirectTo($route, $params = array(), $msg = false)
 	{	
 		$redirect = array(
 			'redirect'	=> true,
 			'status'	=> 'success',
 			'msg'		=> (!$msg) ? $msg : t($msg),
-			'route'		=> route($route)
+			'route'		=> route($route, $params)
 		);
 
 		return \Response::json($redirect);
@@ -327,6 +342,17 @@ abstract class BaseManager implements BaseManagerInterface  {
 	{
 		$this->input = \Input::all();
 		$this->validator->section = $section;
+
+		return $this;
+	}
+
+	/**
+	 * Pass simple imput to manager
+	 * @return [type] [description]
+	 */
+	public function withSimpleInput()
+	{
+		$this->input = \Input::all();
 
 		return $this;
 	}

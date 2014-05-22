@@ -22,7 +22,7 @@
 
 		</div>
 
-		<footer>PongoCMS v2.0.1 - 2014 &copy; Pongoweb.it</footer>
+		@include('cms::partials.footer')
 
 		@yield('debug')
 		

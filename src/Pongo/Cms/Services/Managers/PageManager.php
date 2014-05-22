@@ -18,6 +18,115 @@ class PageManager extends BaseManager {
 		$this->section = 'pages';
 	}
 
+	public function copyPage()
+	{
+		if($check = $this->canEdit()) {
+
+			if($this->input) {
+
+				$page_id = $this->input['page_id'];
+				$copy_lang = $this->input['copy_lang'];
+				$file_all = isset($this->input['file_all']) ? true : false;
+				$blocks = isset($this->input['blocks']) ? $this->input['blocks'] : null;
+				$self_blocks = isset($this->input['self_block']) ? $this->input['self_block']: null;
+
+				// Duplicate page
+				$page = $this->model->find($page_id);
+				$new_page_arr = $page->getAttributes();
+
+				// Clean some unwanted attributes
+				unset($new_page_arr['id'], $new_page_arr['created_at'], $new_page_arr['updated_at']);
+
+				$new_page_name = t('label.page.settings.copy_of') . ' ' . $page->name;
+				$new_page_slug = \Tool::slugSubst($page->slug, \Str::slug($new_page_name));
+
+				// Overriding with new values
+				$new_page_arr['parent_id'] 	= ($copy_lang != $page->lang) ? 0 : $page->parent_id;
+				$new_page_arr['name'] 		= $new_page_name;
+				$new_page_arr['slug'] 		= $new_page_slug;
+				$new_page_arr['lang'] 		= $copy_lang;
+				$new_page_arr['author_id'] 	= USERID;
+				$new_page_arr['edit_level'] = LEVEL;
+				$new_page_arr['is_home'] 	= 0;
+				$new_page_arr['is_active'] 	= 0;
+
+				// Create the new page
+				$new_page = $this->model->create($new_page_arr);
+
+				// Copy all related tags
+				foreach ($page->tags as $tag)
+				{
+					$new_page->tags()->attach($tag->id);
+				}
+
+				// Proceed with blocks
+				if($blocks) {
+
+					// Get Block model
+					$block_model = \App::make('Pongo\Cms\Models\Block');
+
+					foreach ($blocks as $block_id) {
+						
+						// Get the block to copy
+						$block = $block_model->find($block_id);
+
+						// If block is independent or not in the same language
+						if(isset($self_blocks[$block_id]) or ($copy_lang != $page->lang)) {
+
+							// Duplicate block
+							$new_block_arr = $block->getAttributes();
+
+							// Remove unwanted items
+							unset($new_block_arr['id'], $new_block_arr['created_at'], $new_block_arr['updated_at']);
+
+							// Overriding with new values
+							$new_block_arr['lang'] = ($copy_lang != $block->lang) ? $copy_lang : $block->lang;
+
+							// Create new block
+							$new_block = $block_model->create($new_block_arr);
+
+							// Attach to pivot
+							$new_page->blocks()->save($new_block, array('order_id' => DEFORDER, 'is_active' => 0));
+
+						} else {
+
+							// Check if not already present in pivot
+							if( ! $block->pages->contains($new_page->id))
+							{
+								// Attach block to page in pivot
+								$block->pages()->attach($new_page->id, array('order_id' => DEFORDER, 'is_active' => 0));								
+							}
+						}
+					}
+				}
+
+				// Proceed with files
+				if($file_all) {
+
+					foreach ($page->files as $file)
+					{
+						$new_page->files()->attach($file->id, array('is_active' => $file->pivot->is_active));
+					}
+
+				}
+
+				$this->events->fire('page.copied', array($page, $new_page));
+
+				return $this->redirect = array(
+					'redirect'	=> true,
+					'status'	=> 'success',
+					'msg'		=> t('alert.success.page_created'),
+					'route'		=> route('page.edit', array('page_id' => $new_page->id))
+				);
+
+			}
+
+		} else {
+
+			return $check;
+		}
+	}
+
 	/**
 	 * Create a new empty page
 	 * @return bool
@@ -244,7 +353,10 @@ class PageManager extends BaseManager {
 				$page->descr = $this->input['descr'];
 				$page->save();
 
-				$this->events->fire('page.save.seo', array($page));
+				// Get tags array if any
+				$tags = (isset($this->input['tags'])) ? $this->input['tags'] : null;
+
+				$this->events->fire('page.save.seo', array($page, $tags));
 
 				return $this->setSuccess('alert.success.save');
 			}

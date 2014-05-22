@@ -34,11 +34,15 @@
 
 		</div>
 
-		<div class="form-group" rel="tag">
+		<div class="form-group" rel="tags">
 
-			{{ Form::label('tag', t('label.page.seo.tag')) }}
-			
-			{{ Form::text('tag', Tool::getTags($page->tag_array), array('class' => 'form-control pongo-selectize', 'placeholder' => t('placeholder.page.seo.tag'))) }}
+			{{ Form::label('tags', t('label.page.seo.tag')) }}
+
+			<select name="tags[]" class="form-control pongo-selectize" multiple="multiple" placeholder="{{ t('placeholder.page.seo.tag') }}">
+				@foreach($page->tag_array as $tag)
+				<option value="{{ $tag['id'] }}" selected="selected">{{ $tag['name'] }}</option>
+				@endforeach
+			</select>
 
 		</div>
 

@@ -5,6 +5,6 @@
  */
 View::composer('cms::templates.default', function($view) {
 
-	$view->title = 'Pongo CMS';
+	$view->title = 'PongoCMS';
 
 });

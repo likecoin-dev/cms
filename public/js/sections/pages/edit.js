@@ -3,6 +3,7 @@ $(function() {
 	Pongo.Factory.createBlock();
 	Pongo.File.uploadFile();
 	Pongo.Toggle.toggleOverallLayout();
+	Pongo.UI.checkAllCopy();
 	Pongo.UI.magnificPopup();
 	Pongo.UI.paginateList('.file-item');
 	Pongo.UI.tagSelectize();

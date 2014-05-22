@@ -53,6 +53,7 @@
 	
 	@include('cms::partials.modals.pongodelete', array('page_id' => $page->id, 'route' => 'api.block.delete'))
 	@include('cms::partials.modals.pongodelete', array('page_id' => $page->id, 'target' => 'file', 'route' => 'api.file.delete'))
+	@include('cms::partials.modals.pagecopy', array('page_id' => $page->id, 'route' => 'api.page.copy'))
 
 @stop
 

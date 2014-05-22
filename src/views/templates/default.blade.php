@@ -6,7 +6,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>{{$title}} {{Pongo::system('version')}}</title>
+	<title>{{ $title }} {{ Pongo::system('version') }}</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<meta http-equiv="Content-Language" content="" />
 	<meta name="description" content="">	
@@ -16,16 +16,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 	<link rel="shortcut icon" href="favicon.ico" />
 	
-	{{Render::asset('css/lib.css')}}
-	{{Render::asset('css/main.css')}}
-	{{Render::styles('header')}}
+	{{ Render::asset('css/lib.css') }}
+	{{ Render::asset('css/main.css') }}
+	{{ Render::styles('header') }}
 
-	{{Render::asset('js/lib/modernizr.min.js')}}
+	{{ Render::asset('js/lib/modernizr.min.js') }}
 	@section('header-js')
 	@show
 
-	{{Render::scripts('header')}}
-	{{Render::bootJs('cms/init.js')}}
+	{{ Render::scripts('header') }}
+	{{ Render::bootJs('cms/init.js') }}
 
 </head>
 <body>
@@ -44,15 +44,15 @@
 		ga('create','UA-XXXXX-X');ga('send','pageview');
 	</script> -->
 
-	{{Render::asset('js/lib/jquery.min.js')}}
-	{{Render::asset('js/lib/underscore.min.js')}}
-	{{Render::asset('js/lib/knockout.min.js')}}
-	{{Render::asset('js/lib/bootstrap.min.js')}}
+	{{ Render::asset('js/lib/jquery.min.js') }}
+	{{ Render::asset('js/lib/underscore.min.js') }}
+	{{ Render::asset('js/lib/knockout.min.js') }}
+	{{ Render::asset('js/lib/bootstrap.min.js') }}
 
-	{{Render::asset('js/plugins.min.js')}}
-	{{Render::asset('js/pongo.min.js')}}
+	{{ Render::asset('js/plugins.min.js') }}
+	{{ Render::asset('js/pongo.min.js') }}
 	
-	{{Render::scripts('footer')}}
+	{{ Render::scripts('footer') }}
 	@yield('footer-js')
 
 </body>

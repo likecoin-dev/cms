@@ -47,28 +47,14 @@
 				</div>
 
 				<div class="form-group">
-					
-					<div class="input-group">
-						
-						<span class="input-group-btn">
 
-							
-
-						</span>
-
-					</div>
-
-				</div>
-
-				<div class="form-group">
-
-					<button type="button" class="pongo-ajax-submit pongo-loading btn btn-primary btn-block">{{t('form.button.login')}}</button>
+					{{ Form::button(t('form.button.login'), array('data-to' => 1, 'class' => 'pongo-ajax-submit pongo-loading btn btn-primary btn-block')) }}
 
 				</div>
 
 			{{ Form::close() }}
 
-			<footer>PongoCMS v2.0.0 &copy; Pongoweb.it</footer>
+			@include('cms::partials.footer')
 
 		</div>
 

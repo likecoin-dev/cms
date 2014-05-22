@@ -23,6 +23,14 @@ class TagRepositoryEloquent extends BaseRepositoryEloquent implements TagReposit
 		$this->cache->minutes = 10;
 	}
 
-
+	public function getTagsList($search, $lang)
+	{
+		return $this->model
+					->lang($lang)
+					->where('name', 'like', $search.'%')
+					->orderBy('name', 'asc')
+					->take(5)
+					->get(array('tags.id', 'name'));
+	}
 
 }

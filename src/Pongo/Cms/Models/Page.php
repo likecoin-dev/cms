@@ -99,7 +99,8 @@ class Page extends BaseModel {
 	public function getTagArrayAttribute()
 	{
 		return $this->tags()
-					->get(array('name'))
+					->lang(LANG)
+					->get(array('tags.id', 'name'))
 					->toArray();
 	}
 
