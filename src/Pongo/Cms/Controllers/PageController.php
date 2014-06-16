@@ -21,7 +21,9 @@ class PageController extends BaseController {
 	public function edit($page_id)
 	{
 		\Pongo::viewShare('page_id', $page_id);
+
 		$page = $this->manager->getOne($page_id);
+		
 		return \Render::view('sections.pages.edit', array('page' => $page));
 	}
 

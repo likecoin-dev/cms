@@ -23,4 +23,4 @@ define('DEFORDER', app('Pongo')->system('default_order'));
  * SetLocale on run-time
  */
 
-setlocale(LC_ALL, app('Pongo')->system('locale.'.CMSLANG));
+setlocale(LC_ALL, app('Pongo')->settings('languages.'.CMSLANG.'.locale'));

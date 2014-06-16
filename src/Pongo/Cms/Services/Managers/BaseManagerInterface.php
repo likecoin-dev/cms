@@ -4,7 +4,6 @@ interface BaseManagerInterface {
 	public function getOne($id);
 	public function getAll();
 	public function getPaginate($per_page);
-	public function update($id);
 	public function delete($id);
 	public function errors();
 	public function withInputOnly();

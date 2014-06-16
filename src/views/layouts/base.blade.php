@@ -39,5 +39,5 @@
 @stop
 
 @section('footer-js')
-	{{Render::asset('js/logged.js')}}
+{{Render::asset('js/logged.js')}}
 @stop

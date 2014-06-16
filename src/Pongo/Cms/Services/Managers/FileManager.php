@@ -18,6 +18,89 @@ class FileManager extends BaseManager {
 	}
 
 	/**
+	 * [createFile description]
+	 * @return [type] [description]
+	 */
+	public function createFile()
+	{
+		if($check = $this->canEdit())
+		{
+			if ($this->validator->fails())
+			{
+				return $this->setError($this->validator->errors());
+			}
+			else
+			{
+				$id = $this->input['id'];
+
+				$file_name = $this->input['file_name'];
+				$file_size = $this->input['file_size'];
+				$size_type = $this->input['size_type'];
+
+				$folder_name = \Media::getFolderName($file_name);
+
+				$format_name = \Media::formatFileName($file_name);
+
+				$file_ext = \Media::fileExtension($file_name);
+
+				$file_size = \Media::convertFileSize($file_size, $size_type);
+
+				$http_path = '/' . \Pongo::settings('upload_path') . $folder_name . $format_name;
+
+				$file_arr = array(
+					'name' 		=> $format_name,
+					'original'	=> $file_name,
+					'ext'		=> $file_ext,
+					'size'		=> $file_size,
+					'w'			=> 0,
+					'h'			=> 0,
+					'path'		=> $http_path,
+					'is_image'	=> 0,
+					'is_active'	=> 1
+				);
+
+				// Write file to db
+				$new_file = $this->model->create($file_arr);
+
+				// Attach new_file to page in pivot
+				$new_file->pages()->attach($id, array('is_active' => 1));
+
+				$response = array(
+					'status' 	=> 'success',
+					'msg'		=> t('alert.success.file_created'),
+					'print'		=> array(
+
+						'text' => t('form.infos.create_file', array(
+
+							'rename' => $format_name,
+							'upload' => \Media::getFolderPublic(\Pongo::settings('upload_path') . $folder_name . $format_name)
+
+						)),
+
+						'item' => array(
+
+							'id' => $new_file->id,
+							'is_image' => \Media::isImage($new_file->name),
+							'file_name' => $new_file->name,
+							'url_link' => \Media::getImgPath($new_file->name),
+							'ico' => \Media::loadThumb($new_file->path, 'cms'),
+							'url_edit' => route('file.edit', array('file_id' => $new_file->id))
+
+						)
+
+					)
+				);
+
+				return $this->setSuccess($response);
+			}
+		} 
+		else
+		{
+			return $check;
+		}
+	}
+
+	/**
 	 * [deleteBlock description]
 	 * @return [type] [description]
 	 */
@@ -54,6 +137,9 @@ class FileManager extends BaseManager {
 			$files = $this->input['files'];
 			$page_id = $this->input['page_id'];
 
+			// Check if upload comes from editor
+			$from_editor = array_key_exists('type', $this->input) ? true : false;
+
 			$has_errors = false;
 
 			foreach ($files as $key => $file)
@@ -87,6 +173,16 @@ class FileManager extends BaseManager {
 
 			$response['status'] = 'success';
 			$response['msg'] = $has_errors ? t('alert.success.upload_comp_err') : t('alert.success.upload_completed');
+
+			// Check if upload is from Froala
+			if($from_editor and isset($new_file))
+			{
+				$response['link'] = \Media::getImgPath($new_file[0]->name);
+			}
+			elseif($from_editor and $has_errors)
+			{
+				$response['error'] = $this->validator->singleError();
+			}
 
 			return $this->setSuccess($response);
 		}

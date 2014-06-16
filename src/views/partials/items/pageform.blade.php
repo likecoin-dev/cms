@@ -1,32 +1,37 @@
-@foreach($items as $page)
+@foreach($items as $key => $page)
 
-	@if($parent_id > 0)
+	@if($parent_id > 0 and $key == 0)
+	
 	<ol>
+	
 	@endif
 
 		<li>
 
-			<div class="clone-item">
+			<p>{{ $page->name }}</p>
 
-				<label for="page-{{$page->id}}" class="page">
-					<input type="checkbox" id="page-{{$page->id}}" name="pages[]" value="{{$page->id}}">
-					{{$page->name}}
-				</label>
-				
-				<label for="self-{{$page->id}}" class="self{{Tool::addActive($page->id, $page_id)}}">
-					{{t('label.element.settings.self_element')}}
-					<input type="checkbox" id="self-{{$page->id}}" name="self_elements[{{$page->id}}]" value="1">
-				</label>
-
-			</div>
+			<label for="page-{{$page->id}}" class="page">
+				<input type="checkbox" id="page-{{$page->id}}" name="pages[]" value="{{$page->id}}" class="copy_block">			
+				<strong></strong>
+			</label>
+			
+			<label for="self-{{$page->id}}" class="self">
+				<input type="checkbox" id="self-{{$page->id}}" name="self_block[{{$page->id}}]" value="1">
+				<strong></strong>
+			</label>
 
 			@if($page->id > 0)
-				{{Load::pageForm($page->id, $page->lang, $page_id)}}
+
+				{{ Load::pageList($page->id, $page->lang, $page_id, 'pageform') }}
+
 			@endif
+
 		</li>
 
-	@if($parent_id > 0)
+	@if($parent_id > 0 and $key == $count - 1)
+
 	</ol>
+	
 	@endif
 
 @endforeach

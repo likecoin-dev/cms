@@ -30,7 +30,7 @@
 
 				{{ Form::label('theme', t('label.settings.theme')) }}
 			
-				{{ Form::select('theme', Pongo::settings('themes'), Pongo::settings('theme'), array('class' => 'form-control', 'id' => 'theme')) }}
+				{{ Form::select('theme', Theme::themes(), Pongo::settings('theme'), array('class' => 'form-control', 'id' => 'theme')) }}
 
 			</div>
 

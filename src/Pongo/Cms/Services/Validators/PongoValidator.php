@@ -28,10 +28,23 @@ class PongoValidator extends LaravelValidator {
 	{
 		$ext = $value;
 
-		// $mimes = str_replace(' ', '', Pongo::settings('mimes'));
+		$mimes_arr = array_keys(Pongo::settings('mimes'));
 
-		// $mimes_arr = explode(',', $mimes);
-		$mimes_arr = array_keys(\Pongo::settings('mimes'));
+		return (in_array($ext, $mimes_arr)) ? true : false;
+	}
+
+	/**
+	 * [validateFileMimes description]
+	 * @param  [type] $attribute  [description]
+	 * @param  [type] $value      [description]
+	 * @param  [type] $parameters [description]
+	 * @return [type]             [description]
+	 */
+	public function validateFileMimes($attribute, $value, $parameters)
+	{
+		$ext = Media::fileExtension($value);
+
+		$mimes_arr = array_keys(Pongo::settings('mimes'));
 
 		return (in_array($ext, $mimes_arr)) ? true : false;
 	}
@@ -63,6 +76,18 @@ class PongoValidator extends LaravelValidator {
 	}
 
 	/**
+	 * [validateNotImage description]
+	 * @param  [type] $attribute  [description]
+	 * @param  [type] $value      [description]
+	 * @param  [type] $parameters [description]
+	 * @return [type]             [description]
+	 */
+	public function validateNotImage($attribute, $value, $parameters)
+	{
+		return Media::isFile($value);
+	}
+
+	/**
 	 * [validateUniqueFile description]
 	 * @param  [type] $attribute  [description]
 	 * @param  [type] $value      [description]
@@ -91,8 +116,9 @@ class PongoValidator extends LaravelValidator {
 	 */
 	public function validateUniqueSlug($attribute, $value, $parameters)
 	{
-		$page = App::make(Pongo::system('repositories.page.interface'));
-		return $page->countPageWithSlug($value, $parameters[0]) == 0;
+		$seo = App::make(Pongo::system('repositories.seo.interface'));
+		
+		return $seo->countPageWithSlug($value, $parameters[0], $parameters[1]) == 0;
 	}
 
 }

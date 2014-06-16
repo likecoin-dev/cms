@@ -31,4 +31,14 @@ class FileRepositoryEloquent extends BaseRepositoryEloquent implements FileRepos
 					->count();
 	}
 
+	public function getFilesPage($page_id)
+	{
+		return $this->model
+					->whereHas('pages', function($q) use ($page_id) {
+						$q->where('pages.id', $page_id)
+						  ->where('file_page.is_active', 1);
+					})
+					->paginate(XPAGE);
+	}
+
 }

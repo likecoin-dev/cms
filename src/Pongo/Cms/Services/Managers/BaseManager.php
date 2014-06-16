@@ -103,16 +103,6 @@ abstract class BaseManager implements BaseManagerInterface  {
 	}
 
 	/**
-	 * [update description]
-	 * @param  [type] $id [description]
-	 * @return [type]     [description]
-	 */
-	public function update($id)
-	{
-
-	}
-
-	/**
 	 * [delete description]
 	 * @param  [type] $id [description]
 	 * @return [type]     [description]
@@ -128,8 +118,8 @@ abstract class BaseManager implements BaseManagerInterface  {
 	 */
 	public function canEdit()
 	{
-		if($this->access->cantEdit($this->section)) {
-
+		if($this->access->cantEdit($this->section))
+		{
 			return $this->setError('alert.error.cant_edit');
 		}
 
@@ -212,17 +202,24 @@ abstract class BaseManager implements BaseManagerInterface  {
 		extract($this->input);		
 		$model = $this->model->find($id)->$name;
 
-		foreach ($form_structure as $field => $value) {
-			if($value['form'] == 'date') {				
+		foreach ($form_structure as $field => $value)
+		{
+			if($value['form'] == 'date')
+			{
 				$model->$field = \Carbon\Carbon::create($birth_year, $birth_month, $birth_day);
-			} elseif($value['form'] == 'datetime') {
+			}
+			elseif($value['form'] == 'datetime')
+			{
 				$model->$field = \Carbon\Carbon::create($birth_year, $birth_month, $birth_day, $birth_hh, $birth_mm);
-			} else {
+			}
+			else
+			{
 				$model->$field = $$field;
 			}
 		}
 
 		$model->save();
+
 		return $this->setSuccess($msg);
 	}
 
@@ -249,7 +246,8 @@ abstract class BaseManager implements BaseManagerInterface  {
 		$this->errors = is_array($messages) ? $messages : $this->formatResponse('error', $messages, $subst);
 
 		// If observer return false, set the flash error as error
-		if(self::$flashError) {
+		if(self::$flashError)
+		{
 			$this->errors = $this->formatResponse('error', self::$flashError, $subst);
 		}
 
@@ -265,7 +263,8 @@ abstract class BaseManager implements BaseManagerInterface  {
 		$this->success = is_array($messages) ? $messages : $this->formatResponse('success', $messages, $subst);
 
 		// If observer return false, set the flash error as error intead of success
-		if(self::$flashError) {
+		if(self::$flashError)
+		{
 			$this->success = $this->formatResponse('error', self::$flashError, $subst);
 		}
 
@@ -296,16 +295,20 @@ abstract class BaseManager implements BaseManagerInterface  {
 		$this->input = $input;
 		$this->validator->input = $input;
 		
-		if(array_key_exists('section', $this->input)) {
+		if(array_key_exists('section', $this->input))
+		{
 			$this->validator->section = $this->input['section'];
 		}
 
-		if(array_key_exists('tovalid', $this->input)) {
+		if(array_key_exists('tovalid', $this->input))
+		{
 			$this->validator->custom_rules = $this->input['tovalid'];
 		}
 
 		if (is_string($data)) $data = func_get_args();
+		
 		$this->validator->data = $data;
+		
 		return $this;
 	}
 
@@ -320,17 +323,21 @@ abstract class BaseManager implements BaseManagerInterface  {
 		$this->validator->input = $this->input;
 
 		// Get form section
-		if(array_key_exists('section', $this->input)) {
+		if(array_key_exists('section', $this->input))
+		{
 			$this->validator->section = $this->input['section'];
 		}
 
 		// Custom form rules
-		if(array_key_exists('tovalid', $this->input)) {
+		if(array_key_exists('tovalid', $this->input))
+		{
 			$this->validator->custom_rules = $this->input['tovalid'];
 		}
 
 		if (is_string($data)) $data = func_get_args();
+
 		$this->validator->data = $data;
+		
 		return $this;
 	}
 

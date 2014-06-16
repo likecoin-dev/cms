@@ -341,26 +341,22 @@ return array(
 
 		'_api' => array(
 
-			'file_name' => 'nome file',
-			'height'	=> 'altezza',
-			'mandatory' => 'obbligatorio',
-			'none'		=> 'nessuna configurazione',
-			'optional'	=> 'opzionale',
-			'width'		=> 'larghezza',
+			'file_name' => 'file name',
+			'height'	=> 'height',
+			'mandatory' => 'mandatory',
+			'none'		=> 'no options',
+			'optional'	=> 'optional',
+			'width'		=> 'width',
 
 		),
 
-		'back' => array(
-
-			'description' => 'Crea un link alla pagina precedente',
-
-		),
-		
-		'image'	=> array(
-
-			'description' => 'Visualizza un\'immagine in base al suo nome',
-
-		),
+		'back' 		=> 'Create a link to the previous page',
+		'banner' 	=> 'Add an image banner to the page',
+		'crumb'		=> 'Add a breadcrumb nav menu',
+		'downlist'	=> 'Add a list of downloadable items',
+		'gallery'	=> 'Add a gallery to the page',
+		'image'		=> 'Render an image by its name',
+		'map'		=> 'Add a Google map to the page',
 
 	),
 

@@ -48,6 +48,8 @@
 	{{ Render::asset('js/lib/underscore.min.js') }}
 	{{ Render::asset('js/lib/knockout.min.js') }}
 	{{ Render::asset('js/lib/bootstrap.min.js') }}
+	
+	@yield('lib-js')
 
 	{{ Render::asset('js/plugins.min.js') }}
 	{{ Render::asset('js/pongo.min.js') }}

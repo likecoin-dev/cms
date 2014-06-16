@@ -18,11 +18,7 @@ class CreateTablePages extends Migration {
 			$table->integer('author_id')->unsigned()->index();
 			$table->integer('parent_id')->defaults(0);
 			$table->string('lang', 5);
-			$table->string('name', 255);
-			$table->string('slug', 255);
-			$table->string('title', 255);
-			$table->text('keyw');
-			$table->text('descr');
+			$table->string('name', 255);			
 			$table->string('template', 100);
 			$table->string('header', 100);
 			$table->string('layout', 100);

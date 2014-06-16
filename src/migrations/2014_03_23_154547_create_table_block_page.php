@@ -17,6 +17,7 @@ class CreateTableBlockPage extends Migration {
 			$table->increments('id')->unsigned();
 			$table->integer('block_id')->unsigned()->index();
 			$table->integer('page_id')->unsigned()->index();
+			$table->string('zone', 10);
 			$table->integer('order_id')->defaults(Config::get('cms::system.default_order'));
 			$table->boolean('is_active');
 		});

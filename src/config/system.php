@@ -5,17 +5,6 @@ return array(
 	'version' => '2.1.29',
 
 	/**
-	 * PongoCMS :: Locales
-	 */
-	
-	'locale' => array(
-		
-		'en' => 'en_US',
-
-		'it' => 'it_IT',
-	),
-
-	/**
 	 * PongoCMS :: Date and time format
 	 */
 	
@@ -52,16 +41,13 @@ return array(
 	),
 
 	/**
-	 * Page wrapper type id
+	 * Page extras
 	 */
 	
-	'wrappers' => array(
+	'extras' => array(
 
-		0 => 'pages',
-
-		1 => 'blogs',
-
-		2 => 'products',
+		'Pongo\Cms\Models\Post' 	=> 'post',
+		'Pongo\Cms\Models\Product' 	=> 'product',
 
 	),
 
@@ -106,8 +92,8 @@ return array(
 
 		'cms' => array(
 
-			'width'		=> 130,
-			'height' 	=> 90,
+			'width'		=> 100,
+			'height' 	=> 50,
 			'suffix' 	=> '_cms',
 
 		),
@@ -131,7 +117,6 @@ return array(
 		// Dependency providers
 
 		'Prologue\Alerts\AlertsServiceProvider',
-		// 'Intervention\Image\ImageServiceProvider',
 		'Intervention\Helper\DateServiceProvider',
 		'Intervention\Helper\StringServiceProvider',
 		'Laracasts\Utilities\UtilitiesServiceProvider',
@@ -304,6 +289,14 @@ return array(
 
 		),
 
+		'seo' => array(
+
+			'method'		=> 'singleton',
+			'interface' 	=> 'Pongo\Cms\Repositories\SeoRepositoryInterface',
+			'class' 		=> 'Pongo\Cms\Repositories\SeoRepositoryEloquent',
+
+		),
+
 		'tag' => array(
 
 			'method'		=> 'singleton',
@@ -367,6 +360,13 @@ return array(
 	 */
 	
 	'sections' => array(
+
+		'blocks' => array(
+
+			'min_access' 	=> 'editor',
+			'hidden'		=> true,
+
+		),
 
 		'pages' => array(
 

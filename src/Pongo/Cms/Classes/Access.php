@@ -53,8 +53,30 @@ class Access {
 	public function allowedCms($level = null)
 	{
 		if(is_null($level)) $level = LEVEL;
+
 		$min_level = $this->levelEditor();
+
 		return ($level >= $min_level) ? true : false;
+	}
+
+	/**
+	 * Check page access
+	 * @param  [type] $access [description]
+	 * @param  [type] $level  [description]
+	 * @return [type]         [description]
+	 */
+	public function allowedPage($access, $level)
+	{
+		if($access == 0 and LEVEL >= $level)
+		{
+			return true;
+		}
+		elseif($access == 1 and LEVEL == $level)
+		{
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

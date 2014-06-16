@@ -2,12 +2,15 @@
 
 return array(
 
-	'themes' => array(
+	/**
+	 * PongoCMS :: default site META keywords 
+	 */
+	'keywords' 		=> '',
 
-		'default' => 'Default PongoCMS theme',
-		'forrest' => 'Forrest theme',
-
-	),
+	/**
+	 * PongoCMS :: default site META description 
+	 */
+	'description' 	=> 'This is a PongoCMS default description',
 
 	/**
 	 * PongoCMS :: Default language
@@ -17,24 +20,24 @@ return array(
 
 	/**
 	 * PongoCMS :: Available languages and directionality (ltr | rtl)
-	 *
-	 * Check http://www.tinymce.com/i18n/index.php for locale file.
 	 */
 	
 	'languages' => array(
 
 		'en' => array(
 
+			'file'		=> 'en_us',
 			'lang' 		=> 'English',
-			'locale'	=> 'en',
+			'locale'	=> 'en_US',
 			'dir'		=> 'ltr',
 
 		),
 
 		'it' => array(
 
+			'file'		=> 'it',
 			'lang' 		=> 'Italiano',
-			'locale'	=> 'it',
+			'locale'	=> 'it_IT',
 			'dir'		=> 'ltr',
 
 		),
@@ -93,6 +96,12 @@ return array(
 	'upload_path' => 'upload/',
 
 	/**
+	 * PongoCMS :: default block wrapper class
+	 */
+	
+	'block_class' => 'block',
+
+	/**
 	 * PongoCMS :: Default Admin account
 	 */
 	
@@ -140,6 +149,6 @@ return array(
 	// Default cache time
 	'cache_time'=>60,
 	// XPAGE constant in cms/start.php
-	'per_page'=>10,
+	'per_page'=>20,
 
 );

@@ -43,7 +43,8 @@ class Search implements SearchInterface {
 	 * @param [type] $var [description]
 	 * @param [type] $val [description]
 	 */
-	public function __set($var, $val) {
+	public function __set($var, $val)
+	{
 		$this->$var = $val;
 	}
 
@@ -64,13 +65,15 @@ class Search implements SearchInterface {
 	public function setParams($input)
 	{
 		\Input::flash();
+
 		$this->params = array(
 			'field' => $input['field'],
 			'type' => $input['type'],
 			'q' => $input['q']
 		);
 
-		if (strpos($input['field'], ':') !== false) {
+		if (strpos($input['field'], ':') !== false)
+		{
 			$exp = explode(':', $input['field']);
 			$this->related = $exp[0];
 			$input['field'] = $exp[1];
@@ -81,6 +84,7 @@ class Search implements SearchInterface {
 		$this->q = $input['q'];
 
 		$this->input = $input;
+
 		return $this;
 	}
 

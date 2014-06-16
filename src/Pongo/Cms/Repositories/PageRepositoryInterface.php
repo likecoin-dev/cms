@@ -6,7 +6,8 @@ interface PageRepositoryInterface {
 	 * Custom methods for Page
 	 */
 	public function getPageList($parent_id, $lang);
+	public function getPageActiveFiles($id);
 	public function getPageZoneBlocks($id, $zone);
-	public function countPageWithSlug($slug, $id);
-	public function resetHomePage();
+	public function getHomePageWithBlocksAndSeo();
+	public function resetHomePage($id);
 }

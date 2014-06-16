@@ -60,4 +60,11 @@
 
 	</ul>
 
+	<ul class="nav navbar-nav navbar-right live-nav pongo-live">
+		<li>
+			<button class="btn btn-primary pongo-live-off">{{ t('form.button.close') }}</button>
+			<button class="btn btn-success froala-live-submit pongo-loading">{{ t('form.button.save') }}</button>
+		</li>
+	</ul>
+
 </nav>

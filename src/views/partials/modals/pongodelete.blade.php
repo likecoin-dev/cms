@@ -11,6 +11,9 @@
 				@if(isset($page_id))
 				{{ Form::hidden('current_page', $page_id) }}
 				@endif
+				@if(isset($block_id))
+				{{ Form::hidden('current_block', $block_id) }}
+				@endif
 				<button class="btn btn-sm btn-danger pongo-ajax-submit pongo-loading">{{ t('form.button.delete') }}</button>
 				<button class="btn btn-sm btn-primary" data-dismiss="modal">{{ t('form.button.cancel') }}</button>
 				{{ Form::close() }}

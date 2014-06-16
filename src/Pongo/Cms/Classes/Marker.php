@@ -30,8 +30,8 @@ class Marker {
 		//con json
 		preg_match_all('/\[\$([!?A-Z_]+)\[([^$]+)?\]\]/i', $tmp_text, $matches);
 
-		foreach ($matches[0] as $key => $value) {
-
+		foreach ($matches[0] as $key => $value)
+		{
 			// Original marker string
 			$marker_original = $matches[0][$key];
 
@@ -42,32 +42,47 @@ class Marker {
 			$found = $matches[2][$key];
 
 			// Check if marker method is IoCed
-			if (\App::bound($method)) {
-
+			if (\App::bound($method))
+			{
 				// Clean HTML
 				$found = strip_tags($found);
 
+				// Convert html entity chars
 				$found = html_entity_decode($found);
 
 				// Try to decode Json $found
 				$result = json_decode($found, true);
 
 				// Check if $found is Json otherwise format it and return
-				$vars = !is_null($result) ? $result : $this->formatNotJson($found);
+				$vars = ( ! is_null($result)) ? $result : $this->formatNotJson($found);
 
 				if ( ! is_array($vars) ) $vars = array();
 
 				$decoded = $this->$method($vars);
-
-			} else {
-
-				return $marker_original;
-
 			}
 
+			// If something has been found and decoded
+			if(isset($decoded))
+			{
+				$tmp_text = $this->replaceDecoded($marker_original, $decoded, $tmp_text);
+			}
 		}
 
-		return $decoded;
+		return $tmp_text;
+	}
+
+	/**
+	 * Replace marker string with content in the text
+	 * 
+	 * @param  string $found
+	 * @param  string $decoded
+	 * @param  string $text
+	 * @return string
+	 */
+	public function replaceDecoded($found, $decoded, $text)
+	{
+		// return preg_replace('/'.$found.'/', $decoded, $text, 1);
+		return str_replace($found, $decoded, $text);
 	}
 
 	/**
@@ -89,7 +104,7 @@ class Marker {
 	 */
 	public function description($marker)
 	{
-		return t('marker.' . strtolower($marker) . '.description');
+		return t('marker.' . strtolower($marker));
 	}
 
 	/**
@@ -100,19 +115,24 @@ class Marker {
 	 */
 	protected function formatNotJson($string_found)
 	{
+		if($string_found === '') return false;
+
 		$variables = explode('|', $string_found);
 
 		$format = array();
 
-		foreach ($variables as $variable) {
-			
-			$values = explode(':', $variable);
+		if( ! empty($variables))
+		{
+			foreach ($variables as $variable)
+			{
+				$values = explode(':', $variable);
 
-			$name 	= $values[0];
-			
-			$value 	= $values[1];
+				$name 	= $values[0];
 				
-			$format[$name] = $value;
+				$value 	= $values[1];
+					
+				$format[$name] = $value;
+			}
 		}
 
 		return $format;
@@ -155,7 +175,7 @@ class Marker {
 		$marker->name = $name;
 
 		// Pass arguments as parameters
-		$marker->parameters = $arguments;
+		$marker->parameters = $arguments[0];
 
 		// Run instance
 		return $marker->run();

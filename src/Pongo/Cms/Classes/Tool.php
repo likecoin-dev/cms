@@ -231,16 +231,23 @@ class Tool {
 	 */
 	public function slugSlice($url, $back = 0)
 	{
-		if($back > 0) {
+		if($back > 0)
+		{
 			$segments = array_reverse(explode('/', $url));
+
 			array_pop($segments);
-			if(is_array($segments)) {
-				if($back == 1) {
+
+			if(is_array($segments))
+			{
+				if($back == 1)
+				{
 					return $segments[0];
 				}
+
 				return $segments;
 			}
 		}
+		
 		return $url;
 	}
 

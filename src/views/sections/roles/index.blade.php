@@ -21,8 +21,8 @@
 			<div class="col-xs-10 main list">
 				
 				<div class="breadcrumb-wrapper">
-					
-					{{ Render::breadCrumb(array('dashboard', 'roles')) }}
+
+					{{ Load::breadCrumb(array('dashboard', 'roles')) }}
 
 				</div>
 				

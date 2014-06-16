@@ -3,33 +3,6 @@
 class Pongo {
 
 	/**
-	 * Get actual url segments
-	 * -> full, first, last, prev
-	 * 
-	 * @return array
-	 */
-	public function getUrl()
-	{
-		$full_url = $_SERVER['REQUEST_URI'];
-		$segments = explode('/', $full_url);
-		array_shift($segments);
-		$n_segments = count($segments);
-
-		$url_arr = array();
-
-		// full
-		$url_arr['full'] = $full_url;
-		// first
-		$url_arr['first'] = '/' . $segments[0];
-		// last
-		$url_arr['last'] = '/' . $segments[$n_segments - 1];
-		// prev
-		$url_arr['prev'] = str_replace($url_arr['last'], '', $full_url);
-
-		return $url_arr;
-	}
-
-	/**
 	 * Flatten the systems sections array
 	 * 
 	 * @return [type] [description]

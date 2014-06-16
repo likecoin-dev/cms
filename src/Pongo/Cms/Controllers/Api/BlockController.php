@@ -12,13 +12,25 @@ class BlockController extends ApiController {
 	}
 
 	/**
+	 * Clone a block
+	 * @return [type] [description]
+	 */
+	public function copy()
+	{
+		if ($this->manager->withSimpleInput()->copyBlock())
+		{
+			return $this->manager->success();
+		}
+	}
+
+	/**
 	 * Create a new empty page
 	 * @return [type] [description]
 	 */
 	public function create()
 	{
-		if ($this->manager->withInput()->createEmptyBlock()) {
-
+		if ($this->manager->withInput()->createEmptyBlock())
+		{
 			return $this->manager->success();
 		}
 	}
@@ -29,12 +41,12 @@ class BlockController extends ApiController {
 	 */
 	public function delete()
 	{
-		if ($this->manager->withInput()->deleteBlock()) {
-			
+		if ($this->manager->withInput()->deleteBlock())
+		{			
 			return $this->manager->success();
-
-		} else {
-
+		}
+		else
+		{
 			return $this->manager->errors();
 		}
 	}
@@ -45,12 +57,12 @@ class BlockController extends ApiController {
 	 */
 	public function saveSettings()
 	{
-		if ($this->manager->withInput('id', 'lang')->saveBlockSettings()) {
-
+		if ($this->manager->withInput('id')->saveBlockSettings())
+		{
 			return $this->manager->success();
-
-		} else {
-
+		}
+		else
+		{
 			return $this->manager->errors();
 		}
 	}
@@ -61,12 +73,12 @@ class BlockController extends ApiController {
 	 */
 	public function saveContent()
 	{
-		if ($this->manager->withInput()->saveBlockContent()) {
-
+		if ($this->manager->withInput()->saveBlockContent())
+		{
 			return $this->manager->success();
-
-		} else {
-
+		}
+		else
+		{
 			return $this->manager->errors();
 		}
 	}
@@ -77,8 +89,8 @@ class BlockController extends ApiController {
 	 */
 	public function valid()
 	{
-		if ($this->manager->withInput()->validBlock()) {
-			
+		if ($this->manager->withInput()->validBlock())
+		{			
 			return $this->manager->success();
 		}
 	}

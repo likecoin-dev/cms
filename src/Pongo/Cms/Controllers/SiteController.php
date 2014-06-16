@@ -1,48 +1,39 @@
 <?php namespace Pongo\Cms\Controllers;
 
-use Pongo\Cms\Classes\Pongo as Pongo;
-
-use Pongo\Cms\Support\Repositories\PageRepositoryInterface as Page;
+use Pongo\Cms\Services\Managers\SiteManager;
 
 class SiteController extends BaseController {
-	
-	public $slug_first;
 
-	public $slug_full;	
+	/**
+	 * [$manager description]
+	 * @var [type]
+	 */
+	protected $manager;
 
-	public $slug_last;
-
-	public $slug_prev;
-
-	public function __construct(Page $page, Pongo $pongo)
+	/**
+	 * [__construct description]
+	 * @param SiteManager $manager [description]
+	 */
+	public function __construct(SiteManager $manager)
 	{
-		$this->page = $page;
-		$this->pongo = $pongo;
-
-		$this->slug = $this->pongo->getUrl();
-		$this->slug_first = $this->slug['first'];
-		$this->slug_full = $this->slug['full'];
-		$this->slug_last = $this->slug['last'];
-		$this->slug_prev = $this->slug['prev'];
+		$this->manager = $manager;
 	}
 
+	/**
+	 * Front-end access to pages
+	 * @param  [type] $uri [description]
+	 * @return [type]      [description]
+	 */
 	public function renderPage($uri)
 	{
-		
-		// STEPS:
-		// Check full slug (if / -> Repository homePage())
-		// Check prev slug (and then Blogs or Products last slugs - depends on wrapper_id)
-
-		$page = $this->page->getPageBySlug($this->slug_full);
-
-		$view = \Theme::view('partials.test');
-		$view['uri_first'] = $this->slug_first;
-		$view['uri_full'] = $this->slug_full;
-		$view['uri_last'] = $this->slug_last;
-		$view['uri_prev'] = $this->slug_prev;
-		$view['page'] = $page;
-
-		return $view;
+		if($this->manager->publicPage($uri))
+		{
+			return $this->manager->showPage();
+		}
+		else
+		{
+			return $this->manager->authPage();
+		}
 	}
 
 	/**

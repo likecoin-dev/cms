@@ -37,6 +37,26 @@ class File extends BaseModel {
 	}
 
 	/**
+	 * [scopeFile description]
+	 * @param  [type] $query [description]
+	 * @return [type]        [description]
+	 */
+	public function scopeFile($query)
+	{
+		$query->where('is_image', 0);
+	}
+
+	/**
+	 * [scopeImage description]
+	 * @param  [type] $query [description]
+	 * @return [type]        [description]
+	 */
+	public function scopeImage($query)
+	{
+		$query->where('is_image', 1);
+	}
+
+	/**
 	 * [boot description]
 	 * @return [type] [description]
 	 */

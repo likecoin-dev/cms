@@ -26,31 +26,22 @@ Route::group(Config::get('cms::routes.cms_group_routes'), function() use ($pongo
 	Route::get('logout', array('uses' => $pongoControllers.'LogoutController@logout', 'as' => 'logout'));
 	Route::get('lang/{lang}', array('uses' => $pongoControllers.'BaseController@changeLang', 'as' => 'lang'));
 
-	// // DASHBOARD
+	// DASHBOARD
 	Route::get('dashboard', array('uses' => $pongoControllers.'DashboardController@index', 'as' => 'dashboard'));
 
-	// // PAGE
+	// BLOCKS
+	Route::get('block/edit/{page_id}/{block_id}', array('uses' => $pongoControllers.'BlockController@edit', 'as' => 'block.edit'));
+
+	// PAGE
 	Route::get('page/edit/{page_id}', array('uses' => $pongoControllers.'PageController@edit', 'as' => 'page.edit'));
-	// Route::get('page/settings/{page_id}', array('uses' => $pongoControllers.'PageController@settingsPage', 'as' => 'page.settings'));
-	// Route::get('page/layout/{page_id}', array('uses' => $pongoControllers.'PageController@layoutPage', 'as' => 'page.layout'));
-	// Route::get('page/seo/{page_id}', array('uses' => $pongoControllers.'PageController@seoPage', 'as' => 'page.seo'));
-	// Route::get('page/files/{page_id}', array('uses' => $pongoControllers.'PageController@filesPage', 'as' => 'page.files'));
-	// Route::get('page/link/{page_id}', array('uses' => $pongoControllers.'PageController@linkPage', 'as' => 'page.link'));
-	// Route::get('page/deleted', array('uses' => $pongoControllers.'PageController@deletedPage', 'as' => 'page.deleted'));
 
-	// // ELEMENT
-	// Route::get('element/settings/{page_id}/{element_id}', array('uses' => $pongoControllers.'ElementController@settingsElement', 'as' => 'element.settings'));
-	// Route::get('element/content/{page_id}/{element_id}', array('uses' => $pongoControllers.'ElementController@contentElement', 'as' => 'element.content'));
-	// Route::get('element/deleted', array('uses' => $pongoControllers.'ElementController@deletedElement', 'as' => 'element.deleted'));
-
-	// // BLOG
+	// BLOG
 	// Route::get('blog/edit/{post_id?}', array('uses' => $pongoControllers.'BlogController@editPost', 'as' => 'blog.edit'));
 
-	// // FILE
-	// Route::get('file/upload', array('uses' => $pongoControllers.'FileController@uploadFile', 'as' => 'file.upload'));
+	// FILE
 	Route::get('file/edit/{file_id}', array('uses' => $pongoControllers.'FileController@edit', 'as' => 'file.edit'));
 
-	// // ROLE
+	// ROLE
 	Route::get('roles', array('uses' => $pongoControllers.'RoleController@index', 'as' => 'roles'));
 	Route::get('role/edit/{role_id}', array('uses' => $pongoControllers.'RoleController@edit', 'as' => 'role.edit'));
 
@@ -77,9 +68,13 @@ Route::group(Config::get('cms::routes.api_group_routes'), function() use ($apiCo
 	// Route::any('expire', array('uses' => $apiControllers.'SaveController@expire', 'as' => 'api.expire'));
 
 	// BLOCK
+	Route::post('block/copy', array('uses' => $apiControllers.'BlockController@copy', 'as' => 'api.block.copy'));
 	Route::post('block/create', array('uses' => $apiControllers.'BlockController@create', 'as' => 'api.block.create'));
 	Route::post('block/delete', array('uses' => $apiControllers.'BlockController@delete', 'as' => 'api.block.delete'));
+	Route::post('block/save/content', array('uses' => $apiControllers.'BlockController@saveContent', 'as' => 'api.block.save.content'));
+	Route::post('block/save/settings', array('uses' => $apiControllers.'BlockController@saveSettings', 'as' => 'api.block.save.settings'));
 	Route::post('block/valid', array('uses' => $apiControllers.'BlockController@valid', 'as' => 'api.block.valid'));
+	Route::post('block/zone', array('uses' => $apiControllers.'BlockController@zone', 'as' => 'api.block.zone'));
 
 	// PAGE
 	Route::post('page/change/layout', array('uses' => $apiControllers.'PageController@changeLayout', 'as' => 'api.page.change.layout'));
@@ -96,40 +91,18 @@ Route::group(Config::get('cms::routes.api_group_routes'), function() use ($apiCo
 	Route::post('page/save/assets', array('uses' => $apiControllers.'PageController@saveAssets', 'as' => 'api.page.save.assets'));
 	Route::post('page/valid', array('uses' => $apiControllers.'PageController@valid', 'as' => 'api.page.valid'));
 
-	// 	// SETTINGS
-	// 	Route::any('page/settings/save', array('uses' => $apiControllers.'PageController@pageSettingsSave', 'as' => 'api.page.settings.save'));
-	// 	Route::any('page/settings/clone', array('uses' => $apiControllers.'PageController@pageSettingsClone', 'as' => 'api.page.settings.clone'));
-	// 	Route::any('page/settings/delete', array('uses' => $apiControllers.'PageController@pageSettingsDelete', 'as' => 'api.page.settings.delete'));
-	// 	Route::any('page/settings/link', array('uses' => $apiControllers.'PageController@pageSettingsLink', 'as' => 'api.page.settings.link'));
-	
-	// 	// LAYOUT
-	// 	Route::any('page/layout/save', array('uses' => $apiControllers.'PageController@pageLayoutSave', 'as' => 'api.page.layout.save'));
-	// 	Route::any('page/layout/change', array('uses' => $apiControllers.'PageController@pageLayoutChange', 'as' => 'api.page.layout.change'));
-
-	// 	// SEO
-	// 	Route::any('page/seo/save', array('uses' => $apiControllers.'PageController@pageSeoSave', 'as' => 'api.page.seo.save'));
-
-	// 	// FILES
+	// FILES
+	Route::post('file/create', array('uses' => $apiControllers.'FileController@create', 'as' => 'api.file.create'));
 	Route::post('file/delete', array('uses' => $apiControllers.'FileController@delete', 'as' => 'api.file.delete'));
 	Route::post('file/upload', array('uses' => $apiControllers.'FileController@upload', 'as' => 'api.file.upload'));
 	Route::post('file/valid', array('uses' => $apiControllers.'FileController@valid', 'as' => 'api.file.valid'));	
 	// 	Route::any('page/files/create', array('uses' => $apiControllers.'UploadController@pageFilesCreate', 'as' => 'api.page.files.create'));
 	// 	Route::any('page/files/delete/{file_id}', array('uses' => $apiControllers.'UploadController@pageFilesDelete', 'as' => 'api.page.files.delete'));
 
-	// // ELEMENT
-	// Route::any('element/order', array('uses' => $apiControllers.'ElementController@orderElements', 'as' => 'api.element.order'));
-	// Route::any('element/create', array('uses' => $apiControllers.'ElementController@createElement', 'as' => 'api.element.create'));
-
-	// 	// SETTINGS
-	// 	Route::any('element/settings/save', array('uses' => $apiControllers.'ElementController@elementSettingsSave', 'as' => 'api.element.settings.save'));
-	// 	Route::any('element/settings/clone', array('uses' => $apiControllers.'ElementController@elementSettingsClone', 'as' => 'api.element.settings.clone'));
-	// 	Route::any('element/settings/delete', array('uses' => $apiControllers.'ElementController@elementSettingsDelete', 'as' => 'api.element.settings.delete'));
-	// 	Route::any('element/settings/valid', array('uses' => $apiControllers.'ElementController@elementSettingsValid', 'as' => 'api.element.settings.valid'));
-	
-	// 	// CONTENT
+	// CONTENT
 	// 	Route::any('element/content/save', array('uses' => $apiControllers.'ElementController@elementContentSave', 'as' => 'api.element.content.save'));
 
-	// // ROLE
+	// ROLE
 	// Route::any('role/order', array('uses' => $apiControllers.'RoleController@orderRoles', 'as' => 'api.role.order'));
 	Route::post('role/create', array('uses' => $apiControllers.'RoleController@create', 'as' => 'api.role.create'));
 	Route::post('role/delete', array('uses' => $apiControllers.'RoleController@delete', 'as' => 'api.role.delete'));
@@ -137,10 +110,6 @@ Route::group(Config::get('cms::routes.api_group_routes'), function() use ($apiCo
 	Route::post('role/save', array('uses' => $apiControllers.'RoleController@save', 'as' => 'api.role.save'));
 	Route::post('role/valid', array('uses' => $apiControllers.'RoleController@valid', 'as' => 'api.role.valid'));
 	
-	// 	// SETTINGS
-	// 	Route::any('role/settings/save', array('uses' => $apiControllers.'RoleController@roleSettingsSave', 'as' => 'api.role.settings.save'));
-	// 	Route::any('role/settings/delete', array('uses' => $apiControllers.'RoleController@roleSettingsDelete', 'as' => 'api.role.settings.delete'));
-
 	// TAGS
 	Route::post('tags', array('uses' => $apiControllers.'TagController@index', 'as' => 'tags'));
 
@@ -152,14 +121,6 @@ Route::group(Config::get('cms::routes.api_group_routes'), function() use ($apiCo
 	Route::post('user/save/details', array('uses' => $apiControllers.'UserController@saveDetails', 'as' => 'api.user.save.details'));
 	Route::post('user/save/role', array('uses' => $apiControllers.'UserController@saveRole', 'as' => 'api.user.save.role'));
 	Route::post('user/valid', array('uses' => $apiControllers.'UserController@valid', 'as' => 'api.user.valid'));
-	
-	// 	// SETTINGS
-	// 	Route::any('user/settings/save', array('uses' => $apiControllers.'UserController@userSettingsSave', 'as' => 'api.user.settings.save'));
-	// 	Route::any('user/settings/delete', array('uses' => $apiControllers.'UserController@userSettingsDelete', 'as' => 'api.user.settings.delete'));
-	// 	Route::any('user/settings/valid', array('uses' => $apiControllers.'UserController@userSettingsValid', 'as' => 'api.user.settings.valid'));
-	// 	Route::any('user/settings/link', array('uses' => $apiControllers.'UserController@userSettingsLink', 'as' => 'api.user.settings.link'));
-	// 	Route::any('user/password/save', array('uses' => $apiControllers.'UserController@userPasswordSave', 'as' => 'api.user.password.save'));
-	// 	Route::any('user/details/save', array('uses' => $apiControllers.'UserController@userDetailsSave', 'as' => 'api.user.details.save'));
 
 });
 
@@ -169,7 +130,7 @@ Route::group(Config::get('cms::routes.api_group_routes'), function() use ($apiCo
 Route::group(Config::get('cms::routes.site_group_routes'), function() use ($pongoControllers)
 {
 	
-	// Route::any('{all}', array('uses' => $pongoControllers.'SiteController@renderPage', 'as' => 'catchall'))->where('all', '.*');
+	Route::any('{all}', array('uses' => $pongoControllers.'SiteController@renderPage', 'as' => 'catchall'))->where('all', '.*');
 
 });
 

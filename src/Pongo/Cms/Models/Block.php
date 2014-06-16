@@ -45,7 +45,7 @@ class Block extends BaseModel {
 	public function pages()
 	{
 		return $this->belongsToMany('Pongo\Cms\Models\Page')
-					->withPivot('order_id');
+					->withPivot('zone', 'order_id', 'is_active');
 	}
 
 	/**

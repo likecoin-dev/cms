@@ -34,7 +34,7 @@ class Page extends BaseModel {
 	public function blocks()
 	{
 		return $this->belongsToMany('Pongo\Cms\Models\Block')
-					->withPivot('order_id', 'is_active')
+					->withPivot('zone', 'order_id', 'is_active')
 					->orderBy('order_id', 'asc');
 	}
 
@@ -80,6 +80,15 @@ class Page extends BaseModel {
 	{
 		return $this->hasOne('Pongo\Cms\Models\User', 'author_id');
 	}
+
+	/**
+	 * [seo description]
+	 * @return [type] [description]
+	 */
+	public function seo()
+    {
+        return $this->morphMany('Pongo\Cms\Models\Seo', 'seoable');
+    }
 
 	/**
 	 * Get files() relation paginated

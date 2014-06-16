@@ -3,14 +3,6 @@
 class Theme {
 
 	/**
-	 * Class constructor
-	 */
-	public function __construct()
-	{
-		// $this->name = \Pongo::settings('theme');
-	}
-
-	/**
 	 * Get a theme config entry
 	 * 
 	 * @param  string $key
@@ -33,6 +25,46 @@ class Theme {
 	}
 
 	/**
+	 * [layoutName description]
+	 * @param  string $layout [description]
+	 * @param  [type] $zone   [description]
+	 * @return [type]         [description]
+	 */
+	public function layoutName($zone, $layout = 'default')
+	{
+		if($zone)
+		{
+			return $this->layout($layout)[$zone];
+		}
+	}
+
+	/**
+	 * Create virtual array for theme change
+	 * @return array
+	 */
+	public function themes()
+	{
+		$path = themes_path();
+
+		$dir_arr = \File::directories($path);
+
+		$themes = array();
+
+		foreach ($dir_arr as $path)
+		{
+			$name_arr = explode('/', $path);
+
+			$name = array_pop($name_arr);
+
+			$theme_name = array_get(theme_settings($path), 'theme_name');
+
+			$themes[$name] = $theme_name;
+		}
+
+		return $themes;
+	}
+
+	/**
 	 * Load a theme view from themes/{theme name}
 	 * Folder /themes instead /views loaded on boot from SiteServiceProvider
 	 * 
@@ -40,13 +72,12 @@ class Theme {
 	 */
 	public function view($name, array $data = array())
 	{
-		$view_name = 'site::' . \Pongo::settings('theme') . '.' . $name;
+		$view_name = 'site::' . THEME . '.' . $name;
 
 		// Set to 'default' view if view not found
-		if ( ! \View::exists($view_name)) {
-
+		if ( ! \View::exists($view_name))
+		{
 			$view_name_arr = explode('.', $view_name);
-
 			$view_name = str_replace(end($view_name_arr), 'default', $view_name);
 		}
 
@@ -68,13 +99,14 @@ class Theme {
 	}
 
 	/**
-	 * Get active theme name
-	 * 
-	 * @return string Name of the theme
+	 * [zoneName description]
+	 * @param  [type] $page_layout [description]
+	 * @param  [type] $zone        [description]
+	 * @return [type]              [description]
 	 */
-	/*public function className()
+	public function zoneName($page_layout, $zone)
 	{
-		return $this->name;
-	}*/
+		return $this->layout($page_layout)[$zone];
+	}
 	
 }

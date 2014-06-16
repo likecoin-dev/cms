@@ -23,7 +23,8 @@ class BackMarker implements MarkerInterface {
 	 */
 	public function run()
 	{
-		return D($this->parameters) . $this->name . ' is running!';
+		// return D($this->parameters) . $this->name . ' is running!';
+		return $this->name;
 	}
 
 }

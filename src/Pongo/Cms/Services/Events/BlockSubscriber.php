@@ -5,15 +5,29 @@ use Session;
 class BlockSubscriber extends BaseSubscriber {
 
 	/**
+	 * [onCopy description]
+	 * @param  [type] $block [description]
+	 * @return [type]        [description]
+	 */
+	public function onCopy($block)
+	{
+		// 
+	}
+
+	/**
 	 * [onCreate description]
 	 * @param  [type] $block   [description]
 	 * @param  [type] $page_id [description]
 	 * @return [type]          [description]
 	 */
-	public function onCreate($block, $page_id)
+	public function onCreate($block, $page_id, $zone)
 	{
 		// Add record to pivot table 'block_page'
-		$block->pages()->attach($page_id, array('order_id' => \Pongo::system('default_order'), 'is_active' => 0));		
+		$block->pages()->attach($page_id, array(
+			'zone'		=> $zone,
+			'order_id'	=> \Pongo::system('default_order'),
+			'is_active' => 0
+		));		
 	}
 
 	/**
@@ -67,10 +81,11 @@ class BlockSubscriber extends BaseSubscriber {
 	 */
 	public function subscribe($events)
 	{
+		$events->listen('block.copy', $this->eventPath . 'BlockSubscriber@onCopy');
 		$events->listen('block.create', $this->eventPath . 'BlockSubscriber@onCreate');
 		$events->listen('block.delete', $this->eventPath . 'BlockSubscriber@onDelete');
 		$events->listen('block.move',   $this->eventPath . 'BlockSubscriber@onMove');
 		$events->listen('block.save.settings',   $this->eventPath . 'BlockSubscriber@onSaveSettings');
-		$events->listen('block.save.content',   $this->eventPath . 'BlockSubscriber@onSaveLayout');
+		$events->listen('block.save.content',   $this->eventPath . 'BlockSubscriber@onSaveContent');
 	}
 }

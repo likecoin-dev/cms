@@ -1,17 +1,25 @@
-@foreach($items as $name => $marker)
-	<li class="dl-item">
+<div class="scroll">
 
-		<div class="dl-handle full">
+	<ol class="tool-list">
+
+	@foreach($items as $name => $marker)
+		<li>
+
+			<div>
+				
+				<big>{{ $name }} <a href="#api" class="api-toggle">API</a></big>
+
+				<p>{{ Marker::description($name) }}</p>
+				<p class="api">{{ Marker::api($name) }}<p>
+
+			</div>
 			
-			<big>{{$name}} <a href="#api" class="api-toggle">API</a></big>
+			<a href="#marker" class="pongo-insert" data-default="{{ Marker::defaults($name) }}">
+				<i class="fa fa-chevron-right"></i></a>
 
-			<p>{{Marker::description($name)}}.</p>
-			<p class="api">{{Marker::api($name)}}</p>
+		</li>
+	@endforeach
 
-		</div>
-		
-		<a href="#marker" class="edit insert" data-default="{{Marker::defaults($name)}}">
-			<i class="fa fa-chevron-left"></i></a>
+	</ol>
 
-	</li>
-@endforeach
+</div>

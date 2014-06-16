@@ -119,8 +119,8 @@ abstract class BaseRepositoryEloquent implements BaseRepositoryInterface {
 		if($type == 'contain') $search = '%'.$search.'%';
 		if($type == 'start') $search = $search.'%';
 
-		if( ! is_null($related)) {			
-			
+		if( ! is_null($related))
+		{			
 			$data = array(
 				'related' => $related,
 				'field' => $field,
@@ -131,8 +131,9 @@ abstract class BaseRepositoryEloquent implements BaseRepositoryInterface {
 			return $this->model
 						->searchHasRelated($data)
 						->paginate($per_page);
-		} else {
-			
+		}
+		else
+		{			
 			return $this->model
 						->where($field, $sign, $search)
 						->orderBy($field, 'asc')

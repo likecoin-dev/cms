@@ -158,6 +158,36 @@ if ( ! function_exists('config_path'))
 	}
 }
 
+if ( ! function_exists('themes_path'))
+{
+	/**
+	 * Get the path to the storage folder.
+	 *
+	 * @param   string  $path
+	 * @return  string
+	 */
+	function themes_path($path = '')
+	{
+		return app('themes.path').($path ? '/'.$path : $path);
+	}
+}
+
+if ( ! function_exists('theme_settings'))
+{
+	/**
+	 * Get the path to the storage folder.
+	 *
+	 * @param   string  $path
+	 * @return  string
+	 */
+	function theme_settings($path = '')
+	{
+		require $path . '/theme.php';
+
+		return $THEME_SETTINGS;
+	}
+}
+
 /**
  * TOOLS
  */

@@ -23,5 +23,15 @@ class BlockRepositoryEloquent extends BaseRepositoryEloquent implements BlockRep
 		$this->cache->minutes = 10;
 	}
 
+	/**
+	 * [getBlockZone description]
+	 * @param  [type] $block   [description]
+	 * @return [type]          [description]
+	 */
+	public function getBlockZone($block)
+	{
+		return $block->pages->first()->pivot->zone;
+	}
+
 
 }

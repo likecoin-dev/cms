@@ -84,6 +84,10 @@ abstract class BaseValidator implements ValidatorInterface {
 				$this->formatRules($this->rules[$this->section]);
 			$messages = $this->formatMessages();
 		}
+
+		// If rules empty, no need to validate
+		if(empty($rules)) return true;
+
 		// Set new rules and messages
 		$this->rules = $rules;
 		$this->messages = $messages;
@@ -196,6 +200,12 @@ abstract class BaseValidator implements ValidatorInterface {
 			'msg'		=> t($msg),
 			'errors'	=> $error_msg
 		);
+	}
+
+	public function singleError()
+	{
+		$errors = $this->errors;
+		return t($errors->first());
 	}
 
 	/**

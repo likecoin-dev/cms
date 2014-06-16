@@ -28,8 +28,8 @@ class PageController extends ApiController {
 	 */
 	public function copy()
 	{
-		if ($this->manager->withSimpleInput()->copyPage()) {
-
+		if ($this->manager->withSimpleInput()->copyPage())
+		{
 			return $this->manager->redirect();
 		}
 	}
@@ -40,8 +40,8 @@ class PageController extends ApiController {
 	 */
 	public function create()
 	{
-		if ($this->manager->withInput()->createEmptyPage()) {
-			
+		if ($this->manager->withInput()->createEmptyPage())
+		{			
 			return $this->manager->success();
 		}
 	}
@@ -52,12 +52,12 @@ class PageController extends ApiController {
 	 */
 	public function delete()
 	{
-		if ($this->manager->withInput()->deletePage()) {
-			
+		if ($this->manager->withInput()->deletePage())
+		{			
 			return $this->manager->success();
-
-		} else {
-
+		}
+		else
+		{
 			return $this->manager->errors();
 		}
 	}
@@ -69,14 +69,14 @@ class PageController extends ApiController {
 	 */
 	public function lang()
 	{
-		if ($this->manager->withInput()->switchLanguage()) {
-
+		if ($this->manager->withInput()->switchLanguage())
+		{
 			return $this->manager->success();
 		}
 	}
 
 	/**
-	 * [loadBlocks description]
+	 * [load description]
 	 * @return [type] [description]
 	 */
 	public function loadBlocks()
@@ -91,8 +91,8 @@ class PageController extends ApiController {
 	 */
 	public function move()
 	{
-		if ($this->manager->withInput()->movePage()) {
-
+		if ($this->manager->withInput()->movePage())
+		{
 			return $this->manager->success();
 		}
 	}
@@ -104,8 +104,8 @@ class PageController extends ApiController {
 	 */
 	public function moveBlocks()
 	{
-		if ($this->manager->withInput()->moveBlock()) {
-
+		if ($this->manager->withInput()->moveBlock())
+		{
 			return $this->manager->success();
 		}
 	}
@@ -116,12 +116,12 @@ class PageController extends ApiController {
 	 */
 	public function saveSettings()
 	{
-		if ($this->manager->withInput('id', 'lang')->savePageSettings()) {
-			
+		if ($this->manager->withInput('id', 'lang')->savePageSettings())
+		{			
 			return $this->manager->success();
-
-		} else {
-
+		}
+		else
+		{
 			return $this->manager->errors();
 		}
 	}
@@ -132,12 +132,12 @@ class PageController extends ApiController {
 	 */
 	public function saveLayout()
 	{
-		if ($this->manager->withInput()->savePageLayout()) {
-
+		if ($this->manager->withInput()->savePageLayout())
+		{
 			return $this->manager->success();
-
-		} else {
-
+		}
+		else
+		{
 			return $this->manager->errors();
 		}
 	}
@@ -148,12 +148,12 @@ class PageController extends ApiController {
 	 */
 	public function saveSeo()
 	{
-		if ($this->manager->withInput()->savePageSeo()) {
-
+		if ($this->manager->withInput()->savePageSeo())
+		{
 			return $this->manager->success();
-
-		} else {
-
+		}
+		else
+		{
 			return $this->manager->errors();
 		}
 	}
@@ -164,8 +164,8 @@ class PageController extends ApiController {
 	 */
 	public function valid()
 	{
-		if ($this->manager->withInput()->validPage()) {
-
+		if ($this->manager->withInput()->validPage())
+		{
 			return $this->manager->success();
 		}
 	}

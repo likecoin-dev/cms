@@ -5,7 +5,7 @@ class PageValidator extends BaseValidator {
 	protected $rules = array(
 		'settings' => array(
 			'name' 		=> 'required|min:2|unique:pages,name,{id},id,lang,{lang}',
-			'slug'		=> 'required|min:2|is_slug|unique_slug:{id},{lang}',
+			'slug'		=> 'required|is_slug:{is_home}|unique_slug:{id},{lang}',
 		),
 
 		'layout' => array(

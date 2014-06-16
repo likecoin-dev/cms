@@ -4,25 +4,21 @@ class BlockValidator extends BaseValidator {
 
 	protected $rules = array(
 		'settings' => array(
-			'name' 		=> 'required|min:2|unique:pages,name,{id},id,lang,{lang}',
-			'slug'		=> 'required|min:2|unique_slug:{id},{lang}',
+			'name' 		=> 'required|min:2|unique:blocks,name,{id}',
+			'attrib'	=> 'required|min:2|alpha_dash|unique:blocks,attrib,{id}',
 		),
 
 		'content' => array(
-			'template'		=> 'required',
-			'header'		=> 'required',
-			'layout'		=> 'required',
-			'footer'		=> 'required',
+			
 		),
 	
 	);
 
 	protected $messages = array(
-		'max' 				=> 'validation.errors.max',
+		'alpha_dash'		=> 'validation.errors.alpha_dash',
 		'min' 				=> 'validation.errors.min',
 		'required' 			=> 'validation.errors.required',
 		'unique' 			=> 'validation.errors.unique',
-		'unique_slug'		=> 'validation.errors.unique_slug',
 	);
 
 }

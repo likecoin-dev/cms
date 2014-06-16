@@ -16,11 +16,11 @@ class CreateTableBlocks extends Migration {
 		{
 			$table->increments('id')->unsigned();
 			$table->integer('author_id')->unsigned()->index();
-			$table->string('lang', 5);
+			// $table->string('lang', 5);
 			$table->string('attrib', 255);
 			$table->string('name', 255);
-			$table->text('text');
-			$table->string('zone', 10);
+			$table->text('content');
+			// $table->string('zone', 10);
 			$table->timestamps();
 		});
 	}

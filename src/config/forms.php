@@ -14,9 +14,17 @@ return array(
 	 * 
 	 */
 	
-	'blogs' => array(
+	'posts' => array(
 
 		'datetime_on' => array(
+
+			'form' 		=> 'dateTime',
+			'type' 		=> 'dateTime',
+			'len'  		=> null
+
+		),
+
+		'datetime_off' => array(
 
 			'form' 		=> 'dateTime',
 			'type' 		=> 'dateTime',
@@ -33,16 +41,7 @@ return array(
 
 		),
 
-		'slug' => array(
-
-			'form'		=> 'text',
-			'type' 		=> 'string',
-			'len'  		=> 255,
-			'validate' 	=> 'required|is_slug'
-
-		),
-
-		'text' => array(
+		'content' => array(
 
 			'form' 		=> 'textarea',
 			'type' 		=> 'text',
@@ -50,11 +49,33 @@ return array(
 
 		),
 
-		'datetime_off' => array(
+	),
 
-			'form' 		=> 'dateTime',
-			'type' 		=> 'dateTime',
+	'products' => array(
+
+		'name' => array(
+
+			'form' 		=> 'text',
+			'type' 		=> 'string',
+			'len'  		=> 100,
+			'validate' 	=> 'required'
+
+		),
+
+		'content' => array(
+
+			'form' 		=> 'textarea',
+			'type' 		=> 'text',
 			'len'  		=> null
+
+		),
+
+		'price' => array(
+
+			'form' 		=> 'text',
+			'type' 		=> 'decimal',
+			'len'  		=> array(9, 2),
+			'validate' 	=> 'required|numeric'
 
 		),
 

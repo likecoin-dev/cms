@@ -18,6 +18,10 @@ class PageManager extends BaseManager {
 		$this->section = 'pages';
 	}
 
+	/**
+	 * Copy a page to a new location
+	 * @return [type] [description]
+	 */
 	public function copyPage()
 	{
 		if($check = $this->canEdit()) {
@@ -38,12 +42,11 @@ class PageManager extends BaseManager {
 				unset($new_page_arr['id'], $new_page_arr['created_at'], $new_page_arr['updated_at']);
 
 				$new_page_name = t('label.page.settings.copy_of') . ' ' . $page->name;
-				$new_page_slug = \Tool::slugSubst($page->slug, \Str::slug($new_page_name));
+				$new_page_slug = '/' . \Tool::slugSubst($page->slug, \Str::slug($new_page_name));
 
 				// Overriding with new values
 				$new_page_arr['parent_id'] 	= ($copy_lang != $page->lang) ? 0 : $page->parent_id;
 				$new_page_arr['name'] 		= $new_page_name;
-				$new_page_arr['slug'] 		= $new_page_slug;
 				$new_page_arr['lang'] 		= $copy_lang;
 				$new_page_arr['author_id'] 	= USERID;
 				$new_page_arr['edit_level'] = LEVEL;
@@ -63,12 +66,22 @@ class PageManager extends BaseManager {
 				if($blocks) {
 
 					// Get Block model
-					$block_model = \App::make('Pongo\Cms\Models\Block');
+					$block_model = \App::make('Pongo\Cms\Repositories\BlockRepositoryInterface');
 
 					foreach ($blocks as $block_id) {
 						
 						// Get the block to copy
 						$block = $block_model->find($block_id);
+
+						// Get pivot info
+						foreach ($block->pages as $search_page)
+						{
+							if($search_page->pivot->page_id == $page_id)
+							{
+								$zone = $search_page->pivot->zone;
+								$order_id = $search_page->pivot->order_id;
+							}
+						}
 
 						// If block is independent or not in the same language
 						if(isset($self_blocks[$block_id]) or ($copy_lang != $page->lang)) {
@@ -79,14 +92,11 @@ class PageManager extends BaseManager {
 							// Remove unwanted items
 							unset($new_block_arr['id'], $new_block_arr['created_at'], $new_block_arr['updated_at']);
 
-							// Overriding with new values
-							$new_block_arr['lang'] = ($copy_lang != $block->lang) ? $copy_lang : $block->lang;
-
 							// Create new block
 							$new_block = $block_model->create($new_block_arr);
 
 							// Attach to pivot
-							$new_page->blocks()->save($new_block, array('order_id' => DEFORDER, 'is_active' => 0));
+							$new_page->blocks()->save($new_block, array('zone' => $zone, 'order_id' => DEFORDER, 'is_active' => 0));
 
 						} else {
 
@@ -94,7 +104,7 @@ class PageManager extends BaseManager {
 							if( ! $block->pages->contains($new_page->id))
 							{
 								// Attach block to page in pivot
-								$block->pages()->attach($new_page->id, array('order_id' => DEFORDER, 'is_active' => 0));								
+								$block->pages()->attach($new_page->id, array('zone' => $zone, 'order_id' => $order_id, 'is_active' => 0));								
 							}
 						}
 					}
@@ -110,7 +120,7 @@ class PageManager extends BaseManager {
 
 				}
 
-				$this->events->fire('page.copied', array($page, $new_page));
+				$this->events->fire('page.copied', array($page, $new_page, $new_page_slug));
 
 				return $this->redirect = array(
 					'redirect'	=> true,
@@ -138,13 +148,13 @@ class PageManager extends BaseManager {
 			$timedate = Carbon::now()->format('H:i:s - Ymd');
 			$name = t('template.created', array('timedate' => $timedate), $lang);
 			$msg = t('alert.success.page_created');
+			$slug = '/' . \Str::slug($name);
 			
 			$default_page = array(
 				'author_id' 	=> USERID,
 				'parent_id' 	=> 0,
 				'lang' 			=> $lang,
 				'name' 			=> $name,
-				'slug' 			=> '/' . \Str::slug($name),
 				'template'		=> 'default',
 				'header'		=> 'default',
 				'layout'		=> 'default',
@@ -156,7 +166,8 @@ class PageManager extends BaseManager {
 			);
 
 			$page = $this->model->create($default_page);
-			$this->events->fire('page.create', array($page));
+
+			$this->events->fire('page.create', array($page, $slug));
 
 			$response = array(
 				'render'	=> 'page',
@@ -211,7 +222,13 @@ class PageManager extends BaseManager {
 		$zone = $this->input['zone'];
 
 		$page = $this->model->getPageZoneBlocks($page_id, $zone);
-		return $page->blocks->toJson();
+		$add = array('page_id' => $page_id);
+		
+		// Remap block collection to add page_id into each block
+		return $page->blocks->map(function($item) use ($add)
+		{
+			return array_merge($item->toArray(), $add);
+		})->toJson();
 	}
 
 	/**
@@ -267,17 +284,17 @@ class PageManager extends BaseManager {
 
 				$id = $this->input['id'];
 				$home = \Tool::setFlag($this->input, 'is_home');
-
-				$this->events->fire('page.save.settings', array($this->model, $home));
+				$slug = $this->input['slug'];
 
 				$page = $this->model->find($id);
 				$page->name = $this->input['name'];
-				$page->slug = \Tool::slugSubst($page->slug, $this->input['slug']);
 				$page->edit_level = $this->input['edit_level'];
 				$page->view_access = $this->input['view_access'];
 				$page->view_level = $this->input['view_level'];
 				$page->is_home = $home;
 				$page->save();
+
+				$this->events->fire('page.save.settings', array($this->model, $home, $page, $slug));
 
 				$response = array(
 					'status' 	=> 'success',
@@ -348,10 +365,14 @@ class PageManager extends BaseManager {
 
 				$id = $this->input['id'];
 				$page = $this->model->find($id);
-				$page->title = $this->input['title'];
-				$page->keyw = $this->input['keyw'];
-				$page->descr = $this->input['descr'];
-				$page->save();
+
+				$page->seo()->update(array(
+
+					'title' => $this->input['title'],
+					'keyw' 	=> $this->input['keyw'],
+					'descr' => $this->input['descr']
+					
+				));
 
 				// Get tags array if any
 				$tags = (isset($this->input['tags'])) ? $this->input['tags'] : null;

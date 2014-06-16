@@ -1,5 +1,5 @@
 <div class="tab-pane active" id="settings">
-						
+
 	{{ Form::open(array('route' => 'api.page.save.settings')) }}
 
 		{{ Form::hidden('id', $page->id) }}
@@ -37,9 +37,9 @@
 
 				<span class="input-group-addon">/</span>
 				
-				{{ Form::text('slug', Tool::slugSlice($page->slug, 1), array('class' => 'form-control', 'placeholder' => t('placeholder.page.settings.slug'),  'data-bind' => 'value: pageSlug')) }}
+				{{ Form::text('slug', Tool::slugSlice($page->seo->first()->slug, 1), array('class' => 'form-control', 'placeholder' => t('placeholder.page.settings.slug'),  'data-bind' => 'value: pageSlug')) }}
 				
-				{{ Form::hidden('slug_previous', Tool::slugSlice($page->slug, 1))}}
+				{{ Form::hidden('slug_previous', Tool::slugSlice($page->seo->first()->slug, 1))}}
 				
 				<span class="input-group-btn">
 
@@ -51,7 +51,7 @@
 
 			</div>
 
-			<span class="preview">{{ URL::to('/') }}<span>{{ Tool::slugBack($page->slug, 1) }}</span>/<span id="slug-last" data-bind="html: pageSlug"></span></span>
+			<span class="preview">{{ URL::to('/') }}<span>{{ Tool::slugBack($page->seo->first()->slug, 1) }}</span>/<span id="slug-last" data-bind="html: pageSlug"></span></span>
 
 		</div>
 
@@ -84,8 +84,8 @@
 		</div>
 		
 		<div class="form-submit">
-			<button class="btn btn-success pongo-ajax-submit pongo-loading">{{t('form.button.save')}}</button>
-			<a href="#" data-toggle="modal" data-target=".page-copy" class="btn btn-primary pongo-copy pongo-loading">{{t('form.button.copy')}}</a>
+			<button class="btn btn-success pongo-ajax-submit pongo-loading">{{ t('form.button.save') }}</button>
+			<a href="#" data-toggle="modal" data-target=".page-copy" class="btn btn-primary pongo-copy pongo-loading">{{ t('form.button.copy') }}</a>
 		</div>
 
 	{{ Form::close() }}

@@ -39,22 +39,26 @@ class SettingsManager extends BaseManager {
 	 */
 	public function saveSiteSettings()
 	{
-		if($check = $this->canEdit()) {		
-
+		if($check = $this->canEdit())
+		{
 			$content = $this->file->get($this->settings);
 
 			$field = str_replace(' ', '', trim("'{$this->input['item_name']}'=>"));
 			$old_value = \Tool::getBetween($content, $field, ',');
 			$search = $field.$old_value;
 
-			if(isset($this->input['action'])) {
+			if(isset($this->input['action']))
+			{
 				// Process true/false			
 				$replace = $field.$this->input['action'];
-
-			} else {
+			}
+			else
+			{
 				// Process values
 				$replace = $field.$this->input['value'];
-				if($this->input['item_name'] == 'theme') {
+				
+				if($this->input['item_name'] == 'theme')
+				{
 					$replace = $field."'{$this->input['value']}'";
 				}
 			}
@@ -64,8 +68,9 @@ class SettingsManager extends BaseManager {
 
 			return $this->setSuccess('alert.success.settings_saved');
 
-		} else {
-
+		}
+		else
+		{
 			return $check;
 		}
 	}

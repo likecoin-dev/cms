@@ -18,7 +18,7 @@
 				
 				<div class="breadcrumb-wrapper">
 
-					{{ Render::breadCrumb(array('dashboard'), $page->name) }}
+					{{ Load::breadCrumb(array('dashboard', 'page' => $page->id), $page->name) }}
 
 				</div>
 				

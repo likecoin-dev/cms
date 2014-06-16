@@ -1,6 +1,6 @@
 $(function() {
 	Pongo.Nestable.blockList();
-	Pongo.Factory.createBlock();
+	Pongo.Factory.createBlock('radio');
 	Pongo.File.uploadFile();
 	Pongo.Toggle.toggleOverallLayout();
 	Pongo.UI.checkAllCopy();

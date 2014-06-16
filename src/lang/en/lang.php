@@ -15,6 +15,8 @@ return array(
 
 		'error' => array(
 
+			'block_is_active'		=> 'This block is still active',
+			'block_is_current'		=> 'You cannot delete the block you are editing',
 			'cant_edit'				=> 'You cannot edit this section',
 			'copy_element'			=> 'Unable to copy element',
 			'copy_page'				=> 'Unable to copy page',
@@ -55,7 +57,7 @@ return array(
 
 		'success' => array(
 
-			'block_copyd'		=> 'Block successfully copyd',
+			'block_copied'		=> 'Block successfully copied',
 			'block_created'		=> 'New block created',
 			'block_deleted'		=> 'The block has been deleted',
 			'block_loaded'		=> 'Blocks successfully loaded',
@@ -119,9 +121,11 @@ return array(
 			'block' 		=> 'Block',
 			'cancel'		=> 'Cancel',
 			'choose'		=> 'Select files',
+			'close'			=> 'Close live',
 			'copy'			=> 'copy',
 			'create'		=> 'Create',
 			'delete'		=> 'Delete',
+			'live'			=> 'Edit live',
 			'load'			=> 'Load',
 			'loadmore'		=> 'Load more...',
 			'login'			=> 'Login',
@@ -186,9 +190,26 @@ return array(
 
 		'block' => array(
 
+			'content' => array(
+
+				'content' 	=> 'Block content',
+				'files'		=> 'Files',
+				'markers' 	=> 'Markers',
+
+			),
+
 			'modal' => array(
 
-				'make_independent' => 'Make independent'
+				'make_independent' => 'Make independent',
+
+			),
+
+			'settings' => array(
+
+				'attrib'			=> 'Block ID attribute',
+				'create_attrib' 	=> 'id',
+				'name' 				=> 'Block name',
+				'zone'				=> 'Layout zone',
 
 			),
 
@@ -244,30 +265,18 @@ return array(
 			'files'	=> array(
 
 				'custom_upload'	=> 'Create an empty file entry',
-				'file_create'	=> 'Upload files and make them available for this page',
+				'file_create'	=> 'Create a file entry and upload it through FTP',
+				'file_upload'	=> 'Upload files and make them available for this page',
 				'file_name'		=> 'File name',
 				'file_size'		=> 'File size',
+				'files_upload'	=> 'Upload files',
+				'files_create'	=> 'Create big files',
 				'force_delete'	=> 'Delete this file if not linked to any other page',
 				'ftp_upload'	=> 'Upload your new file using a FTP connection',
 				'max_item'		=> 'Maximum number of items at a time',
 				'max_upload' 	=> 'Maximum upload size',
 				'mimes' 		=> 'Allowed file formats',
 				'page_files'	=> 'Page files',
-
-			),
-
-		),
-
-		'element' => array(
-
-			'settings' => array(
-
-				'attrib'			=> 'Element ID attribute',
-				'create_attrib' 	=> 'id',
-				'name' 				=> 'Element name',
-				'page_target'		=> 'Attach the copyd element to page',
-				'self_element' 		=> 'Un-link',
-				'zone' 				=> 'Where to insert this element?',
 
 			),
 
@@ -361,17 +370,13 @@ return array(
 
 		),
 
-		'back' => array(
-
-			'description' => 'Create a link to the previous page',
-
-		),
-
-		'image'	=> array(
-
-			'description' => 'Render an image by its name',
-
-		),
+		'back' 		=> 'Create a link to the previous page',
+		'banner' 	=> 'Add an image banner to the page',
+		'crumb'		=> 'Add a breadcrumb nav menu',
+		'downlist'	=> 'Add a list of downloadable items',
+		'gallery'	=> 'Add a gallery to the page',
+		'image'		=> 'Render an image by its name',
+		'map'		=> 'Add a Google map to the page',
 
 	),
 
@@ -403,7 +408,8 @@ return array(
 
 		'label' => array(
 
-			'which_language' => 'In which language do you want to copy this page?',
+			'which_language' 	=> 'In which language do you want to copy this page?',
+			'which_page' 		=> 'Choose target pages in this language',
 
 		),
 
@@ -411,7 +417,7 @@ return array(
 
 			'are_you_sure'		=> 'Are you sure?',
 			'blocks_to_copy'	=> 'Select blocks you wish to copy',
-			'copy_element'		=> 'copy this element?',
+			'copy_block'		=> 'Copy this block to a new page',
 			'copy_page'			=> 'Copy this page with its blocks to a new location',
 			'delete_page' 		=> 'Delete this page?',
 			'delete_role' 		=> 'Delete this role?',
@@ -425,6 +431,17 @@ return array(
 
 	'placeholder' => array(
 
+		'block' => array(
+
+			'settings' => array(
+
+				'attrib' 	=> 'Set an ID attribute for this block',
+				'name' 		=> 'Choose a conventional name for this block',
+
+			),
+
+		),
+
 		'login' => array(
 
 			'password'	=> 'Enter your password',
@@ -433,6 +450,13 @@ return array(
 		),
 
 		'page' => array(
+
+			'files' => array(
+
+				'name' => 'File name with extension',
+				'size' => 'File size (number)',
+
+			),
 
 			'seo' => array(
 
@@ -486,6 +510,14 @@ return array(
 	),
 
 	'sidebar' => array(
+
+		'block' => array(
+
+			'content'		=> 'Content',
+			'header' 		=> 'Block',
+			'page_layout'	=> 'Layout',
+
+		),
 
 		'dashboard' => array(
 

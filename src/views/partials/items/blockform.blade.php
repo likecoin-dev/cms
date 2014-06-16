@@ -20,18 +20,18 @@
 
 </div>
 
-<ol class="list-unstyled">
+<ol class="list-unstyled list-wrapper">
 	@foreach($items as $block)
 	<li>
 		
 		<p>{{ $block->name }}</p>
 
-		<label for="block-{{$block->id}}" class="page">			
+		<label for="block-{{$block->id}}" class="page">
 			<input type="checkbox" id="block-{{$block->id}}" name="blocks[]" value="{{$block->id}}" class="copy_block">			
 			<strong></strong>
 		</label>
 		
-		<label for="self-{{$block->id}}" class="self">			
+		<label for="self-{{$block->id}}" class="self">
 			<input type="checkbox" id="self-{{$block->id}}" name="self_block[{{$block->id}}]" value="1">
 			<strong></strong>
 		</label>

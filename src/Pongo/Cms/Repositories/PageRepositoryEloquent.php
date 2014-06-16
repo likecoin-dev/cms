@@ -38,6 +38,16 @@ class PageRepositoryEloquent extends BaseRepositoryEloquent implements PageRepos
 					->get();
 	}
 
+	public function getPageActiveFiles($id)
+	{
+		return $this->model
+					->with(array('files' => function($q) {
+						$q->wherePivot('is_active', 1);
+					}))
+					->where('pages.id', '=', $id)
+					->get();
+	}
+
 	/**
 	 * [getPageZoneBlocks description]
 	 * @param  [type] $id   [description]
@@ -48,37 +58,51 @@ class PageRepositoryEloquent extends BaseRepositoryEloquent implements PageRepos
 	{
 		return $this->model
 					->with(array('blocks' => function($q) use ($zone) {
-						$q->where('zone', '=', $zone);
+						$q->where('block_page.zone', '=', $zone);
 					}))
-					->where('pages.id', '=', $id)
+					->where('pages.id', $id)
 					->first();
 	}
 
 	/**
-	 * [countPageWithSlug description]
-	 * @param  [type] $slug [description]
-	 * @param  [type] $id   [description]
-	 * @return [type]       [description]
+	 * [getChildByParentId description]
+	 * @param  [type] $id [description]
+	 * @return [type]     [description]
 	 */
-	public function countPageWithSlug($slug, $id)
+	public function getChildByParentId($id)
 	{
 		return $this->model
+					->parent($id)
 					->lang(LANG)
-					->where('id', '<>', $id)
-					->where('slug', 'like', '%'.$slug)
-					->count();
+					->active()
+					->first();
+	}
 
+	/**
+	 * [getHomePage description]
+	 * @return [type] [description]
+	 */
+	public function getHomePageWithBlocksAndSeo()
+	{
+		return $this->model
+					->with(array('blocks', 'seo'))
+					->lang(LANG)
+					->active()
+				   	->home(1)
+				   	->first()
+				   	->toArray();
 	}
 
 	/**
 	 * [resetHomePage description]
 	 * @return [type] [description]
 	 */
-	public function resetHomePage()
+	public function resetHomePage($id)
 	{
 		return $this->model
 					->lang(LANG)
 				   	->home(1)
+				   	->where('id', '<>', $id)
 				   	->update(array('is_home' => 0));
 	}
 

@@ -48,33 +48,7 @@
 				
 				<label class="right">{{ t('label.page.layout.overall') }}</label>
 
-				<div class="layout-wrapper pongo-blocks-loading">
-					
-					<span data-name="template">{{ st('settings.template.' . $page->template, Theme::config('template.' . $page->template)) }}</span>
-
-					<div class="row">
-	
-						<div class="col-xs-12" data-name="header">
-
-							{{ st('settings.header.' . $page->header, Theme::config('header.' . $page->header)) }}
-
-						</div>
-
-					</div>
-
-					{{ Render::layoutPreview($page->layout) }}
-
-					<div class="row">
-	
-						<div class="col-xs-12" data-name="footer">
-
-							{{ st('settings.footer.' . $page->footer, Theme::config('footer.' . $page->footer)) }}
-
-						</div>
-
-					</div>
-
-				</div>
+				{{ Load::layoutPreview($page->id, $page) }}
 
 			</div>
 

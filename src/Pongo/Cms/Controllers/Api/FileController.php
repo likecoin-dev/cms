@@ -12,6 +12,22 @@ class FileController extends ApiController {
 	}
 
 	/**
+	 * [create description]
+	 * @return [type] [description]
+	 */
+	public function create()
+	{
+		if ($this->manager->withInput()->createFile()) {
+
+			return $this->manager->success();
+
+		} else {
+			
+			return $this->manager->errors();
+		}
+	}
+
+	/**
 	 * [delete description]
 	 * @return [type] [description]
 	 */

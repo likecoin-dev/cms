@@ -34,7 +34,7 @@
 
 	</li>
 
-	@if($parent_id > 0 and $key == $count-1)
+	@if($parent_id > 0 and $key == $count - 1)
 
 	</ol>
 	
