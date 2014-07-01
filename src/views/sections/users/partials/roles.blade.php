@@ -10,7 +10,7 @@
 		
 		<div class="blocks-wrapper pongo-checking">
 			
-			{{ Form::open(array('route' => 'api.user.save.role', 'data-user' => $user->id)) }}
+			{{ Form::open(array('route' => 'api.user.save.role', 'data-user' => $user['id'])) }}
 
 			<ol class="ol-nested right big pongo-select">
 				

@@ -183,22 +183,7 @@ class SiteManager extends BaseManager {
 			return \Redirect::to($this->redirect);
 		}
 
-		// Get the page layout
-		$layout = $this->getPageLayout($inject);
-
-		if($layout)
-		{
-			// D($this->seo_data,true);
-			$html = $this->theme->view($this->template_partials['template'])
-							->with('title', $this->seo_data['title'])
-							->with('keyw', $this->seo_data['keyw'])
-							->with('descr', $this->seo_data['descr'])
-							->nest('header', $this->template_partials['header'])
-							->with('layout', $layout)
-							->nest('footer', $this->template_partials['footer']);
-
-			return $html;
-		}
+		return $this->renderPage($inject);		
 	}
 
 	/**
@@ -207,7 +192,73 @@ class SiteManager extends BaseManager {
 	 */
 	public function authPage()
 	{
-		return 'Login page';
+		$service_page = $this->theme->service('auth');
+
+		return $this->renderPage($service_page);
+	}
+
+	/**
+	 * Render a page
+	 * @param  boolean $static       	True if it's a static service page, otherwise false
+	 * @param  array   $service_page 	An array that binds partials to page layout
+	 * @return string                	The page
+	 */
+	private function renderPage($service_page = array())
+	{
+		// Load site assets
+		$assets = $this->loadSiteAssets();
+
+		// Get the page layout
+		$layout = $this->getPageLayout($service_page);
+
+		if($assets and $layout and $this->seo_data)
+		{
+			$html = $this->theme->view($this->template_partials['template'])
+						->with('title', $this->seo_data['title'])
+						->with('keyw', $this->seo_data['keyw'])
+						->with('descr', $this->seo_data['descr'])
+						->nest('header', $this->template_partials['header'])
+						->with('layout', $layout)
+						->nest('footer', $this->template_partials['footer']);
+
+			return $html;
+		}
+	}
+
+	/**
+	 * Load site assets from /config/assets.php
+	 * @return bool
+	 */
+	private function loadSiteAssets()
+	{
+		$assets = $this->pongo->assets();
+
+		// Load Bootstrap
+		if(array_key_exists('use_bootstrap', $assets) and $assets['use_bootstrap'])
+		{
+			\Asset::container($assets['put_bootstrap'])->add('bootstrap', '/packages/pongocms/cms/css/lib.css', null);
+		}
+
+		if($assets)
+		{
+			foreach ($assets['styles'] as $name => $param)
+			{
+				$after = array_key_exists('after', $param) ? $param['after'] : null;
+
+				\Asset::container($param['into'])->add($name, $param['put'], $after);
+			}
+
+			foreach ($assets['scripts'] as $name => $param)
+			{
+				$after = array_key_exists('after', $param) ? $param['after'] : null;
+
+				\Asset::container($param['into'])->add($name, $param['put'], $after);
+			}
+
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -265,15 +316,23 @@ class SiteManager extends BaseManager {
 
 				if( ! is_null($seo_content))
 				{
-					$this->page = $seo_content->seoable->toArray();
-					$this->blocks = $seo_content->seoable->blocks->toArray();
-					$this->extra = $seo_extra->seoable->toArray();
+					// Page slug matches but not the extra one
+					if($seo_extra)
+					{
+						$this->page = $seo_content->seoable->toArray();
+						$this->blocks = $seo_content->seoable->blocks->toArray();
+						$this->extra = $seo_extra->seoable->toArray();
 
-					// Set extra type
-					$this->setExtraType($seo_extra->seoable);
+						// Set extra type
+						$this->setExtraType($seo_extra->seoable);
 
-					// Set seo data
-					$this->seo_data = $this->getSeoData($seo_content, $seo_extra);
+						// Set seo data
+						$this->seo_data = $this->getSeoData($seo_content, $seo_extra);
+					}
+					else
+					{
+						return false;
+					}
 				}
 				else
 				{
@@ -346,7 +405,7 @@ class SiteManager extends BaseManager {
 	private function getPageLayout($inject = array())
 	{
 		// Get the page layout
-		$page_layout = empty($inject) ? $this->page['layout'] : $inject['layout'];
+		$page_layout = empty($inject) ? $this->page['layout'] : $inject['layout']['name'];
 
 		// If page layout not set, then it's 'default'
 		if( ! isset($page_layout)) $page_layout = 'default';
@@ -357,9 +416,12 @@ class SiteManager extends BaseManager {
 		// Load theme layout
 		$layout = $this->theme->view('layouts.' . $page_layout);
 
-		// Set some layout variables
-		$layout['NAME'] = $this->page['name'];
-		$layout['CLASSNAME'] = \Str::slug($this->page['name']);
+		if($this->page)
+		{
+			// Set some layout variables
+			$layout['NAME'] = $this->page['name'];
+			$layout['CLASSNAME'] = \Str::slug($this->page['name']);
+		}
 
 		return $this->bindBlocksToZones($layout, $inject);
 	}
@@ -393,7 +455,8 @@ class SiteManager extends BaseManager {
 			}
 
 			// If inject, override zone content
-			if( ! empty($inject)) $zone[$inject['zone']][0] = $inject['view'];
+			if( ! empty($inject)) $zone[$inject['layout']['zone']][0] = $this->theme->view($inject['layout']['block'])->render();
+			
 
 			// Loop again to bind zone array item to layout ZONE variable
 			foreach ($this->blocks as $block)

@@ -24,6 +24,7 @@ class LogoutController extends BaseController {
 	public function logout()
 	{
 		$this->events->fire('user.logout');
+		
 		return \Redirect::route('login.index');
 	}
 

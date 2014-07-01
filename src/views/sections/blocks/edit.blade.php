@@ -14,7 +14,7 @@
 
 					{{ Render::toolsToggle('fa-cog') }}
 
-					{{ Load::breadCrumb(array('dashboard', 'page' => $page_id, 'zone' => $block->zone), $block->name) }}
+					{{ Load::breadCrumb(array('dashboard', 'page' => $page_id, 'zone' => $block['zone']), $block['name']) }}
 
 				</div>
 				
@@ -38,7 +38,7 @@
 				
 				<div class="side-wrapper">
 
-					{{ Load::layoutPreview($page_id, null, $block->zone, false, 'small') }}
+					{{ Load::layoutPreview($page_id, null, $block['zone'], false, 'small') }}
 
 				</div>
 
@@ -52,7 +52,7 @@
 
 @section('sidebar-right')
 
-	@include('cms::sections.pages.partials.blocks', array('block_id' => $block->id, 'zone' => $block->zone))
+	@include('cms::sections.pages.partials.blocks', array('block_id' => $block['id'], 'zone' => $block['zone']))
 
 @stop
 

@@ -2,8 +2,9 @@
 
 // Set controllers path shortcut
 
-$pongoControllers = 'Pongo\Cms\Controllers\\';
-$apiControllers = 'Pongo\Cms\Controllers\Api\\';
+$pongoControllers 	= 'Pongo\Cms\Controllers\\';
+$apiControllers 	= 'Pongo\Cms\Controllers\Api\\';
+$siteControllers 	= 'Pongo\Cms\Controllers\Site\\';
 
 // Back-end routes
 
@@ -127,10 +128,13 @@ Route::group(Config::get('cms::routes.api_group_routes'), function() use ($apiCo
 
 // Front-end routes
 
-Route::group(Config::get('cms::routes.site_group_routes'), function() use ($pongoControllers)
+Route::group(Config::get('cms::routes.site_group_routes'), function() use ($siteControllers)
 {
-	
-	Route::any('{all}', array('uses' => $pongoControllers.'SiteController@renderPage', 'as' => 'catchall'))->where('all', '.*');
+	// SITE LOGIN	
+	Route::post('auth', array('uses' => $siteControllers.'AuthController@auth', 'as' => 'site.auth'));
+
+
+	Route::any('{all}', array('uses' => $siteControllers.'SiteController@renderPage', 'as' => 'catchall'))->where('all', '.*');
 
 });
 
@@ -139,4 +143,8 @@ Route::group(Config::get('cms::routes.site_group_routes'), function() use ($pong
 App::missing(function($exception)
 {
 	// return Response::view('cms::errors.404', array('error' => $exception), 404);
+});
+
+App::error(function(Exception $exception, $code) {
+	// dd($code);
 });

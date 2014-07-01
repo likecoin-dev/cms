@@ -70,12 +70,12 @@ return array(
 	 */
 
 	'per_page' => array(
-		10 => '10 items',
-		20 => '20 items',
-		30 => '30 items',
-		40 => '40 items',
-		50 => '50 items',
-		100 => '100 items'
+		10 => '10',
+		20 => '20',
+		30 => '30',
+		40 => '40',
+		50 => '50',
+		100 => '100'
 	),
 
 	/**
@@ -97,6 +97,19 @@ return array(
 			'suffix' 	=> '_cms',
 
 		),
+
+	),
+
+	/**
+	 * PongoCMS :: Reserved slugs used by the system
+	 */
+
+	'reserved_slugs' => array(
+
+		'auth',
+		'lang',
+		'site',
+		'search',
 
 	),
 

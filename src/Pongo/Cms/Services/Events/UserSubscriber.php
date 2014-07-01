@@ -67,6 +67,9 @@ class UserSubscriber extends BaseSubscriber {
 	public function onLogout()
 	{
 		Auth::logout();
+		
+		Session::flush();
+
 		Alert::info(t('alert.info.logout'))->flash();
 	}
 

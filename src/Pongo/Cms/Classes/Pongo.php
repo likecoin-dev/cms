@@ -3,6 +3,17 @@
 class Pongo {
 
 	/**
+	 * Get config settings values
+	 * 
+	 * @param  string $key
+	 * @return string
+	 */
+	public function assets()
+	{
+		return \Config::get('cms::assets');
+	}
+
+	/**
 	 * Flatten the systems sections array
 	 * 
 	 * @return [type] [description]

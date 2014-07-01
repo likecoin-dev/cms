@@ -2,7 +2,7 @@
 
 	{{ Form::open(array('route' => 'api.block.save.settings')) }}
 
-		{{ Form::hidden('id', $block->id) }}
+		{{ Form::hidden('id', $block['id']) }}
 		{{ Form::hidden('page_id', $page_id) }}
 		{{ Form::hidden('lang', LANG) }}
 		{{ Form::hidden('section', 'settings') }}
@@ -11,7 +11,7 @@
 			
 			{{ Form::label('name', t('label.block.settings.name')) }}
 
-			{{ Form::text('name', $block->name, array('class' => 'form-control', 'placeholder' => t('placeholder.block.settings.name'), 'data-bind' => 'value: itemName, valueUpdate: "afterkeydown"')) }}
+			{{ Form::text('name', $block['name'], array('class' => 'form-control', 'placeholder' => t('placeholder.block.settings.name'), 'data-bind' => 'value: itemName, valueUpdate: "afterkeydown"')) }}
 
 		</div>
 
@@ -23,7 +23,7 @@
 
 				<span class="input-group-addon">#</span>
 				
-				{{ Form::text('attrib', $block->attrib, array('class' => 'form-control', 'placeholder' => t('placeholder.block.settings.attrib'),  'data-bind' => 'value: blockAttrib')) }}
+				{{ Form::text('attrib', $block['attrib'], array('class' => 'form-control', 'placeholder' => t('placeholder.block.settings.attrib'),  'data-bind' => 'value: blockAttrib')) }}
 				
 				<span class="input-group-btn">
 					
@@ -39,7 +39,7 @@
 				
 			{{ Form::label('zone', t('label.block.settings.zone')) }}
 
-			{{ Load::blockZones($page_id, $block->id, $block->zone, 'zone', 'update-zone') }}
+			{{ Load::blockZones($page_id, $block['id'], $block['zone'], 'zone', 'update-zone') }}
 
 		</div>
 

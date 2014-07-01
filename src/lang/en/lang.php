@@ -608,6 +608,7 @@ return array(
 			'min_password'		=> 'Password must be at least :min chars long',
 			'not_image'			=> 'This tool is not for images',
 			'required' 			=> 'This field is required',
+			'reserved_slug'		=> 'This slug is reserved and cannot be used',
 			'system_role'		=> 'You can\'t edit a system role',
 			'unique'			=> 'This name is already present',
 			'unique_file' 		=> 'This file name is already present',

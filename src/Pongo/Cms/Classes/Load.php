@@ -151,10 +151,10 @@ class Load {
 		$layout_view['toggle_class'] = ($print_name) ? 'pongo-blocks-loading' : 'options-toggle';
 		$layout_view['checked_zone'] = $checked_zone;
 		$layout_view['print_name'] = $print_name;
-		$layout_view['template'] = $page->template;
-		$layout_view['header'] = $page->header;
-		$layout_view['layout'] = $page->layout;
-		$layout_view['footer'] = $page->footer;
+		$layout_view['template'] = $page['template'];
+		$layout_view['header'] = $page['header'];
+		$layout_view['layout'] = $page['layout'];
+		$layout_view['footer'] = $page['footer'];
 		$layout_view['size'] = $size;
 
 		return $layout_view;

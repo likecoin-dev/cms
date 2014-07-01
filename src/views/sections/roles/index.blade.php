@@ -38,13 +38,13 @@
 
 								@foreach ($roles as $role)
 									
-									@if(Access::isSystemRole($role->name))
+									@if(Access::isSystemRole($role['name']))
 
-									<li class="{{(Access::roleMaxLevel() == $role->level) ? 'dl-not' : 'dl-item move'}}" data-id="{{$role->id}}">
+									<li class="{{(Access::roleMaxLevel() == $role['level']) ? 'dl-not' : 'dl-item move'}}" data-id="{{$role->id}}">
 										
-										<p class="dd-passive">{{ $role->name }}</p>
+										<p class="dd-passive">{{ $role['name'] }}</p>
 										
-										@if(Access::allowedCms($role->level))
+										@if(Access::allowedCms($role['level']))
 
 											<span class="label label-success">CMS</span>
 
@@ -58,20 +58,20 @@
 									
 									@else
 									
-									<li class="dl-item move" data-id="{{ $role->id }}">
+									<li class="dl-item move" data-id="{{ $role['id'] }}">
 										
-										<p class="dd-handle">{{ $role->name }}</p>
+										<p class="dd-handle">{{ $role['name'] }}</p>
 										
 										<label>
-											<input type="checkbox" value="{{$role->id}}" class="pongo-checkbox"{{ checked($role->is_active, 1) }}><strong></strong>
+											<input type="checkbox" value="{{$role['id']}}" class="pongo-checkbox"{{ checked($role['is_active'], 1) }}><strong></strong>
 										</label>
 										
 										<div class="btn-edit">
 											
-											<a href="{{ route('role.edit', array('role_id' => $role->id)) }}" class="btn btn-sm btn-primary">
+											<a href="{{ route('role.edit', array('role_id' => $role['id'])) }}" class="btn btn-sm btn-primary">
 												<i class="fa fa-pencil-square-o"></i></a>
 											
-											<a href="#" data-toggle="modal" data-target=".pongo-delete" data-id="{{ $role->id }}" class="btn btn-sm btn-danger pongo-confirm">
+											<a href="#" data-toggle="modal" data-target=".pongo-delete" data-id="{{ $role['id'] }}" class="btn btn-sm btn-danger pongo-confirm">
 												<i class="fa fa-trash-o"></i></a>
 
 										</div>

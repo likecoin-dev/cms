@@ -23,7 +23,8 @@ class RoleController extends BaseController {
 	public function index()
 	{
 		$roles = $this->manager->getRolesList();
-		return \Render::view('sections.roles.index', array('roles' => $roles));		
+
+		return \Render::view('sections.roles.index', array('roles' => $roles));
 	}
 
 	/**
@@ -33,6 +34,7 @@ class RoleController extends BaseController {
 	public function edit($role_id)
 	{
 		$role = $this->manager->getOne($role_id);
+		
 		return \Render::view('sections.roles.edit', array('role' => $role));
 	}
 

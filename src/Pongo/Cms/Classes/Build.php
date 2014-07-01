@@ -1,7 +1,5 @@
 <?php namespace Pongo\Cms\Classes;
 
-use Pongo\Cms\Services\Validators\GenericValidator as GenericValidator;
-
 class Build {
 
 	/**
@@ -239,25 +237,6 @@ class Build {
 
 			return \Form::hidden("tovalid[$name]", $validation_rules) . "\n";
 		}
-	}
-
-	/**
-	 * Validate an auto-build form
-	 * 
-	 * @return array variables 
-	 */
-	public function validForm()
-	{
-		$input = \Input::all();
-
-		if(is_array($input['tovalid'])) {
-
-			$v = new GenericValidator($input['tovalid']);
-
-			if(! $v->passes()) return json_encode($v->formatErrors());
-		}
-
-		return $input;
 	}
 
 	/**

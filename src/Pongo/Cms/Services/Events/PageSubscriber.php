@@ -26,7 +26,12 @@ class PageSubscriber extends BaseSubscriber {
 	 */
 	public function onCreate($page, $slug)
 	{
-		$page->seo()->create(array('slug' => $slug));
+		$page->seo()->create(
+			array(
+				'lang' => $page->lang,
+				'slug' => $slug
+			)
+		);
 	}
 
 	/**

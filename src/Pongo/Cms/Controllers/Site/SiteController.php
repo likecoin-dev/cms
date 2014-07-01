@@ -1,5 +1,6 @@
-<?php namespace Pongo\Cms\Controllers;
+<?php namespace Pongo\Cms\Controllers\Site;
 
+use Pongo\Cms\Controllers\BaseController;
 use Pongo\Cms\Services\Managers\SiteManager;
 
 class SiteController extends BaseController {
@@ -34,15 +35,6 @@ class SiteController extends BaseController {
 		{
 			return $this->manager->authPage();
 		}
-	}
-
-	/**
-	 * Detect the right page to render
-	 * @return mixed Page object
-	 */
-	private function detectPage()
-	{
-
 	}
 
 }

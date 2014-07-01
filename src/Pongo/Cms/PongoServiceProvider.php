@@ -1,7 +1,7 @@
 <?php namespace Pongo\Cms;
 
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Foundation\AliasLoader as AliasLoader;
 
 class PongoServiceProvider extends ServiceProvider {
 
@@ -75,7 +75,8 @@ class PongoServiceProvider extends ServiceProvider {
 		$app = $this->app;
 		$managers = $app['config']['cms::system.managers'];
 
-		foreach ($managers as $manager) {			
+		foreach ($managers as $manager)
+		{			
 			$app->$manager['method']($manager['interface'], $manager['class']);
 		}
 	}
@@ -90,7 +91,8 @@ class PongoServiceProvider extends ServiceProvider {
 		$app = $this->app;
 		$repositories = $app['config']['cms::system.repositories'];
 
-		foreach ($repositories as $repo) {
+		foreach ($repositories as $repo)
+		{
 			$app->$repo['method']($repo['interface'], $repo['class']);
 		}
 	}
@@ -105,7 +107,8 @@ class PongoServiceProvider extends ServiceProvider {
 		$app = $this->app;
 		$services = $app['config']['cms::system.services'];
 
-		foreach ($services as $service) {			
+		foreach ($services as $service)
+		{			
 			$app->$service['method']($service['interface'], $service['class']);
 		}
 	}
@@ -120,20 +123,28 @@ class PongoServiceProvider extends ServiceProvider {
 		$app = $this->app;
 		$facades = $app['config']['cms::system.facades'];
 		
-		foreach ($facades as $facade => $path) {
+		foreach ($facades as $facade => $path)
+		{
 			$injections = array();
-			if(is_array($path['depes'])) {
-				foreach ($path['depes'] as $depinj) {
+
+			if(is_array($path['depes']))
+			{
+				foreach ($path['depes'] as $depinj)
+				{
 					$injections[] = (array_key_exists('interface', $depinj)) ?
 						$this->app->make($depinj['interface']) : new $depinj['class'];
 				}
 			}			
+			
 			// Share facade name
-			$app[$facade] = $app->share(function($app) use ($path, $injections) {
+			$app[$facade] = $app->share(function($app) use ($path, $injections)
+			{
 				return $this->createInstance($path['class'], $injections);
 			});
+
 			// Alias facade
-			$app->booting(function() use ($facade, $path) {
+			$app->booting(function() use ($facade, $path)
+			{
 				$this->aliasLoader->alias($facade, $path['alias']);
 			});			
 		}
@@ -150,8 +161,9 @@ class PongoServiceProvider extends ServiceProvider {
 		$providers = $app['config']['cms::system.providers'];
 		$provider_path = 'Pongo\Cms\Support\Providers\\';	
 
-		foreach ($providers as $provider) {
-			if (substr_count($provider, '\\')>0) $provider_path = '';
+		foreach ($providers as $provider)
+		{
+			if ( substr_count($provider, '\\') > 0 ) $provider_path = '';
 			$provider_name = "{$provider_path}{$provider}";
 			$app->register($provider_name);
 		}
@@ -167,10 +179,13 @@ class PongoServiceProvider extends ServiceProvider {
 		$app = $this->app;
 		$commands = $app['config']['cms::system.commands'];
 
-		foreach ($commands as $command => $class) {			
-			$this->app[$command] = $this->app->share(function($app) use ($class) {
+		foreach ($commands as $command => $class)
+		{			
+			$this->app[$command] = $this->app->share(function($app) use ($class)
+			{
 				return $this->createInstance($class);
 			});
+
 			$reg_commands[] = $command;
 		}
 
@@ -186,7 +201,8 @@ class PongoServiceProvider extends ServiceProvider {
 	 */
 	private function createInstance($class, $params = array())
 	{
-		$reflection_class = new \ReflectionClass($class);		
+		$reflection_class = new \ReflectionClass($class);
+		
 		return $reflection_class->newInstanceArgs($params);
 	}
 

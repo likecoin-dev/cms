@@ -1,6 +1,10 @@
 {
     "name": "pongocms/cms",
-    "description": "",
+    "description": "The back-end package for PongoCMS v2",
+    "homepage": "https://pongocms.com",
+    "keywords": ["laravel", "cms", "pongo", "bootstrap", "jquery"],
+    "time": "2014-07-01",
+    "license": "MIT",
     "authors": [
         {
             "name": "Fabio Fumis",
@@ -28,5 +32,5 @@
             "Pongo\\Cms\\": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }

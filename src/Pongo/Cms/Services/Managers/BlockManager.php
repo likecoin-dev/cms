@@ -173,11 +173,14 @@ class BlockManager extends BaseManager {
 	{
 		$block = $this->getOne($block_id);
 
-		$zone = $this->model->getBlockZone($block);
+		if($block)
+		{
+			$zone = $this->model->getBlockZone($block);
 
-		$block->zone = $zone;
+			$block->zone = $zone;
 
-		return $block;
+			return $block;
+		}		
 	}
 
 	/**

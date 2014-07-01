@@ -12,8 +12,8 @@
 
 	{{ Form::open(array('route' => 'api.file.create')) }}
 
-		{{ Form::hidden('id', $page->id) }}
-		{{ Form::hidden('lang', $page->lang) }}
+		{{ Form::hidden('id', $page['id']) }}
+		{{ Form::hidden('lang', $page['lang']) }}
 		{{ Form::hidden('section', 'create') }}
 
 		<div class="form-group" rel="file_size">

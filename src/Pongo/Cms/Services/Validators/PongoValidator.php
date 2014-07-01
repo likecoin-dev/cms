@@ -76,6 +76,18 @@ class PongoValidator extends LaravelValidator {
 	}
 
 	/**
+	 * [validateReservedSlug description]
+	 * @param  [type] $attribute  [description]
+	 * @param  [type] $value      [description]
+	 * @param  [type] $parameters [description]
+	 * @return [type]             [description]
+	 */
+	public function validateReservedSlug($attribute, $value, $parameters)
+	{
+		return ! in_array($value, Pongo::system('reserved_slugs'));
+	}
+
+	/**
 	 * [validateNotImage description]
 	 * @param  [type] $attribute  [description]
 	 * @param  [type] $value      [description]

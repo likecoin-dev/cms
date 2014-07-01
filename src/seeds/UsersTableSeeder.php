@@ -49,7 +49,6 @@ class UsersTableSeeder extends Seeder {
 			$user = User::create($user_settings);
 
 			$details = array(
-				'user_id' 		=> $user->id,
 				'firstname'		=> $faker->firstname,
 				'lastname'		=> $faker->lastname,
 				'gender'		=> $faker->randomElement(array('m','f')),
@@ -57,8 +56,8 @@ class UsersTableSeeder extends Seeder {
 				'bio'			=> $faker->text,
 				'birth_date' 	=> $faker->date('Y-m-d', '-18 years')
 			);
-
-			UserDetail::create($details);
+			
+			$user->details()->create($details);
 		}
 
 		DB::statement('SET FOREIGN_KEY_CHECKS = 1'); // enable foreign key constraints

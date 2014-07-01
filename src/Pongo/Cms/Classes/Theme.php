@@ -25,6 +25,17 @@ class Theme {
 	}
 
 	/**
+	 * Get service array in theme by name
+	 * 
+	 * @param  string $name
+	 * @return array
+	 */
+	public function service($name)
+	{
+		return $this->config('service_' . $name);
+	}
+
+	/**
 	 * [layoutName description]
 	 * @param  string $layout [description]
 	 * @param  [type] $zone   [description]
@@ -106,7 +117,10 @@ class Theme {
 	 */
 	public function zoneName($page_layout, $zone)
 	{
-		return $this->layout($page_layout)[$zone];
+		if($zone)
+		{
+			return $this->layout($page_layout)[$zone];
+		}
 	}
 	
 }

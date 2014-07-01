@@ -15,47 +15,17 @@ class FilesTableSeeder extends Seeder {
 		// Delete /public/upload
 		FileSystem::deleteDirectory(public_path('upload'));
 
-		// Faker data
-		$faker = Faker\Factory::create();
-
-		/*for($i=1; $i<=50; $i++) {
-
-			$image = array(
-				'name' => $faker->word,
-				'original'	=> 'original',
-				'ext' => 'jpg',
-				'size' => 125000,
-				'w' => 640,
-				'h' => 480,
-				'path' => $faker->imageUrl($width = 640, $height = 480),
-				'is_image' => 1,
-				'is_active' => 1
-			);
-
-			File::create($image);
-
+		// Delete /app/storage/views/*.*
+		foreach (FileSystem::files(storage_path().'/views') as $file)
+		{
+			if( $file != '.gitignore')
+			{
+				FileSystem::delete($file);
+			}
 		}
 
-		for($i=1; $i<=50; $i++) {
-
-			$ext = $faker->fileExtension;
-			$filename = $faker->word.'.'.$ext;
-
-			$file = array(
-				'name' => $filename,
-				'original'	=> $filename,
-				'ext' => $ext,
-				'size' => 125000,
-				'w' => '',
-				'h' => '',
-				'path' => '/tmp/'.$filename,
-				'is_image' => 0,
-				'is_active' => 1
-			);
-
-			File::create($file);
-
-		}*/
+		// Faker data
+		$faker = Faker\Factory::create();
 
 		DB::statement('SET FOREIGN_KEY_CHECKS = 1'); // enable foreign key constraints
 	}

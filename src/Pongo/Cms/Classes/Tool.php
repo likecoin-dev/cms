@@ -239,7 +239,7 @@ class Tool {
 
 			if(is_array($segments))
 			{
-				if($back == 1)
+				if($back == 1 and array_key_exists(0, $segments))
 				{
 					return $segments[0];
 				}
@@ -261,8 +261,11 @@ class Tool {
 	public function slugSubst($page_slug, $slug)
 	{
 		$segments = explode('/', $page_slug);
+
 		array_pop($segments);
+
 		$segments[] = $slug;
+
 		return implode('/', $segments);
 	}
 
@@ -275,7 +278,8 @@ class Tool {
 	 */
 	public function validateDate($date, $format = 'Y-m-d H:i:s')
 	{
-		$d = \Carbon\Carbon::createFromFormat($format, $date);		
+		$d = \Carbon\Carbon::createFromFormat($format, $date);
+
 		return !empty($d) && $d->format($format) == $date;
 	}
 

@@ -2,7 +2,7 @@
 
 	{{ Form::open(array('route' => 'api.user.save.password')) }}
 
-		{{ Form::hidden('id', $user->id) }}
+		{{ Form::hidden('id', $user['id']) }}
 		{{ Form::hidden('section', 'password') }}
 		
 		<div class="form-group" rel="password_now">

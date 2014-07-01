@@ -30,7 +30,10 @@ class BlockRepositoryEloquent extends BaseRepositoryEloquent implements BlockRep
 	 */
 	public function getBlockZone($block)
 	{
-		return $block->pages->first()->pivot->zone;
+		if($block)
+		{
+			return $block->pages->first()->pivot->zone;
+		}
 	}
 
 

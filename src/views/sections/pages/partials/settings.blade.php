@@ -1,9 +1,13 @@
+{{-- */ $slug = Tool::slugSlice($page['seo'][0]['slug'], 1); /* --}}
+{{-- */ $slug_back = Tool::slugBack($page->seo->first()->slug, 1) /* --}}
+
+
 <div class="tab-pane active" id="settings">
 
 	{{ Form::open(array('route' => 'api.page.save.settings')) }}
 
-		{{ Form::hidden('id', $page->id) }}
-		{{ Form::hidden('lang', $page->lang) }}
+		{{ Form::hidden('id', $page['id']) }}
+		{{ Form::hidden('lang', $page['lang']) }}
 		{{ Form::hidden('section', 'settings') }}
 
 		<div class="form-group" rel="name">
@@ -16,14 +20,14 @@
 
 					<span class="flag home">
 						<label for="is_home">
-							{{ Form::checkbox('is_home', 1, $page->is_home, array('id' => 'is_home')) }}
+							{{ Form::checkbox('is_home', 1, $page['is_home'], array('id' => 'is_home')) }}
 							<strong></strong>
 						</label>
 					</span>
 
 				</span>
 
-				{{ Form::text('name', $page->name, array('class' => 'form-control', 'placeholder' => t('placeholder.page.settings.name'), 'data-bind' => 'value: itemName, valueUpdate: "afterkeydown"')) }}
+				{{ Form::text('name', $page['name'], array('class' => 'form-control', 'placeholder' => t('placeholder.page.settings.name'), 'data-bind' => 'value: itemName, valueUpdate: "afterkeydown"')) }}
 
 			</div>
 
@@ -36,10 +40,10 @@
 			<div class="input-group">
 
 				<span class="input-group-addon">/</span>
+
+				{{ Form::text('slug', $slug, array('class' => 'form-control', 'placeholder' => t('placeholder.page.settings.slug'),  'data-bind' => 'value: pageSlug')) }}
 				
-				{{ Form::text('slug', Tool::slugSlice($page->seo->first()->slug, 1), array('class' => 'form-control', 'placeholder' => t('placeholder.page.settings.slug'),  'data-bind' => 'value: pageSlug')) }}
-				
-				{{ Form::hidden('slug_previous', Tool::slugSlice($page->seo->first()->slug, 1))}}
+				{{ Form::hidden('slug_previous', $slug)}}
 				
 				<span class="input-group-btn">
 
@@ -51,7 +55,7 @@
 
 			</div>
 
-			<span class="preview">{{ URL::to('/') }}<span>{{ Tool::slugBack($page->seo->first()->slug, 1) }}</span>/<span id="slug-last" data-bind="html: pageSlug"></span></span>
+			<span class="preview">{{ URL::to('/') }}<span>{{ $slug_back }}</span>/<span id="slug-last" data-bind="html: pageSlug"></span> <a href="">view</a></span>
 
 		</div>
 
@@ -59,7 +63,7 @@
 			
 			{{ Form::label('role_level', t('label.page.settings.edit_by')) }}
 			
-			{{ Form::select('edit_level', Load::roleListArray('editors', true, true), $page->edit_level, array('class' => 'form-control', 'id' => 'view_level')) }}
+			{{ Form::select('edit_level', Load::roleListArray('editors', true, true), $page['edit_level'], array('class' => 'form-control', 'id' => 'view_level')) }}
 
 		</div>
 
@@ -70,12 +74,12 @@
 			<div class="row">
 				
 				<div class="col-xs-2">
-					{{ Form::select('view_access', Pongo::viewAccess(), $page->view_access, array('class' => 'form-control', 'id' => 'view_access')) }}
+					{{ Form::select('view_access', Pongo::viewAccess(), $page['view_access'], array('class' => 'form-control', 'id' => 'view_access')) }}
 				</div>
 
 				<div class="col-xs-10">
 					
-					{{ Form::select('view_level', Load::roleListArray('all', true), $page->view_level, array('class' => 'form-control', 'id' => 'view_level')) }}
+					{{ Form::select('view_level', Load::roleListArray('all', true), $page['view_level'], array('class' => 'form-control', 'id' => 'view_level')) }}
 
 				</div>
 

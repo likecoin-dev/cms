@@ -22,7 +22,7 @@
 		
 				<div id="edit">
 
-					{{ $block->content }}
+					{{ $block['content'] }}
 
 				</div>
 

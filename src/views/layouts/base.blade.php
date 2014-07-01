@@ -16,7 +16,7 @@
 
 		<div class="overlay fade in"></div>
 
-		<div class="container">
+		<div class="container cms">
 
 			@yield('content')
 

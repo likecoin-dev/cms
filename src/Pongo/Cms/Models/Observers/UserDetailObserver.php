@@ -34,7 +34,7 @@ class UserDetailObserver extends BaseObserver {
 	public function saving($details)
 	{
 		// Level is not enough
-		if ($details->user->role->level > LEVEL) {
+		if ($details->user->role->level > LEVEL and ! \App::runningInConsole()) {
 			$this->setFlashError('alert.error.user_updated');
 			return false;
 		}

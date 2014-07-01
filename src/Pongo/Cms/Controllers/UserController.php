@@ -23,6 +23,7 @@ class UserController extends BaseController {
 	public function index()
 	{
 		$users = $this->manager->getUsersList();
+
 		return \Render::view('sections.users.index', array('users' => $users));
 	}
 
@@ -33,6 +34,7 @@ class UserController extends BaseController {
 	public function edit($user_id)
 	{
 		$user = $this->manager->getOne($user_id);
+
 		return \Render::view('sections.users.edit', array('user' => $user));
 	}
 
@@ -42,13 +44,14 @@ class UserController extends BaseController {
 	 */
 	public function search()
 	{
-		if($this->manager->withInputOnly()) {
-
+		if($this->manager->withInputOnly())
+		{
 			$users = $this->manager->search('users');
-			return \Render::view('sections.users.index', $users);
 
-		} else {
-			
+			return \Render::view('sections.users.index', $users);
+		}
+		else
+		{			
 			return \Redirect::route('users');
 		}
 	}
