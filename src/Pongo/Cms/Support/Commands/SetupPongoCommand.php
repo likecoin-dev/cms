@@ -41,9 +41,27 @@ class SetupPongoCommand extends Command {
 	public function fire()
 	{
 		// Calling migration for pongocms package
+		
 		$this->call('migrate', array(
 			'--package' => 'pongocms/cms'
 		));
+
+		// Setup system roles
+
+		$roles = \Config::get('cms::system.roles');
+
+		foreach ($roles as $name => $level) {
+
+			$role = array(
+						'name' => $name,
+						'level' => $level
+					);
+
+			\DB::table('roles')->insert($role);
+
+		}
+
+		// Setup admin user
 
 		$admin_account = \Config::get('cms::settings.admin_account');
 
@@ -55,7 +73,7 @@ class SetupPongoCommand extends Command {
 							);
 
 		$admin_user = array_merge($admin_account, $admin_settings);		
-		$admin_user['password'] = Hash::make($admin_user['password']);
+		$admin_user['password'] = \Hash::make($admin_user['password']);
 		
 		$admin = User::create($admin_user);
 		UserDetail::create(array('user_id' => $admin->id));
