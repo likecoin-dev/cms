@@ -42,7 +42,22 @@ class SetupPongoCommand extends Command {
 			'--package' => 'pongocms/cms'
 		));
 
+		$admin_account = Config::get('cms::settings.admin_account');
+
+		$admin_settings = 	array(
+								'role_id' 	=> 1,
+								'lang' 		=> Config::get('cms::settings.language'),
+								'editor'	=> 0,
+								'is_active' => 1
+							);
+
+		$admin_user = array_merge($admin_account, $admin_settings);		
+		$admin_user['password'] = Hash::make($admin_user['password']);
 		
+		$admin = User::create($admin_user);
+		UserDetail::create(array('user_id' => $admin->id));
+
+		$this->info('PongoCMS has been successfully set up!');
 
 		return;
 	}
