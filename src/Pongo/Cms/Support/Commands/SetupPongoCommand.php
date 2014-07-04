@@ -50,6 +50,10 @@ class SetupPongoCommand extends Command {
 		
 		$this->call('pongo:change_auth_model');
 
+		// Move themes folder
+		
+		$this->call('pongo:move_themes_folder');
+
 		// Setup system roles
 
 		$roles = \Config::get('cms::system.roles');

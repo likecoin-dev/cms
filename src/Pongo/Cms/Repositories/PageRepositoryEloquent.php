@@ -89,8 +89,7 @@ class PageRepositoryEloquent extends BaseRepositoryEloquent implements PageRepos
 					->lang(LANG)
 					->active()
 				   	->home(1)
-				   	->first()
-				   	->toArray();
+				   	->first();
 	}
 
 	/**

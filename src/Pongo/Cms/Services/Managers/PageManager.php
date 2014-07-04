@@ -63,13 +63,13 @@ class PageManager extends BaseManager {
 				}
 
 				// Proceed with blocks
-				if($blocks) {
-
+				if($blocks)
+				{
 					// Get Block model
 					$block_model = \App::make('Pongo\Cms\Repositories\BlockRepositoryInterface');
 
-					foreach ($blocks as $block_id) {
-						
+					foreach ($blocks as $block_id)
+					{						
 						// Get the block to copy
 						$block = $block_model->find($block_id);
 
@@ -84,8 +84,8 @@ class PageManager extends BaseManager {
 						}
 
 						// If block is independent or not in the same language
-						if(isset($self_blocks[$block_id]) or ($copy_lang != $page->lang)) {
-
+						if(isset($self_blocks[$block_id]) or ($copy_lang != $page->lang))
+						{
 							// Duplicate block
 							$new_block_arr = $block->getAttributes();
 
@@ -97,9 +97,9 @@ class PageManager extends BaseManager {
 
 							// Attach to pivot
 							$new_page->blocks()->save($new_block, array('zone' => $zone, 'order_id' => DEFORDER, 'is_active' => 0));
-
-						} else {
-
+						}
+						else
+						{
 							// Check if not already present in pivot
 							if( ! $block->pages->contains($new_page->id))
 							{
@@ -111,13 +111,12 @@ class PageManager extends BaseManager {
 				}
 
 				// Proceed with files
-				if($file_all) {
-
+				if($file_all)
+				{
 					foreach ($page->files as $file)
 					{
 						$new_page->files()->attach($file->id, array('is_active' => $file->pivot->is_active));
 					}
-
 				}
 
 				$this->events->fire('page.copied', array($page, $new_page, $new_page_slug));
@@ -131,8 +130,9 @@ class PageManager extends BaseManager {
 
 			}
 
-		} else {
-
+		}
+		else
+		{
 			return $check;
 		}
 	}
@@ -143,7 +143,8 @@ class PageManager extends BaseManager {
 	 */
 	public function createEmptyPage()
 	{
-		if($this->input) {
+		if($this->input)
+		{
 			$lang = $this->input['lang'];
 			$timedate = Carbon::now()->format('H:i:s - Ymd');
 			$name = t('template.created', array('timedate' => $timedate), $lang);
@@ -194,8 +195,8 @@ class PageManager extends BaseManager {
 
 		$page = $this->model->find($page_id);
 
-		if($page->delete()) {
-
+		if($page->delete())
+		{
 			$this->events->fire('page.delete', array($page));
 			
 			$response = array(
@@ -205,9 +206,9 @@ class PageManager extends BaseManager {
 			);
 
 			return $this->setSuccess($response);
-
-		} else {
-
+		}
+		else
+		{
 			return $this->setError('alert.error.page_deleted');
 		}
 	}
@@ -242,9 +243,12 @@ class PageManager extends BaseManager {
 		
 		$page = $this->model->find($page_id);
 
-		foreach ($blocks as $key => $item) {
-			foreach ($page->blocks as $block) {
-				if($block->id == $item['id']) {
+		foreach ($blocks as $key => $item)
+		{
+			foreach ($page->blocks as $block)
+			{
+				if($block->id == $item['id'])
+				{
 					$block->pivot->order_id = $key + 1;
 					$block->pivot->save();
 				}
@@ -274,14 +278,14 @@ class PageManager extends BaseManager {
 	 */
 	public function savePageSettings()
 	{
-		if($check = $this->canEdit()) {
-
-			if ($this->validator->fails()) {
-
+		if($check = $this->canEdit())
+		{
+			if ($this->validator->fails())
+			{
 				return $this->setError($this->validator->errors());
-
-			} else {
-
+			}
+			else
+			{
 				$id = $this->input['id'];
 				$home = \Tool::setFlag($this->input, 'is_home');
 				$slug = $this->input['slug'];
@@ -310,8 +314,9 @@ class PageManager extends BaseManager {
 				return $this->setSuccess($response);
 			}
 
-		} else {
-
+		}
+		else
+		{
 			return $check;
 		}
 	}
@@ -322,14 +327,14 @@ class PageManager extends BaseManager {
 	 */
 	public function savePageLayout()
 	{
-		if($check = $this->canEdit()) {
-
-			if ($this->validator->fails()) {
-
+		if($check = $this->canEdit())
+		{
+			if ($this->validator->fails())
+			{
 				return $this->setError($this->validator->errors());
-
-			} else {
-
+			}
+			else
+			{
 				$id = $this->input['id'];
 				$page = $this->model->find($id);
 				$page->template = $this->input['template'];
@@ -342,9 +347,9 @@ class PageManager extends BaseManager {
 
 				return $this->setSuccess('alert.success.save');
 			}
-
-		} else {
-
+		}
+		else
+		{
 			return $check;
 		}
 	}
@@ -355,14 +360,14 @@ class PageManager extends BaseManager {
 	 */
 	public function savePageSeo()
 	{
-		if($check = $this->canEdit()) {
-
-			if ($this->validator->fails()) {
-
+		if($check = $this->canEdit())
+		{
+			if ($this->validator->fails())
+			{
 				return $this->setError($this->validator->errors());
-
-			} else {
-
+			}
+			else
+			{
 				$id = $this->input['id'];
 				$page = $this->model->find($id);
 
@@ -382,8 +387,9 @@ class PageManager extends BaseManager {
 				return $this->setSuccess('alert.success.save');
 			}
 
-		} else {
-
+		}
+		else
+		{
 			return $check;
 		}
 	}
