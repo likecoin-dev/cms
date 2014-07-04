@@ -4,6 +4,9 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+use Pongo\Cms\Models\User;
+use Pongo\Cms\Models\UserDetail;
+
 class SetupPongoCommand extends Command {
 
 	/**
