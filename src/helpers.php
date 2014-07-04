@@ -63,6 +63,14 @@ function MARKER($marker)
 }
 
 /**
+ * Check if packet is under workbench(true) or vendor(false)
+ */
+function WB()
+{
+	return (strpos(realpath(__FILE__), 'workbench') !== false) ? true : false;
+}
+
+/**
  * LANG
  */
 
@@ -154,7 +162,14 @@ if ( ! function_exists('config_path'))
 	 */
 	function config_path($file = '')
 	{
-		return __DIR__.'/config/'.$file;
+		if( WB() )
+		{
+			return __DIR__.'/config/' . $file;
+		}
+		else
+		{
+			return app_path('config/packages/pongocms/cms/' . $file);
+		}
 	}
 }
 
@@ -168,7 +183,7 @@ if ( ! function_exists('themes_path'))
 	 */
 	function themes_path($path = '')
 	{
-		return app('themes.path').($path ? '/'.$path : $path);
+		return app('themes.path') . ($path ? '/' . $path : $path);
 	}
 }
 

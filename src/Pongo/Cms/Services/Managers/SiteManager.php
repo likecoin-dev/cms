@@ -183,6 +183,14 @@ class SiteManager extends BaseManager {
 			return \Redirect::to($this->redirect);
 		}
 
+		// Settings :: Site Live: off
+		if( ! \Pongo::settings('site_live'))
+		{
+			$offline_page = $this->theme->service('offline');
+
+			return $this->renderPage($offline_page);
+		}
+
 		return $this->renderPage($inject);		
 	}
 
@@ -274,11 +282,21 @@ class SiteManager extends BaseManager {
 		if($this->checkIsHome($uri))
 		{
 			// get page where $this->lang and is_home(1)
-			$this->page = $page_repo->getHomePageWithBlocksAndSeo();
-			$this->blocks = $this->page['blocks'];
+			$page = $page_repo->getHomePageWithBlocksAndSeo();
 
-			// Set seo data
-			$this->seo_data = $this->getSeoData($this->page['seo'][0]);
+			if($page)
+			{
+				$this->page = $page->toArray();
+
+				$this->blocks = $this->page['blocks'];
+
+				// Set seo data
+				$this->seo_data = $this->getSeoData($this->page['seo'][0]);
+			}
+			else
+			{
+				return false;
+			}
 		}
 		else
 		{
