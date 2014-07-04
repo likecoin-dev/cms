@@ -186,7 +186,9 @@ class SiteManager extends BaseManager {
 		// Settings :: Site Live: off
 		if( ! \Pongo::settings('site_live'))
 		{
-			return 'site is temporarily down for maintenance';
+			$offline_page = $this->theme->service('offline');
+
+			return $this->renderPage($offline_page);
 		}
 
 		return $this->renderPage($inject);		
