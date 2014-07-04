@@ -516,6 +516,7 @@ return array(
 	
 	'commands' => array(
 
+		'pongo:setup' 				=> 'Pongo\Cms\Support\Commands\SetupPongoCommand',
 		'pongo:import_asset' 		=> 'Pongo\Cms\Support\Commands\ImportAssetCommand',
 		'pongo:change_auth_model' 	=> 'Pongo\Cms\Support\Commands\ChangeAuthModelCommand',
 		'pongo:create_migration'	=> 'Pongo\Cms\Support\Commands\CreateMigrationCommand',
