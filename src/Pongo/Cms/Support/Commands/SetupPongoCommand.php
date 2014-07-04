@@ -46,6 +46,10 @@ class SetupPongoCommand extends Command {
 			'--package' => 'pongocms/cms'
 		));
 
+		// Change Auth model
+		
+		$this->call('pongo:change_auth_model');
+
 		// Setup system roles
 
 		$roles = \Config::get('cms::system.roles');
