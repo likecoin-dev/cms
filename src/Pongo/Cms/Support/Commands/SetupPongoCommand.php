@@ -40,11 +40,6 @@ class SetupPongoCommand extends Command {
 	 */
 	public function fire()
 	{
-		// Calling migration for pongocms package
-		$this->call('migrate', array(
-			'--package' => 'pongocms/cms'
-		));
-
 		$admin_account = Config::get('cms::settings.admin_account');
 
 		$admin_settings = 	array(
